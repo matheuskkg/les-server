@@ -23,7 +23,7 @@ class CriptografarSenhaTests {
     }
 
     @Test
-    void testVerificacaoSenhasCriptografasNaoCoincidemRetornaNotNull() {
+    void testVerificacaoSenhasCriptografadasNaoCoincidem() {
         IStrategy strategy = new CriptografarSenha();
 
         Cliente c = new Cliente();
