@@ -10,6 +10,7 @@ import mkkg.fatec.esiii.domain.EntidadeDominio;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Pais extends EntidadeDominio {
 
     @Id

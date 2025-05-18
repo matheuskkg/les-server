@@ -10,6 +10,7 @@ import mkkg.fatec.esiii.domain.EntidadeDominio;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Estado extends EntidadeDominio {
 
     @Id
@@ -20,8 +21,11 @@ public class Estado extends EntidadeDominio {
     @Column(name = "est_nome", nullable = false)
     private String nome;
 
+    @Column(name = "est_uf", nullable = false, length = 2)
+    private String uf;
+
     @ManyToOne
-    @JoinColumn(name = "est_pai_id", referencedColumnName = "pai_id", nullable = false)
+    @JoinColumn(name = "est_pai_id", referencedColumnName = "pai_id")
     private Pais pais;
 
 }

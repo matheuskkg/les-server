@@ -3,6 +3,7 @@ package mkkg.fatec.esiii.domain.endereco;
 import jakarta.persistence.*;
 import lombok.*;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
+import mkkg.fatec.esiii.domain.cliente.Cliente;
 
 @Entity
 @Table(name = "enderecos")
@@ -54,106 +55,8 @@ public class Endereco extends EntidadeDominio {
     @Column(name = "end_entrega", nullable = false)
     private Boolean entrega;
 
-    public Endereco() {
-    }
-
-    public Endereco(Integer id, String nomeIdentificador, Cidade cidade, TipoLogradouro tipoLogradouro, String logradouro, TipoResidencia tipoResidencia, String numero, String bairro, String cep, String observacao, Boolean cobranca, Boolean entrega) {
-        this.id = id;
-        this.nomeIdentificador = nomeIdentificador;
-        this.cidade = cidade;
-        this.tipoLogradouro = tipoLogradouro;
-        this.logradouro = logradouro;
-        this.tipoResidencia = tipoResidencia;
-        this.numero = numero;
-        this.bairro = bairro;
-        this.cep = cep;
-        this.observacao = observacao;
-        this.cobranca = cobranca;
-        this.entrega = entrega;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNomeIdentificador() {
-        return nomeIdentificador;
-    }
-
-    public void setNomeIdentificador(String nomeIdentificador) {
-        this.nomeIdentificador = nomeIdentificador;
-    }
-
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
-    }
-
-    public TipoLogradouro getTipoLogradouro() {
-        return tipoLogradouro;
-    }
-
-    public void setTipoLogradouro(TipoLogradouro tipoLogradouro) {
-        this.tipoLogradouro = tipoLogradouro;
-    }
-
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public TipoResidencia getTipoResidencia() {
-        return tipoResidencia;
-    }
-
-    public void setTipoResidencia(TipoResidencia tipoResidencia) {
-        this.tipoResidencia = tipoResidencia;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
-    }
-
-    public Boolean getCobranca() {
-        return cobranca;
-    }
+    @ManyToOne
+    @JoinColumn(name = "end_cli_id", referencedColumnName = "cli_id", nullable = false)
+    private Cliente cliente;
 
 }
