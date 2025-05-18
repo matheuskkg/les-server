@@ -1,10 +1,16 @@
 package mkkg.fatec.esiii.domain.telefone;
 
 import jakarta.persistence.*;
+import lombok.*;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
 
 @Entity
 @Table(name = "telefones")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Telefone extends EntidadeDominio {
 
     @Id

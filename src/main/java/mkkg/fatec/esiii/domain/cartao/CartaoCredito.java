@@ -1,10 +1,16 @@
 package mkkg.fatec.esiii.domain.cartao;
 
 import jakarta.persistence.*;
+import lombok.*;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
 
 @Entity
 @Table(name = "cartoes_credito")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CartaoCredito extends EntidadeDominio {
 
     @Id
@@ -76,15 +82,4 @@ public class CartaoCredito extends EntidadeDominio {
         return codigoSeguranca;
     }
 
-    public void setCodigoSeguranca(String codigoSeguranca) {
-        this.codigoSeguranca = codigoSeguranca;
-    }
-
-    public Boolean getPreferencial() {
-        return preferencial;
-    }
-
-    public void setPreferencial(Boolean preferencial) {
-        this.preferencial = preferencial;
-    }
 }

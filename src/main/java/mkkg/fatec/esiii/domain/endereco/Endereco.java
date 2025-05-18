@@ -1,10 +1,16 @@
 package mkkg.fatec.esiii.domain.endereco;
 
 import jakarta.persistence.*;
+import lombok.*;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
 
 @Entity
 @Table(name = "enderecos")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Endereco extends EntidadeDominio {
 
     @Id
@@ -150,15 +156,4 @@ public class Endereco extends EntidadeDominio {
         return cobranca;
     }
 
-    public void setCobranca(Boolean cobranca) {
-        this.cobranca = cobranca;
-    }
-
-    public Boolean getEntrega() {
-        return entrega;
-    }
-
-    public void setEntrega(Boolean entrega) {
-        this.entrega = entrega;
-    }
 }

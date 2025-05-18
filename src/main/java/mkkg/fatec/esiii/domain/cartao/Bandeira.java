@@ -1,10 +1,18 @@
 package mkkg.fatec.esiii.domain.cartao;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
 
 @Entity
 @Table(name = "bandeiras")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Bandeira extends EntidadeDominio {
 
     @Id
@@ -15,27 +23,4 @@ public class Bandeira extends EntidadeDominio {
     @Column(name = "ban_bandeira")
     private String bandeira;
 
-    public Bandeira() {
-    }
-
-    public Bandeira(Integer id, String bandeira) {
-        this.id = id;
-        this.bandeira = bandeira;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getBandeira() {
-        return bandeira;
-    }
-
-    public void setBandeira(String bandeira) {
-        this.bandeira = bandeira;
-    }
 }

@@ -1,10 +1,15 @@
 package mkkg.fatec.esiii.domain.endereco;
 
 import jakarta.persistence.*;
+import lombok.*;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
 
 @Entity
 @Table(name = "tipos_residencia")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TipoResidencia extends EntidadeDominio {
 
     @Id
@@ -15,27 +20,4 @@ public class TipoResidencia extends EntidadeDominio {
     @Column(name = "tpr_tipo", nullable = false)
     private String tipo;
 
-    public TipoResidencia() {
-    }
-
-    public TipoResidencia(Integer id, String tipo) {
-        this.id = id;
-        this.tipo = tipo;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
 }
