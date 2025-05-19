@@ -3,7 +3,6 @@ package mkkg.fatec.esiii.domain.cliente;
 import jakarta.persistence.*;
 import lombok.*;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
-import mkkg.fatec.esiii.domain.cartao.CartaoCredito;
 import mkkg.fatec.esiii.domain.endereco.Endereco;
 import mkkg.fatec.esiii.domain.telefone.Telefone;
 
@@ -27,10 +26,10 @@ public class Cliente extends EntidadeDominio {
     @Column(name = "cli_nome", nullable = false)
     private String nome;
 
-    @Column(name = "cli_data_nascimento")
+    @Column(name = "cli_data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
-    @Column(name = "cli_genero", nullable = false, length = 1)
+    @Column(name = "cli_genero", nullable = false)
     private String genero;
 
     @Column(name = "cli_cpf", nullable = false)
@@ -48,16 +47,10 @@ public class Cliente extends EntidadeDominio {
     @Column(name = "cli_cadastro_ativo", nullable = false)
     private Boolean cadastroAtivo;
 
-    @OneToMany
-    @JoinColumn(name = "tel_cli_id", referencedColumnName = "cli_id", nullable = false)
-    private List<Telefone> telefones;
+    @Transient
+    private Telefone telefone;
 
-    @OneToMany
-    @JoinColumn(name = "ctc_cli_id", referencedColumnName = "cli_id", nullable = false)
-    private List<CartaoCredito> cartoesCredito;
-
-    @OneToMany
-    @JoinColumn(name = "end_cli_id", referencedColumnName = "cli_id", nullable = false)
+    @Transient
     private List<Endereco> enderecos;
 
 }

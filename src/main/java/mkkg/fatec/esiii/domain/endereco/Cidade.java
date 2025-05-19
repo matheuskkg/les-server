@@ -25,4 +25,7 @@ public class Cidade extends EntidadeDominio {
     @JoinColumn(name = "cid_est_id", referencedColumnName = "est_id", nullable = false)
     private Estado estado;
 
+    public Cidade(Integer id) {
+        this.id = id;
+    }
 }
