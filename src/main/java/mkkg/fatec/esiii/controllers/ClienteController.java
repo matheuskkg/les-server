@@ -5,7 +5,6 @@ import mkkg.fatec.esiii.daos.ClienteDAO;
 import mkkg.fatec.esiii.domain.cliente.Cliente;
 import mkkg.fatec.esiii.domain.cliente.ClienteRequestDTO;
 import mkkg.fatec.esiii.strategies.IStrategy;
-import mkkg.fatec.esiii.strategies.cartao.DefinirCartaoCreditoPreferencial;
 import mkkg.fatec.esiii.strategies.cliente.CriptografarSenha;
 import mkkg.fatec.esiii.strategies.cliente.ValidarConfirmarSenha;
 import mkkg.fatec.esiii.strategies.cliente.ValidarExistenciaCliente;
@@ -46,8 +45,7 @@ public class ClienteController {
                 new CriptografarSenha(),
                 new ValidarExistenciaCliente(),
                 new ValidarMinimoEnderecoEntrega(),
-                new ValidarMinimoEnderecoCobranca(),
-                new DefinirCartaoCreditoPreferencial()
+                new ValidarMinimoEnderecoCobranca()
         );
 
         List<String> mensagensErro = rns.stream()

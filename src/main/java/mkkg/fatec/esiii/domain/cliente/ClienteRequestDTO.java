@@ -35,6 +35,7 @@ public record ClienteRequestDTO(
         @Valid
         TelefoneRequestDTO telefone,
 
+        @Valid
         @NotEmpty
         List<EnderecoRequestDTO> enderecos
 ) {
