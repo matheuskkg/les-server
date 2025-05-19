@@ -3,6 +3,7 @@ package mkkg.fatec.esiii.domain.telefone;
 import jakarta.persistence.*;
 import lombok.*;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
+import mkkg.fatec.esiii.domain.cliente.Cliente;
 
 @Entity
 @Table(name = "telefones")
@@ -27,4 +28,8 @@ public class Telefone extends EntidadeDominio {
 
     @Column(name = "tel_numero", nullable = false)
     private String numero;
+
+    @OneToOne
+    @JoinColumn(name = "tel_cli_id", referencedColumnName = "cli_id", nullable = false)
+    private Cliente cliente;
 }
