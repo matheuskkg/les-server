@@ -3,6 +3,7 @@ package mkkg.fatec.esiii.domain.cartao;
 import jakarta.persistence.*;
 import lombok.*;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
+import mkkg.fatec.esiii.domain.cliente.Cliente;
 
 @Entity
 @Table(name = "cartoes_credito")
@@ -34,52 +35,8 @@ public class CartaoCredito extends EntidadeDominio {
     @Column(name = "ctc_preferencial", nullable = false)
     private Boolean preferencial;
 
-    public CartaoCredito() {
-    }
-
-    public CartaoCredito(Integer id, Bandeira bandeira, String nomeTitular, String numero, String codigoSeguranca, Boolean preferencial) {
-        this.id = id;
-        this.bandeira = bandeira;
-        this.nomeTitular = nomeTitular;
-        this.numero = numero;
-        this.codigoSeguranca = codigoSeguranca;
-        this.preferencial = preferencial;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Bandeira getBandeira() {
-        return bandeira;
-    }
-
-    public void setBandeira(Bandeira bandeira) {
-        this.bandeira = bandeira;
-    }
-
-    public String getNomeTitular() {
-        return nomeTitular;
-    }
-
-    public void setNomeTitular(String nomeTitular) {
-        this.nomeTitular = nomeTitular;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getCodigoSeguranca() {
-        return codigoSeguranca;
-    }
+    @ManyToOne
+    @JoinColumn(name = "ctc_cli_id", referencedColumnName = "cli_id", nullable = false)
+    private Cliente cliente;
 
 }

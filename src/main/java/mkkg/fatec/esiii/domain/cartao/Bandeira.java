@@ -1,10 +1,7 @@
 package mkkg.fatec.esiii.domain.cartao;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
 
 @Entity
@@ -13,6 +10,7 @@ import mkkg.fatec.esiii.domain.EntidadeDominio;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Bandeira extends EntidadeDominio {
 
     @Id
