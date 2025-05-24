@@ -21,7 +21,7 @@ public class CidadeDAO implements IDAO {
     }
 
     @Override
-    public void atualizar(EntidadeDominio entidade) {
+    public void alterar(EntidadeDominio entidade) {
 
     }
 

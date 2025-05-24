@@ -21,7 +21,7 @@ public class EstadoDAO implements IDAO {
     }
 
     @Override
-    public void atualizar(EntidadeDominio entidade) {
+    public void alterar(EntidadeDominio entidade) {
 
     }
 

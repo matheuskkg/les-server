@@ -8,7 +8,7 @@ public interface IDAO {
 
     void salvar(EntidadeDominio entidade);
 
-    void atualizar(EntidadeDominio entidade);
+    void alterar(EntidadeDominio entidade);
 
     void excluir(EntidadeDominio entidade);
 
