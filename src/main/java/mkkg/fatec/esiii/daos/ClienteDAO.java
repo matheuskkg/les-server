@@ -44,9 +44,14 @@ public class ClienteDAO implements IDAO {
 
     }
 
+    @Transactional
     @Override
     public void excluir(EntidadeDominio entidade) {
+        Cliente cliente = (Cliente) entidade;
 
+        cliente.setCadastroAtivo(false);
+
+        repository.inativarCadastroCliente(cliente.getId());
     }
 
     @Override

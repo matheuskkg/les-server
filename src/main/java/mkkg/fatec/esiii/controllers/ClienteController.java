@@ -38,4 +38,17 @@ public class ClienteController {
 
         return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity excluir(@PathVariable Integer id) {
+        Cliente cliente = Cliente.builder().id(id).build();
+
+        FachadaRequestDTO fachadaRequestDTO = FachadaRequestDTO.builder().entidade(cliente).operacao(Operacao.EXCLUIR).build();
+
+        FachadaResponseDTO fachadaResponseDTO = fachada.excluir(fachadaRequestDTO);
+
+        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+
+        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+    }
 }
