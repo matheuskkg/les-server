@@ -8,6 +8,7 @@ import mkkg.fatec.esiii.repositories.CartaoCreditoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -46,6 +47,12 @@ public class CartaoCreditoDAO implements IDAO {
 
     @Override
     public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
+        CartaoCredito cartaoCredito = (CartaoCredito) entidade;
+
+        if (cartaoCredito.getCliente() != null && cartaoCredito.getCliente().getId() != null) {
+            return new ArrayList<>(repository.findByClienteId(cartaoCredito.getCliente().getId()));
+        }
+
         return List.of();
     }
 }

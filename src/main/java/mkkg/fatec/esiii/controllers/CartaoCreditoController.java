@@ -1,10 +1,13 @@
 package mkkg.fatec.esiii.controllers;
 
-import mkkg.fatec.esiii.daos.CartaoCreditoDAO;
+import jakarta.validation.groups.Default;
+import mkkg.fatec.esiii.domain.FachadaRequestDTO;
+import mkkg.fatec.esiii.domain.FachadaResponseDTO;
+import mkkg.fatec.esiii.domain.Operacao;
 import mkkg.fatec.esiii.domain.cartao.CartaoCredito;
 import mkkg.fatec.esiii.domain.cartao.CartaoCreditoRequestDTO;
-import mkkg.fatec.esiii.strategies.IStrategy;
-import mkkg.fatec.esiii.strategies.cartao.DefinirCartaoCreditoPreferencial;
+import mkkg.fatec.esiii.facade.Fachada;
+import mkkg.fatec.esiii.strategies.cartao.ValidarCartaoCredito;
 import mkkg.fatec.esiii.util.Validacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,41 +19,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Objects;
-
 @RestController
 @RequestMapping("/cartao")
 public class CartaoCreditoController {
 
     @Autowired
-    private CartaoCreditoDAO dao;
-
-    private List<IStrategy> rns;
+    private Fachada fachada;
 
     @PostMapping
-    public ResponseEntity salvar(@RequestBody @Validated CartaoCreditoRequestDTO request, BindingResult result) {
+    public ResponseEntity salvar(@RequestBody @Validated({Default.class, ValidarCartaoCredito.class}) CartaoCreditoRequestDTO request, BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Validacao.getErrorMessages(result));
         }
 
         CartaoCredito cartaoCredito = request.toEntity();
 
-        rns = List.of(
-                new DefinirCartaoCreditoPreferencial()
-        );
+        FachadaRequestDTO fachadaRequestDTO = FachadaRequestDTO.builder().entidade(cartaoCredito).operacao(Operacao.SALVAR).build();
 
-        List<String> mensagensErro = rns.stream()
-                .map(rn -> rn.processar(cartaoCredito))
-                .filter(Objects::nonNull)
-                .toList();
+        FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
 
-        if (!mensagensErro.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagensErro);
-        }
+        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
 
-        dao.salvar(cartaoCredito);
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
     }
 }

@@ -1,16 +1,12 @@
 package mkkg.fatec.esiii.controllers;
 
 import jakarta.validation.Valid;
-import mkkg.fatec.esiii.daos.ClienteDAO;
+import mkkg.fatec.esiii.domain.FachadaRequestDTO;
+import mkkg.fatec.esiii.domain.FachadaResponseDTO;
+import mkkg.fatec.esiii.domain.Operacao;
 import mkkg.fatec.esiii.domain.cliente.Cliente;
 import mkkg.fatec.esiii.domain.cliente.ClienteRequestDTO;
-import mkkg.fatec.esiii.strategies.IStrategy;
-import mkkg.fatec.esiii.strategies.cliente.CriptografarSenha;
-import mkkg.fatec.esiii.strategies.cliente.ValidarConfirmarSenha;
-import mkkg.fatec.esiii.strategies.cliente.ValidarExistenciaCliente;
-import mkkg.fatec.esiii.strategies.cliente.ValidarForcaSenha;
-import mkkg.fatec.esiii.strategies.endereco.ValidarMinimoEnderecoCobranca;
-import mkkg.fatec.esiii.strategies.endereco.ValidarMinimoEnderecoEntrega;
+import mkkg.fatec.esiii.facade.Fachada;
 import mkkg.fatec.esiii.util.Validacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,17 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Objects;
-
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
 
     @Autowired
-    private ClienteDAO dao;
-
-    private List<IStrategy> rns;
+    private Fachada fachada;
 
     @PostMapping
     public ResponseEntity salvar(@RequestBody @Valid ClienteRequestDTO request, BindingResult result) {
@@ -39,26 +30,12 @@ public class ClienteController {
         Cliente cliente = request.toEntity();
         cliente.setCadastroAtivo(true);
 
-        rns = List.of(
-                new ValidarConfirmarSenha(),
-                new ValidarForcaSenha(),
-                new CriptografarSenha(),
-                new ValidarExistenciaCliente(),
-                new ValidarMinimoEnderecoEntrega(),
-                new ValidarMinimoEnderecoCobranca()
-        );
+        FachadaRequestDTO fachadaRequestDTO = FachadaRequestDTO.builder().entidade(cliente).operacao(Operacao.SALVAR).build();
 
-        List<String> mensagensErro = rns.stream()
-                .map(rn -> rn.processar(cliente))
-                .filter(Objects::nonNull)
-                .toList();
+        FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
 
-        if (!mensagensErro.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagensErro);
-        }
+        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
 
-        dao.salvar(cliente);
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
     }
 }

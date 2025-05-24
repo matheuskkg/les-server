@@ -4,7 +4,9 @@ import mkkg.fatec.esiii.domain.EntidadeDominio;
 import mkkg.fatec.esiii.domain.cliente.Cliente;
 import mkkg.fatec.esiii.strategies.IStrategy;
 import mkkg.fatec.esiii.util.Criptografia;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CriptografarSenha implements IStrategy {
     @Override
     public String processar(EntidadeDominio entidade) {
