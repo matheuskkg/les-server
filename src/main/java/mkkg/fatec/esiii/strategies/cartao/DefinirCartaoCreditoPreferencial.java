@@ -1,19 +1,17 @@
 package mkkg.fatec.esiii.strategies.cartao;
 
-import mkkg.fatec.esiii.daos.CartaoCreditoDAO;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
 import mkkg.fatec.esiii.domain.cartao.CartaoCredito;
+import mkkg.fatec.esiii.repositories.CartaoCreditoRepository;
 import mkkg.fatec.esiii.strategies.IStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class DefinirCartaoCreditoPreferencial implements IStrategy {
 
     @Autowired
-    private CartaoCreditoDAO dao;
+    private CartaoCreditoRepository repository;
 
     @Override
     public String processar(EntidadeDominio entidade) {
@@ -23,15 +21,7 @@ public class DefinirCartaoCreditoPreferencial implements IStrategy {
             return null;
         }
 
-        List<EntidadeDominio> entidades = dao.consultar(cartao);
-        for (EntidadeDominio e : entidades) {
-            CartaoCredito c = (CartaoCredito) e;
-
-            c.setPreferencial(false);
-        }
-
-        entidades.add(cartao);
-        entidades.forEach(c -> dao.salvar(c));
+        repository.setPreferencialToFalseByCliente(cartao.getCliente().getId());
 
         return null;
     }
