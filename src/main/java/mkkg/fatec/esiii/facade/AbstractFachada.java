@@ -117,10 +117,24 @@ public abstract class AbstractFachada {
     }
 
     protected void inicializarExcluir() {
+        List<IStrategy> rnsExcluirCliente = List.of();
+        rns.put(Cliente.class.getName(), rnsExcluirCliente);
 
+        List<IStrategy> rnsExcluirEndereco = List.of();
+        rns.put(Endereco.class.getName(), rnsExcluirEndereco);
+
+        List<IStrategy> rnsExcluirCartaoCredito = List.of();
+        rns.put(CartaoCredito.class.getName(), rnsExcluirCartaoCredito);
     }
 
     protected void inicializarConsultar() {
+        List<IStrategy> rnsConsultarCliente = List.of();
+        rns.put(Cliente.class.getName(), rnsConsultarCliente);
 
+        List<IStrategy> rnsConsultarEndereco = List.of();
+        rns.put(Endereco.class.getName(), rnsConsultarEndereco);
+
+        List<IStrategy> rnsConsultarCartaoCredito = List.of();
+        rns.put(CartaoCredito.class.getName(), rnsConsultarCartaoCredito);
     }
 }
