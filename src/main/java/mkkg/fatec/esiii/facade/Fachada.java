@@ -4,6 +4,7 @@ import mkkg.fatec.esiii.daos.*;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
 import mkkg.fatec.esiii.domain.FachadaRequestDTO;
 import mkkg.fatec.esiii.domain.FachadaResponseDTO;
+import mkkg.fatec.esiii.domain.Operacao;
 import mkkg.fatec.esiii.strategies.IStrategy;
 import mkkg.fatec.esiii.strategies.cartao.DefinirCartaoCreditoPreferencial;
 import mkkg.fatec.esiii.strategies.cliente.CriptografarSenha;
@@ -64,7 +65,31 @@ public class Fachada extends AbstractFachada implements IFachada {
 
     @Override
     public FachadaResponseDTO alterar(FachadaRequestDTO request) {
-        return null;
+        Operacao operacao = request.getOperacao();
+        if (operacao.equals(Operacao.ALTERAR)) {
+            super.inicializarAlterar();
+        } else {
+            super.inicializarAlterarSenha();
+        }
+
+        EntidadeDominio entidade = request.getEntidade();
+
+        mensagens = new ArrayList<>();
+        response = new FachadaResponseDTO();
+
+        String nomeEntidade = entidade.getClass().getName();
+        List<IStrategy> regrasEntidade = rns.get(nomeEntidade);
+        IDAO dao = daos.get(nomeEntidade);
+
+        processarRegras(entidade, regrasEntidade);
+
+        if (mensagens.isEmpty()) {
+            dao.alterar(entidade);
+        } else {
+            response.setMensagens(mensagens);
+        }
+
+        return response;
     }
 
     @Override
