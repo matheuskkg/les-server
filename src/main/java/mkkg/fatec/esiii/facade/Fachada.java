@@ -118,6 +118,25 @@ public class Fachada extends AbstractFachada implements IFachada {
 
     @Override
     public FachadaResponseDTO consultar(FachadaRequestDTO request) {
-        return null;
+        super.inicializarConsultar();
+
+        EntidadeDominio entidade = request.getEntidade();
+
+        mensagens = new ArrayList<>();
+        response = new FachadaResponseDTO();
+
+        String nomeEntidade = entidade.getClass().getName();
+        List<IStrategy> regrasEntidade = rns.get(nomeEntidade);
+        IDAO dao = daos.get(nomeEntidade);
+
+        processarRegras(entidade, regrasEntidade);
+
+        if (mensagens.isEmpty()) {
+            response.setEntidades(dao.consultar(entidade));
+        } else {
+            response.setMensagens(mensagens);
+        }
+
+        return response;
     }
 }

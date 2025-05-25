@@ -136,5 +136,17 @@ public abstract class AbstractFachada {
 
         List<IStrategy> rnsConsultarCartaoCredito = List.of();
         rns.put(CartaoCredito.class.getName(), rnsConsultarCartaoCredito);
+
+        List<IStrategy> rnsConsultarBandeira = List.of();
+        rns.put(Bandeira.class.getName(), rnsConsultarBandeira);
+
+        List<IStrategy> rnsConsultarCidade = List.of();
+        rns.put(Cidade.class.getName(), rnsConsultarCidade);
+
+        List<IStrategy> rnsConsultarEstado = List.of();
+        rns.put(Estado.class.getName(), rnsConsultarEstado);
+
+        List<IStrategy> rnsConsultarPais = List.of();
+        rns.put(Pais.class.getName(), rnsConsultarPais);
     }
 }

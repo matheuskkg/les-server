@@ -1,8 +1,11 @@
 package mkkg.fatec.esiii.controllers;
 
-import mkkg.fatec.esiii.daos.CidadeDAO;
+import mkkg.fatec.esiii.domain.FachadaRequestDTO;
+import mkkg.fatec.esiii.domain.FachadaResponseDTO;
+import mkkg.fatec.esiii.domain.Operacao;
 import mkkg.fatec.esiii.domain.endereco.Cidade;
 import mkkg.fatec.esiii.domain.endereco.Estado;
+import mkkg.fatec.esiii.facade.Fachada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class CidadeController {
 
     @Autowired
-    private CidadeDAO dao;
+    private Fachada fachada;
 
     @GetMapping
     public ResponseEntity consultar(@RequestParam(name = "estado") String nomeEstado) {
         Estado estado = Estado.builder().nome(nomeEstado).build();
         Cidade cidade = Cidade.builder().estado(estado).build();
 
-        return ResponseEntity.status(HttpStatus.OK).body(dao.consultar(cidade));
+        FachadaRequestDTO fachadaRequestDTO = FachadaRequestDTO.builder().entidade(cidade).operacao(Operacao.CONSULTAR).build();
+
+        FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(fachadaResponseDTO);
     }
 }
