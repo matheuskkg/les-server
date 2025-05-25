@@ -39,9 +39,32 @@ public class ClienteDAO implements IDAO {
         }
     }
 
+    @Transactional
     @Override
     public void alterar(EntidadeDominio entidade) {
+        Cliente cliente = (Cliente) entidade;
 
+        if (cliente.getSenha() != null) {
+            repository.alterarSenhaCadastroCliente(
+                    cliente.getId(),
+                    cliente.getSenha()
+            );
+
+            return;
+        }
+
+        repository.alterarCadastroCliente(
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getDataNascimento(),
+                cliente.getGenero(),
+                cliente.getCpf(),
+                cliente.getEmail()
+        );
+
+        Telefone telefone = cliente.getTelefone();
+        telefone.setCliente(cliente);
+        telefoneDAO.alterar(telefone);
     }
 
     @Transactional

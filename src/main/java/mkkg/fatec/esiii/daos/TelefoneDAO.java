@@ -19,20 +19,29 @@ public class TelefoneDAO implements IDAO {
     @Autowired
     private TipoTelefoneRepository tipoTelefoneRepository;
 
+    private Telefone complementarTelefone(Telefone telefone) {
+        TipoTelefone tipoTelefone = tipoTelefoneRepository.findByTipo(telefone.getTipoTelefone().getTipo());
+        telefone.setTipoTelefone(tipoTelefone);
+        return telefone;
+    }
+
     @Override
     public void salvar(EntidadeDominio entidade) {
-        Telefone telefone = (Telefone) entidade;
-
-        TipoTelefone tipoTelefone = tipoTelefoneRepository.findByTipo(telefone.getTipoTelefone().getTipo());
-
-        telefone.setTipoTelefone(tipoTelefone);
+        Telefone telefone = complementarTelefone((Telefone) entidade);
 
         repository.save(telefone);
     }
 
     @Override
     public void alterar(EntidadeDominio entidade) {
+        Telefone telefone = complementarTelefone((Telefone) entidade);
 
+        repository.alterarCadastroTelefonePorClienteId(
+                telefone.getCliente().getId(),
+                telefone.getDdd(),
+                telefone.getTipoTelefone(),
+                telefone.getNumero()
+        );
     }
 
     @Override

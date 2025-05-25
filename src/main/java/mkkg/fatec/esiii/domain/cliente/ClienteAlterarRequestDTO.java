@@ -2,13 +2,11 @@ package mkkg.fatec.esiii.domain.cliente;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import mkkg.fatec.esiii.domain.endereco.EnderecoRequestDTO;
 import mkkg.fatec.esiii.domain.telefone.TelefoneRequestDTO;
 
 import java.time.LocalDate;
-import java.util.List;
 
-public record ClienteRequestDTO(
+public record ClienteAlterarRequestDTO(
         @NotBlank(message = "O nome é obrigatório")
         String nome,
 
@@ -26,18 +24,8 @@ public record ClienteRequestDTO(
         @Email(message = "E-mail inválido")
         String email,
 
-        @NotBlank(message = "A senha é obrigatória")
-        String senha,
-
-        @NotBlank(message = "A senha (confirmar) é obrigatória")
-        String senhaConfirmar,
-
         @Valid
-        TelefoneRequestDTO telefone,
-
-        @Valid
-        @NotEmpty
-        List<EnderecoRequestDTO> enderecos
+        TelefoneRequestDTO telefone
 ) {
     public Cliente toEntity() {
         return Cliente.builder()
@@ -46,10 +34,7 @@ public record ClienteRequestDTO(
                 .genero(genero)
                 .cpf(cpf)
                 .email(email)
-                .senha(senha)
-                .senhaConfirmar(senhaConfirmar)
                 .telefone(telefone.toEntity())
-                .enderecos(enderecos.stream().map(EnderecoRequestDTO::toEntity).toList())
                 .build();
     }
 }
