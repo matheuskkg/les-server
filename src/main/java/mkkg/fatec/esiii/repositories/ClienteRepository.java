@@ -23,4 +23,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     @Query("update Cliente c set c.senha = ?2 where c.id = ?1")
     void alterarSenhaCadastroCliente(Integer id, String senha);
 
+    Cliente findByCpf(String cpf);
+
+    Cliente findByEmail(String email);
 }
