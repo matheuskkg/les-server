@@ -8,6 +8,10 @@ import mkkg.fatec.esiii.domain.EntidadeDominio;
 @AllArgsConstructor
 public class EstadoResponseDTO extends EntidadeDominio {
 
+    private Integer id;
+
     private String nome;
+
+    private String uf;
 
 }

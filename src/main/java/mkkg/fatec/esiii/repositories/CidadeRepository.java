@@ -14,7 +14,7 @@ public interface CidadeRepository extends JpaRepository<Cidade, Integer> {
     @Query("select new mkkg.fatec.esiii.domain.endereco.Cidade(c.id) from Cidade c where c.nome = ?1")
     Cidade findByNome(String nome);
 
-    @Query("select new mkkg.fatec.esiii.domain.endereco.CidadeResponseDTO(c.nome) from Cidade c join Estado e on e.id = c.estado.id where e.nome = ?1 order by c.nome")
-    List<CidadeResponseDTO> findByEstadoNome(String nome);
+    @Query("select new mkkg.fatec.esiii.domain.endereco.CidadeResponseDTO(c.id, c.nome) from Cidade c where c.estado.nome = ?1 order by c.nome")
+    List<CidadeResponseDTO> findAllByEstadoNomeOrderByCidadeNome(String nome);
 
 }

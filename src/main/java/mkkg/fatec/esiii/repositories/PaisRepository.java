@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface PaisRepository extends JpaRepository<Pais, Integer> {
 
-    @Query("select new mkkg.fatec.esiii.domain.endereco.PaisResponseDTO(p.nome) from Pais p order by p.nome")
-    List<PaisResponseDTO> findAllAsPaisResponseDtoList();
+    @Query("select new mkkg.fatec.esiii.domain.endereco.PaisResponseDTO(p.id, p.nome) from Pais p order by p.nome")
+    List<PaisResponseDTO> findAllOrderByNome();
 
 }

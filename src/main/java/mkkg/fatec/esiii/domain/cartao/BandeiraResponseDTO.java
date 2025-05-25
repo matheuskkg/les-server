@@ -8,6 +8,8 @@ import mkkg.fatec.esiii.domain.EntidadeDominio;
 @AllArgsConstructor
 public class BandeiraResponseDTO extends EntidadeDominio {
 
+    private Integer id;
+
     private String bandeira;
 
 }

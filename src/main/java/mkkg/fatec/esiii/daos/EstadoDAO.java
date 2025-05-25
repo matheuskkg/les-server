@@ -35,7 +35,7 @@ public class EstadoDAO implements IDAO {
         Estado estado = (Estado) entidade;
 
         if (estado.getPais().getNome() != null) {
-            List<EstadoResponseDTO> estados = repository.findByPaisNome(estado.getPais().getNome());
+            List<EstadoResponseDTO> estados = repository.findAllByPaisNomeOrderByEstadoNome(estado.getPais().getNome());
 
             return List.copyOf(estados);
         }

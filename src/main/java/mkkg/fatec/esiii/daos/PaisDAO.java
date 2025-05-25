@@ -31,8 +31,6 @@ public class PaisDAO implements IDAO {
 
     @Override
     public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-        List<PaisResponseDTO> paises = repository.findAllAsPaisResponseDtoList();
-
-        return List.copyOf(paises);
+        return List.copyOf(repository.findAllOrderByNome());
     }
 }

@@ -31,7 +31,7 @@ public class BandeiraDAO implements IDAO {
 
     @Override
     public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-        List<BandeiraResponseDTO> bandeiras = repository.findAllAsBandeiraResponseDtoList();
+        List<BandeiraResponseDTO> bandeiras = repository.findAllOrderByBandeira();
 
         return List.copyOf(bandeiras);
     }

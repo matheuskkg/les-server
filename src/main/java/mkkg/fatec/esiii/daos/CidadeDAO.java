@@ -35,7 +35,7 @@ public class CidadeDAO implements IDAO {
         Cidade cidade = (Cidade) entidade;
 
         if (cidade.getEstado().getNome() != null) {
-            List<CidadeResponseDTO> cidades = repository.findByEstadoNome(cidade.getEstado().getNome());
+            List<CidadeResponseDTO> cidades = repository.findAllByEstadoNomeOrderByCidadeNome(cidade.getEstado().getNome());
 
             return List.copyOf(cidades);
         }

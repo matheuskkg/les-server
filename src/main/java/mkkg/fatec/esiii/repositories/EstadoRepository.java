@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface EstadoRepository extends JpaRepository<Estado, Integer> {
 
-    @Query("select new mkkg.fatec.esiii.domain.endereco.EstadoResponseDTO(e.nome) from Estado e join Pais p on p.id = e.pais.id where p.nome = ?1 order by e.nome")
-    List<EstadoResponseDTO> findByPaisNome(String nome);
+    @Query("select new mkkg.fatec.esiii.domain.endereco.EstadoResponseDTO(e.id, e.nome, e.uf) from Estado e where e.pais.nome = ?1 order by e.nome")
+    List<EstadoResponseDTO> findAllByPaisNomeOrderByEstadoNome(String nome);
 
 }
