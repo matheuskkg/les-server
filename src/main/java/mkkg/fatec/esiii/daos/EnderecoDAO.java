@@ -2,10 +2,7 @@ package mkkg.fatec.esiii.daos;
 
 import jakarta.transaction.Transactional;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
-import mkkg.fatec.esiii.domain.endereco.Cidade;
-import mkkg.fatec.esiii.domain.endereco.Endereco;
-import mkkg.fatec.esiii.domain.endereco.TipoLogradouro;
-import mkkg.fatec.esiii.domain.endereco.TipoResidencia;
+import mkkg.fatec.esiii.domain.endereco.*;
 import mkkg.fatec.esiii.repositories.CidadeRepository;
 import mkkg.fatec.esiii.repositories.EnderecoRepository;
 import mkkg.fatec.esiii.repositories.TipoLogradouroRepository;
@@ -66,6 +63,10 @@ public class EnderecoDAO implements IDAO {
 
     @Override
     public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-        return List.of();
+        Endereco endereco = (Endereco) entidade;
+
+        List<EnderecoResponseDTO> enderecos = repository.buscarTodosPorClienteId(endereco.getCliente().getId());
+
+        return List.copyOf(enderecos);
     }
 }

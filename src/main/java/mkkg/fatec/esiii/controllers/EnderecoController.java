@@ -4,8 +4,8 @@ import jakarta.validation.groups.Default;
 import mkkg.fatec.esiii.domain.FachadaRequestDTO;
 import mkkg.fatec.esiii.domain.FachadaResponseDTO;
 import mkkg.fatec.esiii.domain.Operacao;
+import mkkg.fatec.esiii.domain.cliente.Cliente;
 import mkkg.fatec.esiii.domain.endereco.Endereco;
-import mkkg.fatec.esiii.domain.endereco.EnderecoConsultarRequestDTO;
 import mkkg.fatec.esiii.domain.endereco.EnderecoRequestDTO;
 import mkkg.fatec.esiii.facade.Fachada;
 import mkkg.fatec.esiii.strategies.endereco.ValidarEndereco;
@@ -72,9 +72,10 @@ public class EnderecoController {
         return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
     }
 
-    @GetMapping
-    public ResponseEntity consultar(@RequestBody(required = false)EnderecoConsultarRequestDTO request) {
-        Endereco endereco = request != null ? request.toEntity() : new Endereco();
+    @GetMapping("/{clienteId}")
+    public ResponseEntity consultar(@PathVariable Integer clienteId) {
+        Cliente cliente = Cliente.builder().id(clienteId).build();
+        Endereco endereco = Endereco.builder().cliente(cliente).build();
 
         FachadaRequestDTO fachadaRequestDTO = FachadaRequestDTO.builder().entidade(endereco).operacao(Operacao.CONSULTAR).build();
 

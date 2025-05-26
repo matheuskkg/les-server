@@ -1,6 +1,7 @@
 package mkkg.fatec.esiii.repositories;
 
 import mkkg.fatec.esiii.domain.endereco.Endereco;
+import mkkg.fatec.esiii.domain.endereco.EnderecoResponseDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -34,4 +35,23 @@ public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
     Boolean existsByClienteIdIsAndCobrancaIsTrueAndIdIsNot(Integer clienteId, Integer id);
 
     Boolean existsByClienteIdIsAndEntregaIsTrueAndIdIsNot(Integer clienteId, Integer id);
+
+    @Query("""
+        select new mkkg.fatec.esiii.domain.endereco.EnderecoResponseDTO(
+            e.id,
+            e.nomeIdentificador,
+            e.cidade.nome,
+            e.tipoLogradouro.tipo,
+            e.logradouro,
+            e.tipoResidencia.tipo,
+            e.numero,
+            e.bairro,
+            e.cep,
+            e.observacao,
+            e.cobranca,
+            e.entrega)
+        from Endereco e
+        where e.cliente.id = ?1
+    """)
+    List<EnderecoResponseDTO> buscarTodosPorClienteId(Integer id);
 }
