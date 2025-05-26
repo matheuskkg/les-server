@@ -11,6 +11,8 @@ import mkkg.fatec.esiii.strategies.cliente.CriptografarSenha;
 import mkkg.fatec.esiii.strategies.cliente.ValidarConfirmarSenha;
 import mkkg.fatec.esiii.strategies.cliente.ValidarExistenciaCliente;
 import mkkg.fatec.esiii.strategies.cliente.ValidarForcaSenha;
+import mkkg.fatec.esiii.strategies.endereco.ComplementarEnderecoParaExcluir;
+import mkkg.fatec.esiii.strategies.endereco.ValidarEnderecoPodeSerExcluido;
 import mkkg.fatec.esiii.strategies.endereco.ValidarMinimoEnderecoCobranca;
 import mkkg.fatec.esiii.strategies.endereco.ValidarMinimoEnderecoEntrega;
 import org.springframework.stereotype.Component;
@@ -25,8 +27,8 @@ public class Fachada extends AbstractFachada implements IFachada {
 
     private FachadaResponseDTO response;
 
-    public Fachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, CidadeDAO cidadeDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, EstadoDAO estadoDAO, PaisDAO paisDAO, TelefoneDAO telefoneDAO, DefinirCartaoCreditoPreferencial definirCartaoCreditoPreferencial, CriptografarSenha criptografarSenha, ValidarConfirmarSenha validarConfirmarSenha, ValidarExistenciaCliente validarExistenciaCliente, ValidarForcaSenha validarForcaSenha, ValidarMinimoEnderecoCobranca validarMinimoEnderecoCobranca, ValidarMinimoEnderecoEntrega validarMinimoEnderecoEntrega) {
-        super(bandeiraDAO, cartaoCreditoDAO, cidadeDAO, clienteDAO, enderecoDAO, estadoDAO, paisDAO, telefoneDAO, definirCartaoCreditoPreferencial, criptografarSenha, validarConfirmarSenha, validarExistenciaCliente, validarForcaSenha, validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega);
+    public Fachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, CidadeDAO cidadeDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, EstadoDAO estadoDAO, PaisDAO paisDAO, TelefoneDAO telefoneDAO, DefinirCartaoCreditoPreferencial definirCartaoCreditoPreferencial, CriptografarSenha criptografarSenha, ValidarConfirmarSenha validarConfirmarSenha, ValidarExistenciaCliente validarExistenciaCliente, ValidarForcaSenha validarForcaSenha, ValidarMinimoEnderecoCobranca validarMinimoEnderecoCobranca, ValidarMinimoEnderecoEntrega validarMinimoEnderecoEntrega, ComplementarEnderecoParaExcluir complementarEnderecoParaExcluir, ValidarEnderecoPodeSerExcluido validarEnderecoPodeSerExcluido) {
+        super(bandeiraDAO, cartaoCreditoDAO, cidadeDAO, clienteDAO, enderecoDAO, estadoDAO, paisDAO, telefoneDAO, definirCartaoCreditoPreferencial, criptografarSenha, validarConfirmarSenha, validarExistenciaCliente, validarForcaSenha, validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega, complementarEnderecoParaExcluir, validarEnderecoPodeSerExcluido);
     }
 
     private void processarRegras(EntidadeDominio entidade, List<IStrategy> regrasEntidade) {

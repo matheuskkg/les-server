@@ -1,5 +1,6 @@
 package mkkg.fatec.esiii.daos;
 
+import jakarta.transaction.Transactional;
 import mkkg.fatec.esiii.domain.EntidadeDominio;
 import mkkg.fatec.esiii.domain.endereco.Cidade;
 import mkkg.fatec.esiii.domain.endereco.Endereco;
@@ -55,9 +56,12 @@ public class EnderecoDAO implements IDAO {
         repository.save(endereco);
     }
 
+    @Transactional
     @Override
     public void excluir(EntidadeDominio entidade) {
+        Endereco endereco = (Endereco) entidade;
 
+        repository.deleteEnderecoById(endereco.getId());
     }
 
     @Override

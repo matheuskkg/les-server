@@ -15,6 +15,8 @@ import mkkg.fatec.esiii.strategies.cliente.CriptografarSenha;
 import mkkg.fatec.esiii.strategies.cliente.ValidarConfirmarSenha;
 import mkkg.fatec.esiii.strategies.cliente.ValidarExistenciaCliente;
 import mkkg.fatec.esiii.strategies.cliente.ValidarForcaSenha;
+import mkkg.fatec.esiii.strategies.endereco.ComplementarEnderecoParaExcluir;
+import mkkg.fatec.esiii.strategies.endereco.ValidarEnderecoPodeSerExcluido;
 import mkkg.fatec.esiii.strategies.endereco.ValidarMinimoEnderecoCobranca;
 import mkkg.fatec.esiii.strategies.endereco.ValidarMinimoEnderecoEntrega;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,12 +59,16 @@ public abstract class AbstractFachada {
 
     private ValidarMinimoEnderecoEntrega validarMinimoEnderecoEntrega;
 
+    private ComplementarEnderecoParaExcluir complementarEnderecoParaExcluir;
+
+    private ValidarEnderecoPodeSerExcluido validarEnderecoPodeSerExcluido;
+
     protected Map<String, List<IStrategy>> rns = new HashMap<>();
 
     protected Map<String, IDAO> daos = new HashMap<>();
 
     @Autowired
-    public AbstractFachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, CidadeDAO cidadeDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, EstadoDAO estadoDAO, PaisDAO paisDAO, TelefoneDAO telefoneDAO, DefinirCartaoCreditoPreferencial definirCartaoCreditoPreferencial, CriptografarSenha criptografarSenha, ValidarConfirmarSenha validarConfirmarSenha, ValidarExistenciaCliente validarExistenciaCliente, ValidarForcaSenha validarForcaSenha, ValidarMinimoEnderecoCobranca validarMinimoEnderecoCobranca, ValidarMinimoEnderecoEntrega validarMinimoEnderecoEntrega) {
+    public AbstractFachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, CidadeDAO cidadeDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, EstadoDAO estadoDAO, PaisDAO paisDAO, TelefoneDAO telefoneDAO, DefinirCartaoCreditoPreferencial definirCartaoCreditoPreferencial, CriptografarSenha criptografarSenha, ValidarConfirmarSenha validarConfirmarSenha, ValidarExistenciaCliente validarExistenciaCliente, ValidarForcaSenha validarForcaSenha, ValidarMinimoEnderecoCobranca validarMinimoEnderecoCobranca, ValidarMinimoEnderecoEntrega validarMinimoEnderecoEntrega, ComplementarEnderecoParaExcluir complementarEnderecoParaExcluir, ValidarEnderecoPodeSerExcluido validarEnderecoPodeSerExcluido) {
         this.bandeiraDAO = bandeiraDAO;
         this.cartaoCreditoDAO = cartaoCreditoDAO;
         this.cidadeDAO = cidadeDAO;
@@ -78,6 +84,8 @@ public abstract class AbstractFachada {
         this.validarForcaSenha = validarForcaSenha;
         this.validarMinimoEnderecoCobranca = validarMinimoEnderecoCobranca;
         this.validarMinimoEnderecoEntrega = validarMinimoEnderecoEntrega;
+        this.complementarEnderecoParaExcluir = complementarEnderecoParaExcluir;
+        this.validarEnderecoPodeSerExcluido = validarEnderecoPodeSerExcluido;
 
         daos.put(Bandeira.class.getName(), this.bandeiraDAO);
         daos.put(CartaoCredito.class.getName(), this.cartaoCreditoDAO);
@@ -120,7 +128,7 @@ public abstract class AbstractFachada {
         List<IStrategy> rnsExcluirCliente = List.of();
         rns.put(Cliente.class.getName(), rnsExcluirCliente);
 
-        List<IStrategy> rnsExcluirEndereco = List.of();
+        List<IStrategy> rnsExcluirEndereco = List.of(complementarEnderecoParaExcluir, validarEnderecoPodeSerExcluido);
         rns.put(Endereco.class.getName(), rnsExcluirEndereco);
 
         List<IStrategy> rnsExcluirCartaoCredito = List.of();

@@ -62,4 +62,10 @@ public class Endereco extends EntidadeDominio {
     public Endereco(Integer id) {
         this.id = id;
     }
+
+    public Endereco(Boolean cobranca, Boolean entrega, Cliente cliente) {
+        this.cobranca = cobranca;
+        this.entrega = entrega;
+        this.cliente = cliente;
+    }
 }

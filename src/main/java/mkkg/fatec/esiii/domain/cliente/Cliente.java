@@ -53,4 +53,7 @@ public class Cliente extends EntidadeDominio {
     @Transient
     private List<Endereco> enderecos;
 
+    public Cliente(Integer id) {
+        this.id = id;
+    }
 }
