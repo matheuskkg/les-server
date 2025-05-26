@@ -50,7 +50,9 @@ public class EnderecoDAO implements IDAO {
 
     @Override
     public void alterar(EntidadeDominio entidade) {
+        Endereco endereco = complementarEndereco((Endereco) entidade);
 
+        repository.save(endereco);
     }
 
     @Override

@@ -33,8 +33,10 @@ public record EnderecoRequestDTO(
 
         String observacao,
 
+        @NotNull(message = "O campo 'cobranca' é obrigatório")
         Boolean cobranca,
 
+        @NotNull(message = "O campo 'entrega' é obrigatório")
         Boolean entrega,
 
         @NotNull(message = "O cliente deve ser enviado no body da requisição", groups = ValidarEndereco.class)
