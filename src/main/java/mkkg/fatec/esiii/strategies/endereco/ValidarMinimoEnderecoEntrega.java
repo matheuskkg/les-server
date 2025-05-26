@@ -40,10 +40,15 @@ public class ValidarMinimoEnderecoEntrega implements IStrategy {
             clienteId = endereco.getCliente().getId();
         }
 
-        if (!repository.existsByClienteIdAndEntregaIsTrue(clienteId) && !procurarEnderecoEntrega(enderecos)) {
-            return "Ao menos um endereço deve ser de entrega";
+        List<Endereco> enderecosExistentes = repository.findByClienteIdAndEntregaIsTrue(clienteId);
+        if (enderecosExistentes.size() > 1) {
+            return null;
         }
 
-        return null;
+        if ((enderecosExistentes.size() == 1 && !enderecosExistentes.getFirst().getId().equals(enderecos.getFirst().getId()))) {
+            return null;
+        }
+
+        return !procurarEnderecoEntrega(enderecos) ? "Ao menos um endereço deve ser de entrega" : null;
     }
 }

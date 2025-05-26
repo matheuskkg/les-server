@@ -59,4 +59,7 @@ public class Endereco extends EntidadeDominio {
     @JoinColumn(name = "end_cli_id", referencedColumnName = "cli_id", nullable = false)
     private Cliente cliente;
 
+    public Endereco(Integer id) {
+        this.id = id;
+    }
 }

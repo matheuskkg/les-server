@@ -40,10 +40,15 @@ public class ValidarMinimoEnderecoCobranca implements IStrategy {
             clienteId = endereco.getCliente().getId();
         }
 
-        if (!repository.existsByClienteIdAndCobrancaIsTrue(clienteId) && !procurarEnderecoCobranca(enderecos)) {
-            return "Ao menos um endereço deve ser de cobrança";
+        List<Endereco> enderecosExistentes = repository.findByClienteIdAndCobrancaIsTrue(clienteId);
+        if (enderecosExistentes.size() > 1) {
+            return null;
         }
 
-        return null;
+        if ((enderecosExistentes.size() == 1 && !enderecosExistentes.getFirst().getId().equals(enderecos.getFirst().getId()))) {
+            return null;
+        }
+
+        return !procurarEnderecoCobranca(enderecos) ? "Ao menos um endereço deve ser de cobrança" : null;
     }
 }
