@@ -2,6 +2,7 @@ package mkkg.fatec.esiii.domain.cartao;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import mkkg.fatec.esiii.domain.IRequestDTO;
 import mkkg.fatec.esiii.domain.cliente.Cliente;
 import mkkg.fatec.esiii.strategies.cartao.ValidarCartaoCredito;
 
@@ -22,7 +23,7 @@ public record CartaoCreditoRequestDTO(
 
         @NotNull(message = "O cliente deve ser enviado no body da requisição", groups = ValidarCartaoCredito.class)
         Cliente cliente
-) {
+) implements IRequestDTO<CartaoCredito> {
     public CartaoCredito toEntity() {
         return CartaoCredito.builder()
                 .bandeira(Bandeira.builder().bandeira(bandeira).build())

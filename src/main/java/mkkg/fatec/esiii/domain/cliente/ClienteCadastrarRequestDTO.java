@@ -2,6 +2,7 @@ package mkkg.fatec.esiii.domain.cliente;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import mkkg.fatec.esiii.domain.IRequestDTO;
 import mkkg.fatec.esiii.domain.endereco.EnderecoRequestDTO;
 import mkkg.fatec.esiii.domain.telefone.TelefoneRequestDTO;
 
@@ -38,7 +39,7 @@ public record ClienteCadastrarRequestDTO(
         @Valid
         @NotEmpty
         List<EnderecoRequestDTO> enderecos
-) {
+) implements IRequestDTO<Cliente> {
     public Cliente toEntity() {
         return Cliente.builder()
                 .nome(nome)

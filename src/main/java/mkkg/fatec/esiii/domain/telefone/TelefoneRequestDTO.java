@@ -2,6 +2,7 @@ package mkkg.fatec.esiii.domain.telefone;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import mkkg.fatec.esiii.domain.IRequestDTO;
 
 public record TelefoneRequestDTO(
         @Pattern(regexp = "^[0-9]+$", message = "DDD inválido")
@@ -14,7 +15,7 @@ public record TelefoneRequestDTO(
         @Pattern(regexp = "^[0-9]+$", message = "Número inválido")
         @NotBlank(message = "O numero é obrigatório")
         String numero
-) {
+) implements IRequestDTO<Telefone> {
     public Telefone toEntity() {
         return Telefone.builder()
                 .ddd(ddd)

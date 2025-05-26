@@ -2,6 +2,7 @@ package mkkg.fatec.esiii.domain.cliente;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import mkkg.fatec.esiii.domain.IRequestDTO;
 import mkkg.fatec.esiii.domain.telefone.TelefoneRequestDTO;
 
 import java.time.LocalDate;
@@ -26,7 +27,7 @@ public record ClienteAlterarRequestDTO(
 
         @Valid
         TelefoneRequestDTO telefone
-) {
+) implements IRequestDTO<Cliente> {
     public Cliente toEntity() {
         return Cliente.builder()
                 .nome(nome)
