@@ -79,6 +79,16 @@ public class ClienteDAO implements IDAO {
 
     @Override
     public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-        return List.of();
+        Cliente cliente = (Cliente) entidade;
+
+        boolean temNome = cliente.getNome() != null && !cliente.getNome().isBlank();
+        boolean temCpf = cliente.getCpf() != null && !cliente.getCpf().isBlank();
+        boolean temEmail = cliente.getEmail() != null && !cliente.getEmail().isBlank();
+
+        if (temNome || temCpf || temEmail) {
+            return List.copyOf(repository.buscarComFiltro(cliente.getNome(), cliente.getCpf(), cliente.getEmail()));
+        }
+
+        return List.copyOf(repository.buscarTodos());
     }
 }

@@ -4,10 +4,7 @@ import jakarta.validation.Valid;
 import mkkg.fatec.esiii.domain.FachadaRequestDTO;
 import mkkg.fatec.esiii.domain.FachadaResponseDTO;
 import mkkg.fatec.esiii.domain.Operacao;
-import mkkg.fatec.esiii.domain.cliente.Cliente;
-import mkkg.fatec.esiii.domain.cliente.ClienteAlterarRequestDTO;
-import mkkg.fatec.esiii.domain.cliente.ClienteAlterarSenhaRequestDTO;
-import mkkg.fatec.esiii.domain.cliente.ClienteCadastrarRequestDTO;
+import mkkg.fatec.esiii.domain.cliente.*;
 import mkkg.fatec.esiii.facade.Fachada;
 import mkkg.fatec.esiii.util.Validacao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +82,20 @@ public class ClienteController {
 
         FachadaResponseDTO fachadaResponseDTO = fachada.excluir(fachadaRequestDTO);
 
-        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+        HttpStatus responseStatus = HttpStatus.OK;
+
+        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+    }
+
+    @GetMapping
+    public ResponseEntity consultar(@RequestBody(required = false) ClienteConsultarRequestDTO request) {
+        Cliente cliente = request != null ? request.toEntity() : new Cliente();
+
+        FachadaRequestDTO fachadaRequestDTO = FachadaRequestDTO.builder().entidade(cliente).operacao(Operacao.CONSULTAR).build();
+
+        FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
+
+        HttpStatus responseStatus = HttpStatus.OK;
 
         return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
     }
