@@ -37,12 +37,16 @@ public class CartaoCreditoDAO implements IDAO {
 
     @Override
     public void alterar(EntidadeDominio entidade) {
+        CartaoCredito cartaoCredito = complementarCartaoCredito((CartaoCredito) entidade);
 
+        repository.save(cartaoCredito);
     }
 
     @Override
     public void excluir(EntidadeDominio entidade) {
+        CartaoCredito cartaoCredito = (CartaoCredito) entidade;
 
+        repository.deleteCartaoCreditoById(cartaoCredito.getId());
     }
 
     @Override

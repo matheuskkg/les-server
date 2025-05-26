@@ -19,6 +19,7 @@ public record CartaoCreditoRequestDTO(
         @NotBlank(message = "O código de segurança é obrigatório")
         String codigoSeguranca,
 
+        @NotNull(message = "O campo 'preferencial' é obrigatório")
         Boolean preferencial,
 
         @NotNull(message = "O cliente deve ser enviado no body da requisição", groups = ValidarCartaoCredito.class)
