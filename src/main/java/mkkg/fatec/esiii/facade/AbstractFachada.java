@@ -101,7 +101,7 @@ public abstract class AbstractFachada {
     }
 
     protected void inicializarAlterar() {
-        List<IStrategy> rnsAlterarCliente = List.of(validarExistenciaCliente, validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega);
+        List<IStrategy> rnsAlterarCliente = List.of(validarExistenciaCliente);
         rns.put(Cliente.class.getName(), rnsAlterarCliente);
 
         List<IStrategy> rnsAlterarEndereco = List.of(validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega);
