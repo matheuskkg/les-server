@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidarExistenciaCliente implements IStrategy {
+public class ValidarExistenciaCpf implements IStrategy {
 
     @Autowired
     private ClienteRepository repository;
@@ -18,14 +18,9 @@ public class ValidarExistenciaCliente implements IStrategy {
         Cliente cliente = (Cliente) entidade;
 
         Cliente verificarCpf = repository.findByCpf(cliente.getCpf());
-        Cliente verificarEmail = repository.findByEmail(cliente.getEmail());
 
         if (verificarCpf != null && !verificarCpf.getId().equals(cliente.getId())) {
             return "CPF já está cadastrado";
-        }
-
-        if (verificarEmail != null && !verificarEmail.getId().equals(cliente.getId())) {
-            return "E-mail já está cadastrado";
         }
 
         return null;
