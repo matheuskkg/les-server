@@ -1,0 +1,37 @@
+package fatec.mkkg.server.controllers;
+
+import fatec.mkkg.server.domain.FachadaRequestDTO;
+import fatec.mkkg.server.domain.FachadaResponseDTO;
+import fatec.mkkg.server.domain.OperacaoCRUD;
+import fatec.mkkg.server.domain.endereco.Estado;
+import fatec.mkkg.server.domain.endereco.Pais;
+import fatec.mkkg.server.facade.Fachada;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/estado")
+public class EstadoController {
+
+    @Autowired
+    private Fachada fachada;
+
+    @GetMapping
+    public ResponseEntity consultar(@RequestParam(name = "pais") String nomePais) {
+        Pais pais = new Pais(nomePais);
+        Estado estado = new Estado(pais);
+
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(estado, OperacaoCRUD.CONSULTAR);
+
+        FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
+
+        HttpStatus responseStatus = fachadaResponseDTO.getEntidades().isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+
+        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+    }
+}
