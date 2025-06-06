@@ -65,7 +65,7 @@ public class EnderecoController {
 
         FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
 
-        HttpStatus responseStatus = fachadaResponseDTO.getEntidades().isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+        HttpStatus responseStatus = HttpStatus.OK;
 
         return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
     }
