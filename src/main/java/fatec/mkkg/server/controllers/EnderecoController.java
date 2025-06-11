@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/endereco")
+@CrossOrigin
 public class EnderecoController {
 
     @Autowired

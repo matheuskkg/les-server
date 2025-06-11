@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cartao")
+@CrossOrigin
 public class CartaoCreditoController {
 
     @Autowired
