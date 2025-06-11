@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(
@@ -59,7 +58,7 @@ public class Cliente extends EntidadeDominio {
     private Telefone telefone;
 
     @Transient
-    private List<Endereco> enderecos;
+    private Endereco endereco;
 
     public Cliente(Integer id) {
         this.id = id;

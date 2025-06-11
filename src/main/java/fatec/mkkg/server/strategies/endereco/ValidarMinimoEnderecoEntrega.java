@@ -24,7 +24,7 @@ public class ValidarMinimoEnderecoEntrega implements IStrategy {
         //Cadastro de novo cliente
         //Não possui endereços salvos no banco
         if (entidade instanceof Cliente cliente) {
-            enderecos = cliente.getEnderecos();
+            enderecos.add(cliente.getEndereco());
         } else {
             Endereco endereco = (Endereco) entidade;
             enderecos.add(endereco);

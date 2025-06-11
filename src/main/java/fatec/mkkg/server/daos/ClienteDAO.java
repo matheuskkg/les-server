@@ -29,15 +29,13 @@ public class ClienteDAO implements IDAO {
     @Override
     public void salvar(EntidadeDominio entidade) {
         Cliente cliente = (Cliente) entidade;
-        List<Endereco> enderecos = cliente.getEnderecos();
+        Endereco endereco = cliente.getEndereco();
         Telefone telefone = cliente.getTelefone();
 
         cliente = entityManager.merge(cliente);
 
-        for (Endereco e : enderecos) {
-            e.setCliente(cliente);
-            enderecoDAO.salvar(e);
-        }
+        endereco.setCliente(cliente);
+        enderecoDAO.salvar(endereco);
 
         telefone.setCliente(cliente);
         telefoneDAO.salvar(telefone);
