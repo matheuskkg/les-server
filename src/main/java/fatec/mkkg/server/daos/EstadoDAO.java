@@ -39,9 +39,18 @@ public class EstadoDAO implements IDAO {
                     .setParameter("nomePais", estado.getPais().getNome())
                     .getResultList();
 
-            return List.copyOf(res);
+            return res.isEmpty() ? List.of(buscarEstadoDefault()) : List.copyOf(res);
         }
 
         return List.of();
+    }
+
+    private Estado buscarEstadoDefault() {
+        String ESTADO_DEFAULT = "Exterior";
+
+        return entityManager
+                .createQuery("select new fatec.mkkg.server.domain.endereco.Estado(e.id, e.nome, e.uf) from Estado e where e.nome = :estadoDefault", Estado.class)
+                .setParameter("estadoDefault", ESTADO_DEFAULT)
+                .getSingleResult();
     }
 }
