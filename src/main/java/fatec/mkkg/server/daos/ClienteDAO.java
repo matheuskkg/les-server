@@ -142,7 +142,8 @@ public class ClienteDAO implements IDAO {
                         from Cliente c
                         join Telefone t on t.cliente.id = c.id
                         where
-                            (:nome is null or LOWER(c.nome) like LOWER(CONCAT('%', :nome, '%')))
+                            c.cadastroAtivo = true
+                            and (:nome is null or LOWER(c.nome) like LOWER(CONCAT('%', :nome, '%')))
                             and (:cpf is null or c.cpf = :cpf)
                             and (:email is null or LOWER(c.email) = LOWER(:email))
                     """, Cliente.class)
