@@ -146,6 +146,7 @@ public class ClienteDAO implements IDAO {
                             and (:nome is null or LOWER(c.nome) like LOWER(CONCAT('%', :nome, '%')))
                             and (:cpf is null or c.cpf = :cpf)
                             and (:email is null or LOWER(c.email) = LOWER(:email))
+                        order by c.nome
                     """, Cliente.class)
                     .setParameter("nome", cliente.getNome())
                     .setParameter("cpf", cliente.getCpf())
