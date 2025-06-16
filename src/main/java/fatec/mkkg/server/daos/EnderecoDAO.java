@@ -1,10 +1,7 @@
 package fatec.mkkg.server.daos;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
-import fatec.mkkg.server.domain.endereco.Cidade;
-import fatec.mkkg.server.domain.endereco.Endereco;
-import fatec.mkkg.server.domain.endereco.TipoLogradouro;
-import fatec.mkkg.server.domain.endereco.TipoResidencia;
+import fatec.mkkg.server.domain.endereco.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -31,6 +28,7 @@ public class EnderecoDAO implements IDAO {
     private void complementar(Endereco endereco) {
         if (endereco.getCidade().getId() == null) {
             endereco.setCidade((Cidade) cidadeDAO.consultar(endereco.getCidade()).getFirst());
+            endereco.setPais(endereco.getCidade().getEstado().getPais());
         }
 
         if (endereco.getTipoLogradouro().getId() == null) {
@@ -163,6 +161,7 @@ public class EnderecoDAO implements IDAO {
                         e.id,
                         e.nomeIdentificador,
                         e.cidade,
+                        e.pais,
                         e.tipoLogradouro,
                         e.logradouro,
                         e.tipoResidencia,

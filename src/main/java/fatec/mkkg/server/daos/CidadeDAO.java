@@ -44,7 +44,7 @@ public class CidadeDAO implements IDAO {
 
         if (cidade.getNome() != null) {
             return List.copyOf(entityManager
-                    .createQuery("select new fatec.mkkg.server.domain.endereco.Cidade(c.id, c.nome) from Cidade c where c.nome = :nomeCidade", Cidade.class)
+                    .createQuery("select c from Cidade c where c.nome = :nomeCidade", Cidade.class)
                     .setParameter("nomeCidade", cidade.getNome())
                     .getResultList());
         }
