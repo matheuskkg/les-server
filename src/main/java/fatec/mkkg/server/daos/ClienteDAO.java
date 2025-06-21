@@ -2,6 +2,7 @@ package fatec.mkkg.server.daos;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.cliente.Cliente;
+import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.domain.endereco.Endereco;
 import fatec.mkkg.server.domain.telefone.Telefone;
 import jakarta.persistence.EntityManager;
@@ -25,12 +26,18 @@ public class ClienteDAO implements IDAO {
     @Autowired
     private TelefoneDAO telefoneDAO;
 
+    @Autowired
+    private SenhaDAO senhaDAO;
+
     @Transactional
     @Override
     public void salvar(EntidadeDominio entidade) {
         Cliente cliente = (Cliente) entidade;
         Endereco endereco = cliente.getEndereco();
         Telefone telefone = cliente.getTelefone();
+        Senha senha = cliente.getSenha();
+
+        senhaDAO.salvar(senha);
 
         cliente = entityManager.merge(cliente);
 
