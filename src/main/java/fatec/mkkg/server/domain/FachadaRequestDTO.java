@@ -9,6 +9,4 @@ public class FachadaRequestDTO {
 
     private EntidadeDominio entidade;
 
-    private OperacaoCRUD operacao;
-
 }

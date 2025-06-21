@@ -4,7 +4,6 @@ import fatec.mkkg.server.daos.*;
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.FachadaRequestDTO;
 import fatec.mkkg.server.domain.FachadaResponseDTO;
-import fatec.mkkg.server.domain.OperacaoCRUD;
 import fatec.mkkg.server.strategies.IStrategy;
 import org.springframework.stereotype.Component;
 

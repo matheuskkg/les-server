@@ -2,7 +2,6 @@ package fatec.mkkg.server.controllers;
 
 import fatec.mkkg.server.domain.FachadaRequestDTO;
 import fatec.mkkg.server.domain.FachadaResponseDTO;
-import fatec.mkkg.server.domain.OperacaoCRUD;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.facade.Fachada;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity salvar(@RequestBody Cliente request) {
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request, OperacaoCRUD.SALVAR);
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
 
@@ -33,7 +32,7 @@ public class ClienteController {
     public ResponseEntity alterar(@PathVariable Integer id, @RequestBody Cliente request) {
         request.setId(id);
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request, OperacaoCRUD.ALTERAR);
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.alterar(fachadaRequestDTO);
 
@@ -46,7 +45,7 @@ public class ClienteController {
     public ResponseEntity alterarSenha(@PathVariable Integer id, @RequestBody Cliente request) {
         request.setId(id);
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request, OperacaoCRUD.ALTERAR_SENHA);
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.alterar(fachadaRequestDTO);
 
@@ -60,7 +59,7 @@ public class ClienteController {
         Cliente cliente = new Cliente();
         cliente.setId(id);
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cliente, OperacaoCRUD.EXCLUIR);
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cliente);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.excluir(fachadaRequestDTO);
 
@@ -80,7 +79,7 @@ public class ClienteController {
         cliente.setCpf(cpf);
         cliente.setEmail(email);
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cliente, OperacaoCRUD.CONSULTAR);
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cliente);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
 

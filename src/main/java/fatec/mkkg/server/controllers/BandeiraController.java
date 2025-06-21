@@ -2,7 +2,6 @@ package fatec.mkkg.server.controllers;
 
 import fatec.mkkg.server.domain.FachadaRequestDTO;
 import fatec.mkkg.server.domain.FachadaResponseDTO;
-import fatec.mkkg.server.domain.OperacaoCRUD;
 import fatec.mkkg.server.domain.cartao.Bandeira;
 import fatec.mkkg.server.facade.Fachada;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class BandeiraController {
 
     @GetMapping
     public ResponseEntity consultar() {
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(new Bandeira(), OperacaoCRUD.CONSULTAR);
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(new Bandeira());
 
         FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
 

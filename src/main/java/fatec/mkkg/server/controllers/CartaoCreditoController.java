@@ -2,7 +2,6 @@ package fatec.mkkg.server.controllers;
 
 import fatec.mkkg.server.domain.FachadaRequestDTO;
 import fatec.mkkg.server.domain.FachadaResponseDTO;
-import fatec.mkkg.server.domain.OperacaoCRUD;
 import fatec.mkkg.server.domain.cartao.CartaoCredito;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.facade.Fachada;
@@ -21,7 +20,7 @@ public class CartaoCreditoController {
 
     @PostMapping
     public ResponseEntity salvar(@RequestBody CartaoCredito request) {
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request, OperacaoCRUD.SALVAR);
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
 
@@ -34,7 +33,7 @@ public class CartaoCreditoController {
     public ResponseEntity alterar(@PathVariable Integer id, @RequestBody CartaoCredito request) {
         request.setId(id);
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request, OperacaoCRUD.ALTERAR);
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.alterar(fachadaRequestDTO);
 
@@ -47,7 +46,7 @@ public class CartaoCreditoController {
     public ResponseEntity excluir(@PathVariable Integer id) {
         CartaoCredito cartaoCredito = new CartaoCredito(id);
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cartaoCredito, OperacaoCRUD.EXCLUIR);
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cartaoCredito);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.excluir(fachadaRequestDTO);
 
@@ -62,7 +61,7 @@ public class CartaoCreditoController {
         CartaoCredito cartaoCredito = new CartaoCredito();
         cartaoCredito.setCliente(cliente);
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cartaoCredito, OperacaoCRUD.CONSULTAR);
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cartaoCredito);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
 
