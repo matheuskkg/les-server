@@ -25,4 +25,7 @@ public class Senha extends EntidadeDominio {
 
     @Transient
     private String senhaConfirmar;
+
+    @Transient
+    private Cliente cliente;
 }

@@ -41,19 +41,6 @@ public class ClienteController {
         return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
     }
 
-    @PatchMapping("/{id}/senha")
-    public ResponseEntity alterarSenha(@PathVariable Integer id, @RequestBody Cliente request) {
-        request.setId(id);
-
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
-
-        FachadaResponseDTO fachadaResponseDTO = fachada.alterar(fachadaRequestDTO);
-
-        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
-
-        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity inativar(@PathVariable Integer id) {
         Cliente cliente = new Cliente();
