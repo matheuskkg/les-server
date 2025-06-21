@@ -17,20 +17,12 @@ public class EnderecoDAO implements IDAO {
     private EntityManager entityManager;
 
     @Autowired
-    private CidadeDAO cidadeDAO;
-
-    @Autowired
     private TipoLogradouroDAO tipoLogradouroDAO;
 
     @Autowired
     private TipoResidenciaDAO tipoResidenciaDAO;
 
     private void complementar(Endereco endereco) {
-        if (endereco.getCidade().getId() == null) {
-            endereco.setCidade((Cidade) cidadeDAO.consultar(endereco.getCidade()).getFirst());
-            endereco.setPais(endereco.getCidade().getEstado().getPais());
-        }
-
         if (endereco.getTipoLogradouro().getId() == null) {
             endereco.setTipoLogradouro((TipoLogradouro) tipoLogradouroDAO.consultar(endereco.getTipoLogradouro()).getFirst());
         }
@@ -160,8 +152,9 @@ public class EnderecoDAO implements IDAO {
                     select new fatec.mkkg.server.domain.endereco.Endereco(
                         e.id,
                         e.nomeIdentificador,
-                        e.cidade,
                         e.pais,
+                        e.estado,
+                        e.cidade,
                         e.tipoLogradouro,
                         e.logradouro,
                         e.tipoResidencia,
