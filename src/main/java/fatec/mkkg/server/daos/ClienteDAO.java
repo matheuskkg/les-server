@@ -46,11 +46,6 @@ public class ClienteDAO implements IDAO {
     public void alterar(EntidadeDominio entidade) {
         Cliente cliente = (Cliente) entidade;
 
-        if (cliente.getSenha() != null) {
-            alterarSenhaCliente(cliente);
-            return;
-        }
-
         Telefone telefone = cliente.getTelefone();
         telefone.setCliente(cliente);
         telefoneDAO.alterar(telefone);
@@ -82,18 +77,6 @@ public class ClienteDAO implements IDAO {
         }
 
         return List.of();
-    }
-
-    private void alterarSenhaCliente(Cliente cliente) {
-        entityManager
-                .createQuery("""
-                    update Cliente c set
-                        c.senha = :senha
-                    where c.id = :id
-                """)
-                .setParameter("senha", cliente.getSenha())
-                .setParameter("id", cliente.getId())
-                .executeUpdate();
     }
 
     private void alterarCadastroCliente(Cliente cliente) {

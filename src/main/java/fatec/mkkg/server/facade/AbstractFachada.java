@@ -4,6 +4,7 @@ import fatec.mkkg.server.daos.*;
 import fatec.mkkg.server.domain.cartao.Bandeira;
 import fatec.mkkg.server.domain.cartao.CartaoCredito;
 import fatec.mkkg.server.domain.cliente.Cliente;
+import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.domain.endereco.Endereco;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.strategies.cartao.ValidarCamposCartaoCredito;
@@ -25,9 +26,6 @@ public class AbstractFachada {
 
     @Autowired
     private CriptografarSenha criptografarSenha;
-
-    @Autowired
-    private PrepararParaAlterarCliente prepararParaAlterarCliente;
 
     @Autowired
     private SetCadastroAtivo setCadastroAtivo;
@@ -76,11 +74,12 @@ public class AbstractFachada {
     protected Map<String, IDAO> daos = new HashMap<>();
 
     @Autowired
-    public AbstractFachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO) {
+    public AbstractFachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, SenhaDAO senhaDAO) {
         daos.put(Bandeira.class.getName(), bandeiraDAO);
         daos.put(CartaoCredito.class.getName(), cartaoCreditoDAO);
         daos.put(Cliente.class.getName(), clienteDAO);
         daos.put(Endereco.class.getName(), enderecoDAO);
+        daos.put(Senha.class.getName(), senhaDAO);
     }
 
     protected void inicializarSalvar() {
@@ -95,7 +94,7 @@ public class AbstractFachada {
     }
 
     protected void inicializarAlterar() {
-        List<IStrategy> rnsAlterarCliente = List.of(prepararParaAlterarCliente, validarCamposCliente, validarDataNascimento, validarExistenciaCpf, validarExistenciaEmail, validarCamposTelefone);
+        List<IStrategy> rnsAlterarCliente = List.of(validarCamposCliente, validarDataNascimento, validarExistenciaCpf, validarExistenciaEmail, validarCamposTelefone);
         rns.put(Cliente.class.getName(), rnsAlterarCliente);
 
         List<IStrategy> rnsAlterarEndereco = List.of(validarCamposEndereco, validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega);
@@ -103,11 +102,9 @@ public class AbstractFachada {
 
         List<IStrategy> rnsAlterarCartaoCredito = List.of(validarCamposCartaoCredito);
         rns.put(CartaoCredito.class.getName(), rnsAlterarCartaoCredito);
-    }
 
-    protected void inicializarAlterarSenha() {
-        List<IStrategy> rnsAlterarSenhaCliente = List.of(validarCamposClienteSenha, validarForcaSenha, validarConfirmarSenha, criptografarSenha);
-        rns.put(Cliente.class.getName(), rnsAlterarSenhaCliente);
+        List<IStrategy> rnsAlterarSenha = List.of(validarCamposClienteSenha, validarForcaSenha, validarConfirmarSenha, criptografarSenha);
+        rns.put(Senha.class.getName(), rnsAlterarSenha);
     }
 
     protected void inicializarExcluir() {

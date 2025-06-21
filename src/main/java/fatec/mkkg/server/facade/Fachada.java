@@ -18,8 +18,8 @@ public class Fachada extends AbstractFachada implements IFachada {
 
     private FachadaResponseDTO response;
 
-    public Fachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO) {
-        super(bandeiraDAO, cartaoCreditoDAO, clienteDAO, enderecoDAO);
+    public Fachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, SenhaDAO senhaDAO) {
+        super(bandeiraDAO, cartaoCreditoDAO, clienteDAO, enderecoDAO, senhaDAO);
     }
 
     private void processarRegras(EntidadeDominio entidade, List<IStrategy> regrasEntidade) {
@@ -58,12 +58,7 @@ public class Fachada extends AbstractFachada implements IFachada {
 
     @Override
     public FachadaResponseDTO alterar(FachadaRequestDTO request) {
-        OperacaoCRUD operacao = request.getOperacao();
-        if (operacao.equals(OperacaoCRUD.ALTERAR)) {
-            super.inicializarAlterar();
-        } else {
-            super.inicializarAlterarSenha();
-        }
+        super.inicializarAlterar();
 
         EntidadeDominio entidade = request.getEntidade();
 

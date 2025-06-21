@@ -45,11 +45,9 @@ public class Cliente extends EntidadeDominio {
     @Column(name = "cli_email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "cli_senha", nullable = false)
-    private String senha;
-
-    @Transient
-    private String senhaConfirmar;
+    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @JoinColumn(name = "cli_sen_id", referencedColumnName = "sen_id", nullable = false)
+    private Senha senha;
 
     @Column(name = "cli_cadastro_ativo", nullable = false)
     private Boolean cadastroAtivo;

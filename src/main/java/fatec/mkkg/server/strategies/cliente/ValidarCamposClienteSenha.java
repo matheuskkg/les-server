@@ -2,6 +2,7 @@ package fatec.mkkg.server.strategies.cliente;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.cliente.Cliente;
+import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.util.Validacao;
 import org.springframework.stereotype.Component;
@@ -13,15 +14,22 @@ import java.util.List;
 public class ValidarCamposClienteSenha implements IStrategy {
     @Override
     public String processar(EntidadeDominio entidade) {
-        Cliente cliente = (Cliente) entidade;
+        Senha senha;
+
+        if (entidade instanceof Cliente cliente) {
+            senha = cliente.getSenha();
+        } else {
+            senha = (Senha) entidade;
+        }
 
         String prefixo = "Os campos ";
         String sufixo = "não foram devidamente preenchidos";
 
         List<String> camposNaoPreenchidos = new ArrayList<>();
 
-        camposNaoPreenchidos.add(Validacao.validar(cliente.getSenha(), "senha"));
-        camposNaoPreenchidos.add(Validacao.validar(cliente.getSenhaConfirmar(), "senhaConfirmar"));
+        //TODO
+        camposNaoPreenchidos.add(Validacao.validar(senha.getSenha(), "senha"));
+        camposNaoPreenchidos.add(Validacao.validar(senha.getSenhaConfirmar(), "senhaConfirmar"));
 
         StringBuilder sb = new StringBuilder();
         for (String campo : camposNaoPreenchidos) {
