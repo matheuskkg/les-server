@@ -21,16 +21,14 @@ public class Endereco extends EntidadeDominio {
     @Column(name = "end_nome_identificador", nullable = false)
     private String nomeIdentificador;
 
-    @ManyToOne
-    @JoinColumn(name = "end_cid_id", referencedColumnName = "cid_id", nullable = false)
-    private Cidade cidade;
+    @Column(name = "end_pais", nullable = false)
+    private String pais;
 
-    //O body da request contém somente a cidade, caso a cidade/estado não seja no Brasil a informação do país é perdida
-    //?Solução:
-    //  1. Normalizar o restante das cidades/estados
-    @ManyToOne
-    @JoinColumn(name = "end_pai_id", referencedColumnName = "pai_id", nullable = false)
-    private Pais pais;
+    @Column(name = "end_estado", nullable = false)
+    private String estado;
+
+    @Column(name = "end_cidade", nullable = false)
+    private String cidade;
 
     @ManyToOne
     @JoinColumn(name = "end_tpl_id", referencedColumnName = "tpl_id", nullable = false)
@@ -76,11 +74,12 @@ public class Endereco extends EntidadeDominio {
         this.cliente = cliente;
     }
 
-    public Endereco(Integer id, String nomeIdentificador, Cidade cidade, Pais pais, TipoLogradouro tipoLogradouro, String logradouro, TipoResidencia tipoResidencia, String numero, String bairro, String cep, String observacao, Boolean cobranca, Boolean entrega) {
+    public Endereco(Integer id, String nomeIdentificador, String pais, String estado, String cidade, TipoLogradouro tipoLogradouro, String logradouro, TipoResidencia tipoResidencia, String numero, String bairro, String cep, String observacao, Boolean cobranca, Boolean entrega) {
         this.id = id;
         this.nomeIdentificador = nomeIdentificador;
-        this.cidade = cidade;
         this.pais = pais;
+        this.estado = estado;
+        this.cidade = cidade;
         this.tipoLogradouro = tipoLogradouro;
         this.logradouro = logradouro;
         this.tipoResidencia = tipoResidencia;

@@ -30,7 +30,9 @@ public class ValidarCamposEndereco implements IStrategy {
         List<String> camposNaoPreenchidos = new ArrayList<>();
 
         camposNaoPreenchidos.add(Validacao.validar(endereco.getNomeIdentificador(), "nomeIdentificador"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getCidade().getNome(), "cidade.nome"));
+        camposNaoPreenchidos.add(Validacao.validar(endereco.getPais(), "pais"));
+        camposNaoPreenchidos.add(Validacao.validar(endereco.getEstado(), "estado"));
+        camposNaoPreenchidos.add(Validacao.validar(endereco.getCidade(), "cidade"));
         camposNaoPreenchidos.add(Validacao.validar(endereco.getTipoLogradouro().getTipo(), "tipoLogradouro.tipo"));
         camposNaoPreenchidos.add(Validacao.validar(endereco.getLogradouro(), "logradouro"));
         camposNaoPreenchidos.add(Validacao.validar(endereco.getTipoResidencia().getTipo(), "tipoResidencia.tipo"));

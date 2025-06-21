@@ -4,11 +4,7 @@ import fatec.mkkg.server.daos.*;
 import fatec.mkkg.server.domain.cartao.Bandeira;
 import fatec.mkkg.server.domain.cartao.CartaoCredito;
 import fatec.mkkg.server.domain.cliente.Cliente;
-import fatec.mkkg.server.domain.endereco.Cidade;
 import fatec.mkkg.server.domain.endereco.Endereco;
-import fatec.mkkg.server.domain.endereco.Estado;
-import fatec.mkkg.server.domain.endereco.Pais;
-import fatec.mkkg.server.domain.telefone.Telefone;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.strategies.cartao.ValidarCamposCartaoCredito;
 import fatec.mkkg.server.strategies.cliente.*;
@@ -23,22 +19,6 @@ import java.util.Map;
 
 @Component
 public class AbstractFachada {
-
-    private BandeiraDAO bandeiraDAO;
-
-    private CartaoCreditoDAO cartaoCreditoDAO;
-
-    private CidadeDAO cidadeDAO;
-
-    private ClienteDAO clienteDAO;
-
-    private EnderecoDAO enderecoDAO;
-
-    private EstadoDAO estadoDAO;
-
-    private PaisDAO paisDAO;
-
-    private TelefoneDAO telefoneDAO;
 
     @Autowired
     private ValidarCamposCartaoCredito validarCamposCartaoCredito;
@@ -96,24 +76,11 @@ public class AbstractFachada {
     protected Map<String, IDAO> daos = new HashMap<>();
 
     @Autowired
-    public AbstractFachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, CidadeDAO cidadeDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, EstadoDAO estadoDAO, PaisDAO paisDAO, TelefoneDAO telefoneDAO) {
-        this.bandeiraDAO = bandeiraDAO;
-        this.cartaoCreditoDAO = cartaoCreditoDAO;
-        this.cidadeDAO = cidadeDAO;
-        this.clienteDAO = clienteDAO;
-        this.enderecoDAO = enderecoDAO;
-        this.estadoDAO = estadoDAO;
-        this.paisDAO = paisDAO;
-        this.telefoneDAO = telefoneDAO;
-
-        daos.put(Bandeira.class.getName(), this.bandeiraDAO);
-        daos.put(CartaoCredito.class.getName(), this.cartaoCreditoDAO);
-        daos.put(Cidade.class.getName(), this.cidadeDAO);
-        daos.put(Cliente.class.getName(), this.clienteDAO);
-        daos.put(Endereco.class.getName(), this.enderecoDAO);
-        daos.put(Estado.class.getName(), this.estadoDAO);
-        daos.put(Pais.class.getName(), this.paisDAO);
-        daos.put(Telefone.class.getName(), this.telefoneDAO);
+    public AbstractFachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO) {
+        daos.put(Bandeira.class.getName(), bandeiraDAO);
+        daos.put(CartaoCredito.class.getName(), cartaoCreditoDAO);
+        daos.put(Cliente.class.getName(), clienteDAO);
+        daos.put(Endereco.class.getName(), enderecoDAO);
     }
 
     protected void inicializarSalvar() {
@@ -166,14 +133,5 @@ public class AbstractFachada {
 
         List<IStrategy> rnsConsultarBandeira = List.of();
         rns.put(Bandeira.class.getName(), rnsConsultarBandeira);
-
-        List<IStrategy> rnsConsultarCidade = List.of();
-        rns.put(Cidade.class.getName(), rnsConsultarCidade);
-
-        List<IStrategy> rnsConsultarEstado = List.of();
-        rns.put(Estado.class.getName(), rnsConsultarEstado);
-
-        List<IStrategy> rnsConsultarPais = List.of();
-        rns.put(Pais.class.getName(), rnsConsultarPais);
     }
 }
