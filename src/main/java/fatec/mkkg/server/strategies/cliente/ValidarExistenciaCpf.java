@@ -20,8 +20,7 @@ public class ValidarExistenciaCpf implements IStrategy {
         Cliente filtro = new Cliente();
         filtro.setCpf(cliente.getCpf());
 
-        Cliente clienteCpf = (Cliente) clienteDAO.consultar(filtro).getFirst();
-
+        Cliente clienteCpf = clienteDAO.buscarPorCpf(filtro);
         if (clienteCpf.getId() != null && !clienteCpf.getId().equals(cliente.getId())) {
             return "CPF já está cadastrado";
         }

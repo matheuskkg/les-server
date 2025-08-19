@@ -75,14 +75,6 @@ public class ClienteDAO implements IDAO {
             return List.copyOf(buscarPorFiltroNomeCpfEmail(cliente));
         }
 
-        if (cliente.getCpf() != null) {
-            return List.of(buscarPorCpf(cliente));
-        }
-
-        if (cliente.getEmail() != null) {
-            return List.of(buscarPorEmail(cliente));
-        }
-
         return List.of();
     }
 
@@ -144,7 +136,7 @@ public class ClienteDAO implements IDAO {
                     .getResultList();
     }
 
-    private Cliente buscarPorCpf(Cliente cliente) {
+    public Cliente buscarPorCpf(Cliente cliente) {
         try {
             return entityManager
                     .createQuery("select new fatec.mkkg.server.domain.cliente.Cliente(c.id) from Cliente c where c.cpf = :cpfCliente", Cliente.class)
@@ -155,7 +147,7 @@ public class ClienteDAO implements IDAO {
         }
     }
 
-    private Cliente buscarPorEmail(Cliente cliente) {
+    public Cliente buscarPorEmail(Cliente cliente) {
         try {
             return entityManager
                     .createQuery("select new fatec.mkkg.server.domain.cliente.Cliente(c.id) from Cliente c where c.email = :emailCliente", Cliente.class)

@@ -66,22 +66,6 @@ public class EnderecoDAO implements IDAO {
         Endereco endereco = (Endereco) entidade;
 
         if (endereco.getCliente() != null && endereco.getCliente().getId() != null) {
-            if (endereco.getId() != null && endereco.getCobranca() != null && endereco.getCobranca()) {
-                return List.copyOf(buscarPorClienteCobrancaIdDiferente(endereco));
-            }
-
-            if (endereco.getCobranca() != null && endereco.getCobranca()) {
-                return List.copyOf(buscarPorClienteCobranca(endereco));
-            }
-
-            if (endereco.getId() != null && endereco.getEntrega() != null && endereco.getEntrega()) {
-                return List.copyOf(buscarPorClienteEntregaIdDiferente(endereco));
-            }
-
-            if (endereco.getEntrega() != null && endereco.getEntrega()) {
-                return List.copyOf(buscarPorClienteEntrega(endereco));
-            }
-
             return List.copyOf(buscarPorCliente(endereco));
         }
 
@@ -90,60 +74,6 @@ public class EnderecoDAO implements IDAO {
         }
 
         return List.of();
-    }
-
-    private List<Endereco> buscarPorClienteCobrancaIdDiferente(Endereco endereco) {
-        return entityManager
-                .createQuery("""
-                    select new fatec.mkkg.server.domain.endereco.Endereco(
-                        e.id
-                    )
-                    from Endereco e
-                    where e.cliente.id = :clienteId and cobranca = true and e.id != :enderecoId
-                """, Endereco.class)
-                .setParameter("clienteId", endereco.getCliente().getId())
-                .setParameter("enderecoId", endereco.getId())
-                .getResultList();
-    }
-
-    private List<Endereco> buscarPorClienteCobranca(Endereco endereco) {
-        return entityManager
-                .createQuery("""
-                    select new fatec.mkkg.server.domain.endereco.Endereco(
-                        e.id
-                    )
-                    from Endereco e
-                    where e.cliente.id = :clienteId and e.cobranca = true
-                """, Endereco.class)
-                .setParameter("clienteId", endereco.getCliente().getId())
-                .getResultList();
-    }
-
-    private List<Endereco> buscarPorClienteEntregaIdDiferente(Endereco endereco) {
-        return entityManager
-                .createQuery("""
-                    select new fatec.mkkg.server.domain.endereco.Endereco(
-                        e.id
-                    )
-                    from Endereco e
-                    where e.cliente.id = :clienteId and entrega = true and e.id != :enderecoId
-                """, Endereco.class)
-                .setParameter("clienteId", endereco.getCliente().getId())
-                .setParameter("enderecoId", endereco.getId())
-                .getResultList();
-    }
-
-    private List<Endereco> buscarPorClienteEntrega(Endereco endereco) {
-        return entityManager
-                .createQuery("""
-                    select new fatec.mkkg.server.domain.endereco.Endereco(
-                        e.id
-                    )
-                    from Endereco e
-                    where e.cliente.id = :clienteId and e.entrega = true
-                """, Endereco.class)
-                .setParameter("clienteId", endereco.getCliente().getId())
-                .getResultList();
     }
 
     private List<Endereco> buscarPorCliente(Endereco endereco) {
@@ -177,13 +107,93 @@ public class EnderecoDAO implements IDAO {
                 .createQuery("""
                     select new fatec.mkkg.server.domain.endereco.Endereco(
                         e.id,
+                        e.nomeIdentificador,
+                        e.pais,
+                        e.estado,
+                        e.cidade,
+                        e.tipoLogradouro,
+                        e.logradouro,
+                        e.tipoResidencia,
+                        e.numero,
+                        e.bairro,
+                        e.cep,
+                        e.observacao,
                         e.cobranca,
-                        e.entrega,
-                        new fatec.mkkg.server.domain.cliente.Cliente(e.cliente.id)
+                        e.entrega
                     )
-                    from Endereco e where e.id = :id
+                    from Endereco e
+                    where e.id = :id
                 """, Endereco.class)
                 .setParameter("id", endereco.getId())
                 .getSingleResult();
+    }
+
+    public List<Endereco> buscarPorClienteCobrancaIdDiferente(Endereco endereco) {
+        return entityManager
+                .createQuery("""
+                    select new fatec.mkkg.server.domain.endereco.Endereco(
+                        e.id
+                    )
+                    from Endereco e
+                    where e.cliente.id = :clienteId and cobranca = true and e.id != :enderecoId
+                """, Endereco.class)
+                .setParameter("clienteId", endereco.getCliente().getId())
+                .setParameter("enderecoId", endereco.getId())
+                .getResultList();
+    }
+
+    public List<Endereco> buscarPorClienteCobranca(Endereco endereco) {
+        return entityManager
+                .createQuery("""
+                    select new fatec.mkkg.server.domain.endereco.Endereco(
+                        e.id
+                    )
+                    from Endereco e
+                    where e.cliente.id = :clienteId and e.cobranca = true
+                """, Endereco.class)
+                .setParameter("clienteId", endereco.getCliente().getId())
+                .getResultList();
+    }
+
+    public List<Endereco> buscarPorClienteEntregaIdDiferente(Endereco endereco) {
+        return entityManager
+                .createQuery("""
+                    select new fatec.mkkg.server.domain.endereco.Endereco(
+                        e.id
+                    )
+                    from Endereco e
+                    where e.cliente.id = :clienteId and entrega = true and e.id != :enderecoId
+                """, Endereco.class)
+                .setParameter("clienteId", endereco.getCliente().getId())
+                .setParameter("enderecoId", endereco.getId())
+                .getResultList();
+    }
+
+    public List<Endereco> buscarPorClienteEntrega(Endereco endereco) {
+        return entityManager
+                .createQuery("""
+                    select new fatec.mkkg.server.domain.endereco.Endereco(
+                        e.id
+                    )
+                    from Endereco e
+                    where e.cliente.id = :clienteId and e.entrega = true
+                """, Endereco.class)
+                .setParameter("clienteId", endereco.getCliente().getId())
+                .getResultList();
+    }
+
+    public Endereco complementarParaExcluir(Endereco endereco) {
+        return entityManager
+                .createQuery("""
+                        select new fatec.mkkg.server.domain.endereco.Endereco(
+                            e.id,
+                            e.cobranca,
+                            e.entrega,
+                            new fatec.mkkg.server.domain.cliente.Cliente(e.cliente.id)
+                        )
+                        from Endereco e where e.id = :id
+                """, Endereco.class)
+		        .setParameter("id", endereco.getId())
+		        .getSingleResult();
     }
 }

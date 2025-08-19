@@ -33,11 +33,22 @@ public class ValidarEnderecoPodeSerExcluido implements IStrategy {
         filtroEntrega.setCliente(endereco.getCliente());
         filtroEntrega.setEntrega(true);
 
-        List<Endereco> enderecosCobranca = enderecoDAO.consultar(filtroCobranca).stream().map(Endereco::new).toList();
-        List<Endereco> enderecosEntrega = enderecoDAO.consultar(filtroEntrega).stream().map(Endereco::new).toList();
+        List<Endereco> enderecosCobranca = enderecoDAO.buscarPorClienteCobrancaIdDiferente(filtroCobranca);
+        List<Endereco> enderecosEntrega = enderecoDAO.buscarPorClienteEntregaIdDiferente(filtroEntrega);
 
-        if (enderecosCobranca.isEmpty() || enderecosEntrega.isEmpty()) {
+		boolean existsByCobranca = !enderecosCobranca.isEmpty();
+        boolean existsByEntrega = !enderecosEntrega.isEmpty();
+
+        if (!existsByCobranca && !existsByEntrega) {
             return "Deve existir ao menos um endereço de entrega e um de cobrança";
+        }
+
+        if (!existsByCobranca) {
+            return "Deve existir ao menos um endereço de cobrança";
+        }
+
+        if (!existsByEntrega) {
+            return "Deve existir ao menos um endereço de entrega";
         }
 
         return null;

@@ -18,7 +18,7 @@ public class ComplementarEnderecoParaExcluir implements IStrategy {
         Endereco endereco = (Endereco) entidade;
 
         Endereco enderecoDados = new Endereco(endereco.getId());
-        enderecoDados = (Endereco) enderecoDAO.consultar(enderecoDados).getFirst();
+        enderecoDados = enderecoDAO.complementarParaExcluir(enderecoDados);
 
         endereco.setCobranca(enderecoDados.getCobranca());
         endereco.setEntrega(enderecoDados.getEntrega());

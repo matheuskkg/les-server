@@ -33,7 +33,7 @@ public class ValidarMinimoEnderecoCobranca implements IStrategy {
             filtro.setCliente(endereco.getCliente());
             filtro.setCobranca(true);
 
-            List<Endereco> enderecosExistentes = enderecoDAO.consultar(filtro).stream().map(Endereco::new).toList();
+            List<Endereco> enderecosExistentes = enderecoDAO.buscarPorClienteCobranca(filtro).stream().map(Endereco::new).toList();
 
             if (enderecosExistentes.size() > 1) {
                 return null;

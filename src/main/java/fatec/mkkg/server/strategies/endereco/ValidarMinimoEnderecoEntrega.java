@@ -33,7 +33,7 @@ public class ValidarMinimoEnderecoEntrega implements IStrategy {
             filtro.setCliente(endereco.getCliente());
             filtro.setEntrega(true);
 
-            List<Endereco> enderecosExistentes = enderecoDAO.consultar(filtro).stream().map(Endereco::new).toList();
+            List<Endereco> enderecosExistentes = enderecoDAO.buscarPorClienteEntrega(filtro).stream().map(Endereco::new).toList();
 
             if (enderecosExistentes.size() > 1) {
                 return null;

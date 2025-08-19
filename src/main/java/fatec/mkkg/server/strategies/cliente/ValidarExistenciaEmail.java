@@ -20,8 +20,7 @@ public class ValidarExistenciaEmail implements IStrategy {
         Cliente filtro = new Cliente();
         filtro.setEmail(cliente.getEmail());
 
-        Cliente clienteEmail = (Cliente) clienteDAO.consultar(filtro).getFirst();
-
+        Cliente clienteEmail = clienteDAO.buscarPorEmail(filtro);
         if (clienteEmail.getId() != null && !clienteEmail.getId().equals(cliente.getId())) {
             return "E-mail já está cadastrado";
         }
