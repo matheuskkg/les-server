@@ -29,7 +29,7 @@ public class CartaoCreditoController {
         return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity alterar(@PathVariable Integer id, @RequestBody CartaoCredito request) {
         request.setId(id);
 

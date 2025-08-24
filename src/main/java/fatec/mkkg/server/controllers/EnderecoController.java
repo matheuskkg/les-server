@@ -29,7 +29,7 @@ public class EnderecoController {
         return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity alterar(@PathVariable Integer id, @RequestBody Endereco request) {
         request.setId(id);
 
