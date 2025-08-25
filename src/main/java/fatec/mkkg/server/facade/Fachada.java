@@ -17,8 +17,8 @@ public class Fachada extends AbstractFachada implements IFachada {
 
     private FachadaResponseDTO response;
 
-    public Fachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, SenhaDAO senhaDAO) {
-        super(bandeiraDAO, cartaoCreditoDAO, clienteDAO, enderecoDAO, senhaDAO);
+    public Fachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, SenhaDAO senhaDAO, LoginDAO loginDAO) {
+        super(bandeiraDAO, cartaoCreditoDAO, clienteDAO, enderecoDAO, senhaDAO, loginDAO);
     }
 
     private void processarRegras(EntidadeDominio entidade, List<IStrategy> regrasEntidade) {

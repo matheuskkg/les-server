@@ -21,8 +21,8 @@ public class ValidarCamposCliente implements IStrategy {
         List<String> camposNaoPreenchidos = new ArrayList<>();
 
         camposNaoPreenchidos.add(Validacao.validar(cliente.getNome(), "nome"));
-        camposNaoPreenchidos.add(Validacao.validar(cliente.getDataNascimento(), "dataNascimento"));
-        camposNaoPreenchidos.add(Validacao.validar(cliente.getGenero(), "genero"));
+        camposNaoPreenchidos.add(Validacao.validar(cliente.getDataNascimento(), "data de nascimento"));
+        camposNaoPreenchidos.add(Validacao.validar(cliente.getGenero(), "gênero"));
         camposNaoPreenchidos.add(Validacao.validar(cliente.getCpf(), "cpf"));
         camposNaoPreenchidos.add(Validacao.validar(cliente.getEmail(), "email"));
 

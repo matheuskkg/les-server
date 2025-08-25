@@ -28,4 +28,8 @@ public class Senha extends EntidadeDominio {
 
     @Transient
     private Cliente cliente;
+
+    public Senha(String senha) {
+        this.senha = senha;
+    }
 }

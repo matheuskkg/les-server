@@ -3,6 +3,7 @@ package fatec.mkkg.server.controllers;
 import fatec.mkkg.server.domain.FachadaRequestDTO;
 import fatec.mkkg.server.domain.FachadaResponseDTO;
 import fatec.mkkg.server.domain.cliente.Cliente;
+import fatec.mkkg.server.dtos.requests.ClienteCadastrarRequest;
 import fatec.mkkg.server.facade.Fachada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 @CrossOrigin
 public class ClienteController {
 
@@ -18,8 +19,8 @@ public class ClienteController {
     private Fachada fachada;
 
     @PostMapping
-    public ResponseEntity salvar(@RequestBody Cliente request) {
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
+    public ResponseEntity salvar(@RequestBody ClienteCadastrarRequest request) {
+        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request.toEntity());
 
         FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
 

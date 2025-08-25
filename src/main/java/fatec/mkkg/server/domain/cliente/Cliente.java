@@ -71,4 +71,10 @@ public class Cliente extends EntidadeDominio {
         this.email = email;
         this.telefone = telefone;
     }
+
+    public Cliente(Integer id, String nome, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+    }
 }

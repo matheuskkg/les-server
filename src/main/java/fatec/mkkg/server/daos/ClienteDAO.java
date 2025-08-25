@@ -157,4 +157,15 @@ public class ClienteDAO implements IDAO {
             return new Cliente();
         }
     }
+
+    public Cliente buscarPorEmailParaLogin(String email) {
+        try {
+            return entityManager
+                    .createQuery("select c from Cliente c join fetch c.senha where c.email = :email and c.cadastroAtivo = true", Cliente.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

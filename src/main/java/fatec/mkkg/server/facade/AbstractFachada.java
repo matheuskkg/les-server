@@ -4,6 +4,7 @@ import fatec.mkkg.server.daos.*;
 import fatec.mkkg.server.domain.cartao.Bandeira;
 import fatec.mkkg.server.domain.cartao.CartaoCredito;
 import fatec.mkkg.server.domain.cliente.Cliente;
+import fatec.mkkg.server.domain.cliente.Login;
 import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.domain.endereco.Endereco;
 import fatec.mkkg.server.strategies.IStrategy;
@@ -74,12 +75,13 @@ public class AbstractFachada {
     protected Map<String, IDAO> daos = new HashMap<>();
 
     @Autowired
-    public AbstractFachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, SenhaDAO senhaDAO) {
+    public AbstractFachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, SenhaDAO senhaDAO, LoginDAO loginDAO) {
         daos.put(Bandeira.class.getName(), bandeiraDAO);
         daos.put(CartaoCredito.class.getName(), cartaoCreditoDAO);
         daos.put(Cliente.class.getName(), clienteDAO);
         daos.put(Endereco.class.getName(), enderecoDAO);
         daos.put(Senha.class.getName(), senhaDAO);
+        daos.put(Login.class.getName(), loginDAO);
     }
 
     protected void inicializarSalvar() {
@@ -130,5 +132,8 @@ public class AbstractFachada {
 
         List<IStrategy> rnsConsultarBandeira = List.of();
         rns.put(Bandeira.class.getName(), rnsConsultarBandeira);
+
+        List<IStrategy> rnsConsularLogin = List.of();
+        rns.put(Login.class.getName(), rnsConsularLogin);
     }
 }

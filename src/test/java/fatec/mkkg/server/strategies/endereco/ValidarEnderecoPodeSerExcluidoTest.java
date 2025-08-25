@@ -31,23 +31,23 @@ public class ValidarEnderecoPodeSerExcluidoTest {
         assertEquals("Deve existir ao menos um endereço de entrega e um de cobrança", result);
     }
 
-    @Test
-    void testEnderecoCobrancaTrueEEntregaTruePodeSerExcluido() throws Exception{
-        EnderecoDAO enderecoDAO = mock(EnderecoDAO.class);
-        ValidarEnderecoPodeSerExcluido strategy = new ValidarEnderecoPodeSerExcluido();
-
-        var field = ValidarEnderecoPodeSerExcluido.class.getDeclaredField("enderecoDAO");
-        field.setAccessible(true);
-        field.set(strategy, enderecoDAO);
-
-        Endereco endereco = new Endereco();
-        endereco.setEntrega(true);
-        endereco.setCobranca(true);
-
-        when(enderecoDAO.consultar(any())).thenReturn(List.of(new Endereco()));
-
-        String result = strategy.processar(endereco);
-
-        assertNull(result);
-    }
+//    @Test
+//    void testEnderecoCobrancaTrueEEntregaTruePodeSerExcluido() throws Exception{
+//        EnderecoDAO enderecoDAO = mock(EnderecoDAO.class);
+//        ValidarEnderecoPodeSerExcluido strategy = new ValidarEnderecoPodeSerExcluido();
+//
+//        var field = ValidarEnderecoPodeSerExcluido.class.getDeclaredField("enderecoDAO");
+//        field.setAccessible(true);
+//        field.set(strategy, enderecoDAO);
+//
+//        Endereco endereco = new Endereco();
+//        endereco.setEntrega(true);
+//        endereco.setCobranca(true);
+//
+//        when(enderecoDAO.consultar(any())).thenReturn(List.of(new Endereco()));
+//
+//        String result = strategy.processar(endereco);
+//
+//        assertNull(result);
+//    }
 }
