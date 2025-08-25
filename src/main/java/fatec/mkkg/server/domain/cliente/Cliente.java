@@ -4,10 +4,7 @@ import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.endereco.Endereco;
 import fatec.mkkg.server.domain.telefone.Telefone;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 

@@ -5,6 +5,7 @@ import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.domain.endereco.Endereco;
 import fatec.mkkg.server.domain.telefone.Telefone;
+import fatec.mkkg.server.repositories.ClienteRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
@@ -14,158 +15,135 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+//TODO: refatorar tudo p repository, utilizar o DAO como uma service
 @Component
 public class ClienteDAO implements IDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+	@PersistenceContext
+	private EntityManager entityManager;
 
-    @Autowired
-    private EnderecoDAO enderecoDAO;
+	@Autowired
+	private EnderecoDAO enderecoDAO;
 
-    @Autowired
-    private TelefoneDAO telefoneDAO;
+	@Autowired
+	private TelefoneDAO telefoneDAO;
 
-    @Autowired
-    private SenhaDAO senhaDAO;
+	@Autowired
+	private SenhaDAO senhaDAO;
 
-    @Transactional
-    @Override
-    public void salvar(EntidadeDominio entidade) {
-        Cliente cliente = (Cliente) entidade;
-        Endereco endereco = cliente.getEndereco();
-        Telefone telefone = cliente.getTelefone();
-        Senha senha = cliente.getSenha();
+	@Autowired
+	private ClienteRepository clienteRepository;
 
-        senhaDAO.salvar(senha);
+	@Transactional
+	@Override
+	public void salvar(EntidadeDominio entidade) {
+		Cliente cliente = (Cliente) entidade;
+		Endereco endereco = cliente.getEndereco();
+		Telefone telefone = cliente.getTelefone();
+		Senha senha = cliente.getSenha();
 
-        cliente = entityManager.merge(cliente);
+		senhaDAO.salvar(senha);
 
-        endereco.setCliente(cliente);
-        enderecoDAO.salvar(endereco);
+		cliente = entityManager.merge(cliente);
 
-        telefone.setCliente(cliente);
-        telefoneDAO.salvar(telefone);
-    }
+		endereco.setCliente(cliente);
+		enderecoDAO.salvar(endereco);
 
-    @Transactional
-    @Override
-    public void alterar(EntidadeDominio entidade) {
-        Cliente cliente = (Cliente) entidade;
+		telefone.setCliente(cliente);
+		telefoneDAO.salvar(telefone);
+	}
 
-        Telefone telefone = cliente.getTelefone();
-        telefone.setCliente(cliente);
-        telefoneDAO.alterar(telefone);
-        alterarCadastroCliente(cliente);
-    }
+	@Transactional
+	@Override
+	public void alterar(EntidadeDominio entidade) {
+		Cliente cliente = (Cliente) entidade;
 
-    @Transactional
-    @Override
-    public void excluir(EntidadeDominio entidade) {
-        Cliente cliente = (Cliente) entidade;
+		Telefone telefone = cliente.getTelefone();
+		telefone.setCliente(cliente);
+		telefoneDAO.alterar(telefone);
+		alterarCadastroCliente(cliente);
+	}
 
-        inativarCliente(cliente);
-    }
+	@Transactional
+	@Override
+	public void excluir(EntidadeDominio entidade) {
+		Cliente cliente = (Cliente) entidade;
 
-    @Override
-    public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-        Cliente cliente = (Cliente) entidade;
+		inativarCliente(cliente);
+	}
 
-        if (cliente.getNome() != null && cliente.getCpf() != null && cliente.getEmail() != null) {
-            return List.copyOf(buscarPorFiltroNomeCpfEmail(cliente));
-        }
+	@Override
+	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
+		Cliente cliente = (Cliente) entidade;
 
-        return List.of();
-    }
+		return List.copyOf(clienteRepository.buscarPorClienteFiltro(
+				cliente.getNome(),
+				cliente.getEmail(),
+				cliente.getCpf())
+		);
+	}
 
-    private void alterarCadastroCliente(Cliente cliente) {
-        entityManager
-                .createQuery("""
-                    update Cliente c set
-                        c.nome = :nome,
-                        c.dataNascimento = :dataNascimento,
-                        c.genero = :genero,
-                        c.cpf = :cpf,
-                        c.email = :email
-                    where c.id = :id
-                """)
-                .setParameter("nome", cliente.getNome())
-                .setParameter("dataNascimento", cliente.getDataNascimento())
-                .setParameter("genero", cliente.getGenero())
-                .setParameter("cpf", cliente.getCpf())
-                .setParameter("email", cliente.getEmail())
-                .setParameter("id", cliente.getId())
-                .executeUpdate();
-    }
+	private void alterarCadastroCliente(Cliente cliente) {
+		entityManager
+				.createQuery("""
+						    update Cliente c set
+						        c.nome = :nome,
+						        c.dataNascimento = :dataNascimento,
+						        c.genero = :genero,
+						        c.cpf = :cpf,
+						        c.email = :email
+						    where c.id = :id
+						""")
+				.setParameter("nome", cliente.getNome())
+				.setParameter("dataNascimento", cliente.getDataNascimento())
+				.setParameter("genero", cliente.getGenero())
+				.setParameter("cpf", cliente.getCpf())
+				.setParameter("email", cliente.getEmail())
+				.setParameter("id", cliente.getId())
+				.executeUpdate();
+	}
 
-    private void inativarCliente(Cliente cliente) {
-        entityManager
-                .createQuery("""
-                    update Cliente c set
-                        c.cadastroAtivo = false
-                    where c.id = :id
-                """)
-                .setParameter("id", cliente.getId())
-                .executeUpdate();
-    }
+	private void inativarCliente(Cliente cliente) {
+		entityManager
+				.createQuery("""
+						    update Cliente c set
+						        c.cadastroAtivo = false
+						    where c.id = :id
+						""")
+				.setParameter("id", cliente.getId())
+				.executeUpdate();
+	}
 
-    private List<Cliente> buscarPorFiltroNomeCpfEmail(Cliente cliente) {
-        return entityManager
-                    .createQuery("""
-                        select new fatec.mkkg.server.domain.cliente.Cliente(
-                            c.id,
-                            c.nome,
-                            c.dataNascimento,
-                            c.genero,
-                            c.cpf,
-                            c.email,
-                            new fatec.mkkg.server.domain.telefone.Telefone(t.id, t.ddd, t.tipoTelefone, t.numero)
-                        )
-                        from Cliente c
-                        join Telefone t on t.cliente.id = c.id
-                        where
-                            c.cadastroAtivo = true
-                            and (:nome is null or LOWER(c.nome) like LOWER(CONCAT('%', :nome, '%')))
-                            and (:cpf is null or c.cpf = :cpf)
-                            and (:email is null or LOWER(c.email) = LOWER(:email))
-                        order by c.nome
-                    """, Cliente.class)
-                    .setParameter("nome", cliente.getNome())
-                    .setParameter("cpf", cliente.getCpf())
-                    .setParameter("email", cliente.getEmail())
-                    .getResultList();
-    }
+	public Cliente buscarPorCpf(Cliente cliente) {
+		try {
+			return entityManager
+					.createQuery("select new fatec.mkkg.server.domain.cliente.Cliente(c.id) from Cliente c where c.cpf = :cpfCliente", Cliente.class)
+					.setParameter("cpfCliente", cliente.getCpf())
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return new Cliente();
+		}
+	}
 
-    public Cliente buscarPorCpf(Cliente cliente) {
-        try {
-            return entityManager
-                    .createQuery("select new fatec.mkkg.server.domain.cliente.Cliente(c.id) from Cliente c where c.cpf = :cpfCliente", Cliente.class)
-                    .setParameter("cpfCliente", cliente.getCpf())
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return new Cliente();
-        }
-    }
+	public Cliente buscarPorEmail(Cliente cliente) {
+		try {
+			return entityManager
+					.createQuery("select new fatec.mkkg.server.domain.cliente.Cliente(c.id) from Cliente c where c.email = :emailCliente", Cliente.class)
+					.setParameter("emailCliente", cliente.getEmail())
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return new Cliente();
+		}
+	}
 
-    public Cliente buscarPorEmail(Cliente cliente) {
-        try {
-            return entityManager
-                    .createQuery("select new fatec.mkkg.server.domain.cliente.Cliente(c.id) from Cliente c where c.email = :emailCliente", Cliente.class)
-                    .setParameter("emailCliente", cliente.getEmail())
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return new Cliente();
-        }
-    }
-
-    public Cliente buscarPorEmailParaLogin(String email) {
-        try {
-            return entityManager
-                    .createQuery("select c from Cliente c join fetch c.senha where c.email = :email and c.cadastroAtivo = true", Cliente.class)
-                    .setParameter("email", email)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
+	public Cliente buscarPorEmailParaLogin(String email) {
+		try {
+			return entityManager
+					.createQuery("select c from Cliente c join fetch c.senha where c.email = :email and c.cadastroAtivo = true", Cliente.class)
+					.setParameter("email", email)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }
