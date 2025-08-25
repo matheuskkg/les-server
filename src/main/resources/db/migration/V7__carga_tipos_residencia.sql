@@ -1,3 +1,2 @@
-INSERT INTO tipos_residencia (tpr_id, tpr_tipo) VALUES (tipos_residencia_seq.nextval, 'Casa');
-INSERT INTO tipos_residencia (tpr_id, tpr_tipo) VALUES (tipos_residencia_seq.nextval, 'Apartamento');
-
+INSERT INTO tipos_residencia (tpr_id, tpr_tipo) VALUES (nextval('tipos_residencia_seq'), 'Casa');
+INSERT INTO tipos_residencia (tpr_id, tpr_tipo) VALUES (nextval('tipos_residencia_seq'), 'Apartamento');
