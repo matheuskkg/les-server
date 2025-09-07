@@ -7,11 +7,13 @@ import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.util.Criptografia;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class CriptografarSenha implements IStrategy {
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		Senha senha;
 
 		if (entidade instanceof Cliente cliente) {

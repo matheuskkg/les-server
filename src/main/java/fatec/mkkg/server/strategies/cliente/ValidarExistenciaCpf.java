@@ -7,6 +7,8 @@ import fatec.mkkg.server.strategies.IStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ValidarExistenciaCpf implements IStrategy {
 
@@ -14,7 +16,7 @@ public class ValidarExistenciaCpf implements IStrategy {
 	private ClienteDAO clienteDAO;
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		Cliente cliente = (Cliente) entidade;
 
 		Cliente filtro = new Cliente();
@@ -22,7 +24,7 @@ public class ValidarExistenciaCpf implements IStrategy {
 
 		Cliente clienteCpf = clienteDAO.buscarPorCpf(filtro);
 		if (clienteCpf.getId() != null && !clienteCpf.getId().equals(cliente.getId())) {
-			return "CPF já está cadastrado";
+			return List.of("CPF já está cadastrado");
 		}
 
 		return null;

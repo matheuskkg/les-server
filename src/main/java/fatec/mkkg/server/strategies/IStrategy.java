@@ -2,8 +2,10 @@ package fatec.mkkg.server.strategies;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
 
+import java.util.List;
+
 public interface IStrategy {
 
-	String processar(EntidadeDominio entidade);
+	List<String> processar(EntidadeDominio entidade);
 
 }
