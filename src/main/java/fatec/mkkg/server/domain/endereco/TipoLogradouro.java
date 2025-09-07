@@ -17,7 +17,7 @@ public class TipoLogradouro extends EntidadeDominio {
 	@Column(name = "tpl_id")
 	private Integer id;
 
-	@Column(name = "tpl_tipo", nullable = false)
+	@Column(name = "tpl_tipo")
 	private String tipo;
 
 }

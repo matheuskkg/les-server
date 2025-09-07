@@ -20,7 +20,7 @@ public class TipoResidencia extends EntidadeDominio {
 	@Column(name = "tpr_id")
 	private Integer id;
 
-	@Column(name = "tpr_tipo", nullable = false)
+	@Column(name = "tpr_tipo")
 	private String tipo;
 
 }
