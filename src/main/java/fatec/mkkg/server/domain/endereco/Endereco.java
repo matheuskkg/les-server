@@ -18,49 +18,49 @@ public class Endereco extends EntidadeDominio {
 	@Column(name = "end_id")
 	private Integer id;
 
-	@Column(name = "end_nome_identificador", nullable = false)
+	@Column(name = "end_nome_identificador")
 	private String nomeIdentificador;
 
-	@Column(name = "end_pais", nullable = false)
+	@Column(name = "end_pais")
 	private String pais;
 
-	@Column(name = "end_estado", nullable = false)
+	@Column(name = "end_estado")
 	private String estado;
 
-	@Column(name = "end_cidade", nullable = false)
+	@Column(name = "end_cidade")
 	private String cidade;
 
 	@ManyToOne
-	@JoinColumn(name = "end_tpl_id", referencedColumnName = "tpl_id", nullable = false)
+	@JoinColumn(name = "end_tpl_id", referencedColumnName = "tpl_id")
 	private TipoLogradouro tipoLogradouro;
 
-	@Column(name = "end_logradouro", nullable = false)
+	@Column(name = "end_logradouro")
 	private String logradouro;
 
 	@ManyToOne
-	@JoinColumn(name = "end_tpr_id", referencedColumnName = "tpr_id", nullable = false)
+	@JoinColumn(name = "end_tpr_id", referencedColumnName = "tpr_id")
 	private TipoResidencia tipoResidencia;
 
-	@Column(name = "end_numero", nullable = false)
+	@Column(name = "end_numero")
 	private String numero;
 
-	@Column(name = "end_bairro", nullable = false)
+	@Column(name = "end_bairro")
 	private String bairro;
 
-	@Column(name = "end_cep", nullable = false)
+	@Column(name = "end_cep")
 	private String cep;
 
 	@Column(name = "end_observacao")
 	private String observacao;
 
-	@Column(name = "end_cobranca", nullable = false)
+	@Column(name = "end_cobranca")
 	private Boolean cobranca;
 
-	@Column(name = "end_entrega", nullable = false)
+	@Column(name = "end_entrega")
 	private Boolean entrega;
 
 	@ManyToOne
-	@JoinColumn(name = "end_cli_id", referencedColumnName = "cli_id", nullable = false)
+	@JoinColumn(name = "end_cli_id", referencedColumnName = "cli_id")
 	private Cliente cliente;
 
 	public Endereco(Integer id) {

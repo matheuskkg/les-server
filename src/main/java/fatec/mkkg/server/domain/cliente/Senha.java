@@ -20,7 +20,7 @@ public class Senha extends EntidadeDominio {
 	@Column(name = "sen_id")
 	private Integer id;
 
-	@Column(name = "sen_senha", nullable = false)
+	@Column(name = "sen_senha")
 	private String senha;
 
 	@Transient

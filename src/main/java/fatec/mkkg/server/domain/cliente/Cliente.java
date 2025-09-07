@@ -21,26 +21,26 @@ public class Cliente extends EntidadeDominio {
 	@Column(name = "cli_id")
 	private Integer id;
 
-	@Column(name = "cli_nome", nullable = false)
+	@Column(name = "cli_nome")
 	private String nome;
 
-	@Column(name = "cli_data_nascimento", nullable = false)
+	@Column(name = "cli_data_nascimento")
 	private LocalDate dataNascimento;
 
-	@Column(name = "cli_genero", nullable = false)
+	@Column(name = "cli_genero")
 	private String genero;
 
-	@Column(name = "cli_cpf", nullable = false, unique = true)
+	@Column(name = "cli_cpf")
 	private String cpf;
 
-	@Column(name = "cli_email", nullable = false, unique = true)
+	@Column(name = "cli_email")
 	private String email;
 
 	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-	@JoinColumn(name = "cli_sen_id", referencedColumnName = "sen_id", nullable = false)
+	@JoinColumn(name = "cli_sen_id", referencedColumnName = "sen_id")
 	private Senha senha;
 
-	@Column(name = "cli_cadastro_ativo", nullable = false)
+	@Column(name = "cli_cadastro_ativo")
 	private Boolean cadastroAtivo;
 
 	@Transient
