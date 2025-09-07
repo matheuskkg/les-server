@@ -50,7 +50,8 @@ public class LoginDAO implements IDAO {
 
 		Cliente cliente = clienteDAO.buscarPorEmailParaLogin(login.getEmail());
 
-		if (cliente == null || cliente.getSenha() == null || !Criptografia.verificarCriptografia(login.getSenha(), cliente.getSenha().getSenha())) {
+		if (cliente == null || cliente.getSenha() == null
+				|| !Criptografia.verificarCriptografia(login.getSenha(), cliente.getSenha().getSenha())) {
 			throw new InvalidCredentialsException();
 		}
 
@@ -63,12 +64,13 @@ public class LoginDAO implements IDAO {
 	private String gerarToken(Cliente cliente) {
 		Instant now = Instant.now();
 		JwtClaimsSet claims = JwtClaimsSet.builder()
-				.subject(cliente.getId().toString())
-				.issuedAt(now)
-				.expiresAt(now.plus(1, ChronoUnit.HOURS))
-				.claim("nome", cliente.getNome())
-				.claim("email", cliente.getEmail())
-				.build();
+			.subject(cliente.getId().toString())
+			.issuedAt(now)
+			.expiresAt(now.plus(1, ChronoUnit.HOURS))
+			.claim("nome", cliente.getNome())
+			.claim("email", cliente.getEmail())
+			.build();
 		return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 	}
+
 }

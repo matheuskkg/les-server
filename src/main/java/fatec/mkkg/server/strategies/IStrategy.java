@@ -4,6 +4,6 @@ import fatec.mkkg.server.domain.EntidadeDominio;
 
 public interface IStrategy {
 
-    String processar(EntidadeDominio entidade);
+	String processar(EntidadeDominio entidade);
 
 }

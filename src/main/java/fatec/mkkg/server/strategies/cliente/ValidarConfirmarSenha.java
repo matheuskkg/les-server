@@ -8,20 +8,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ValidarConfirmarSenha implements IStrategy {
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Senha senha;
 
-        if (entidade instanceof Cliente cliente) {
-            senha = cliente.getSenha();
-        } else {
-            senha = (Senha) entidade;
-        }
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Senha senha;
 
-        if (!senha.getSenha().equals(senha.getSenhaConfirmar())) {
-            return "Senhas não coincidem";
-        }
+		if (entidade instanceof Cliente cliente) {
+			senha = cliente.getSenha();
+		}
+		else {
+			senha = (Senha) entidade;
+		}
 
-        return null;
-    }
+		if (!senha.getSenha().equals(senha.getSenhaConfirmar())) {
+			return "Senhas não coincidem";
+		}
+
+		return null;
+	}
+
 }

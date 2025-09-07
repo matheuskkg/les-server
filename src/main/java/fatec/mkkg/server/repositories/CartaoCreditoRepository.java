@@ -12,31 +12,31 @@ import java.util.List;
 public interface CartaoCreditoRepository extends JpaRepository<CartaoCredito, Integer> {
 
 	@Query("""
-		select new fatec.mkkg.server.domain.cartao.CartaoCredito(
-			cc.id,
-			cc.bandeira,
-			cc.nomeTitular,
-			cc.numero,
-			cc.codigoSeguranca,
-			cc.preferencial
-		)
-		from CartaoCredito cc
-		where cc.cliente.id = :clienteId
-	""")
+				select new fatec.mkkg.server.domain.cartao.CartaoCredito(
+					cc.id,
+					cc.bandeira,
+					cc.nomeTitular,
+					cc.numero,
+					cc.codigoSeguranca,
+					cc.preferencial
+				)
+				from CartaoCredito cc
+				where cc.cliente.id = :clienteId
+			""")
 	List<CartaoCredito> buscarPorClienteId(@Param("clienteId") Integer clienteId);
 
 	@Query("""
-		select new fatec.mkkg.server.domain.cartao.CartaoCredito(
-			cc.id,
-			cc.bandeira,
-			cc.nomeTitular,
-			cc.numero,
-			cc.codigoSeguranca,
-			cc.preferencial
-		)
-		from CartaoCredito cc
-		where cc.id = :id
-	""")
+				select new fatec.mkkg.server.domain.cartao.CartaoCredito(
+					cc.id,
+					cc.bandeira,
+					cc.nomeTitular,
+					cc.numero,
+					cc.codigoSeguranca,
+					cc.preferencial
+				)
+				from CartaoCredito cc
+				where cc.id = :id
+			""")
 	CartaoCredito buscarPorId(@Param("id") Integer id);
 
 }

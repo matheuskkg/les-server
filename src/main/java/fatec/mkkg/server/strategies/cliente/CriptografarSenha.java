@@ -9,20 +9,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CriptografarSenha implements IStrategy {
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Senha senha;
 
-        if (entidade instanceof Cliente cliente) {
-            senha = cliente.getSenha();
-        } else {
-            senha = (Senha) entidade;
-        }
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Senha senha;
 
-        String senhaCriptografada = Criptografia.criptografar(senha.getSenha());
+		if (entidade instanceof Cliente cliente) {
+			senha = cliente.getSenha();
+		}
+		else {
+			senha = (Senha) entidade;
+		}
 
-        senha.setSenha(senhaCriptografada);
+		String senhaCriptografada = Criptografia.criptografar(senha.getSenha());
 
-        return null;
-    }
+		senha.setSenha(senhaCriptografada);
+
+		return null;
+	}
+
 }

@@ -14,63 +14,63 @@ import java.util.List;
 @Component
 public class TelefoneDAO implements IDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+	@PersistenceContext
+	private EntityManager entityManager;
 
-    @Autowired
-    private TipoTelefoneDAO tipoTelefoneDAO;
+	@Autowired
+	private TipoTelefoneDAO tipoTelefoneDAO;
 
-    private void complementar(Telefone telefone) {
-        if (telefone.getTipoTelefone().getId() == null) {
-            telefone.setTipoTelefone((TipoTelefone) tipoTelefoneDAO.consultar(telefone.getTipoTelefone()).getFirst());
-        }
-    }
+	private void complementar(Telefone telefone) {
+		if (telefone.getTipoTelefone().getId() == null) {
+			telefone.setTipoTelefone((TipoTelefone) tipoTelefoneDAO.consultar(telefone.getTipoTelefone()).getFirst());
+		}
+	}
 
-    @Transactional
-    @Override
-    public void salvar(EntidadeDominio entidade) {
-        Telefone telefone = (Telefone) entidade;
+	@Transactional
+	@Override
+	public void salvar(EntidadeDominio entidade) {
+		Telefone telefone = (Telefone) entidade;
 
-        complementar(telefone);
+		complementar(telefone);
 
-        entityManager.persist(telefone);
-    }
+		entityManager.persist(telefone);
+	}
 
-    @Transactional
-    @Override
-    public void alterar(EntidadeDominio entidade) {
-        Telefone telefone = (Telefone) entidade;
+	@Transactional
+	@Override
+	public void alterar(EntidadeDominio entidade) {
+		Telefone telefone = (Telefone) entidade;
 
-        complementar(telefone);
+		complementar(telefone);
 
-        Telefone telefoneExistente = (Telefone) consultar(telefone).getFirst();
+		Telefone telefoneExistente = (Telefone) consultar(telefone).getFirst();
 
-        telefone.setId(telefoneExistente.getId());
+		telefone.setId(telefoneExistente.getId());
 
-        entityManager.merge(telefone);
-    }
+		entityManager.merge(telefone);
+	}
 
-    @Transactional
-    @Override
-    public void excluir(EntidadeDominio entidade) {
+	@Transactional
+	@Override
+	public void excluir(EntidadeDominio entidade) {
 
-    }
+	}
 
-    @Override
-    public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-        Telefone telefone = (Telefone) entidade;
+	@Override
+	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
+		Telefone telefone = (Telefone) entidade;
 
-        if (telefone.getCliente() != null && telefone.getCliente().getId() != null) {
-            return List.of(buscarPorCliente(telefone));
-        }
+		if (telefone.getCliente() != null && telefone.getCliente().getId() != null) {
+			return List.of(buscarPorCliente(telefone));
+		}
 
-        return List.of();
-    }
+		return List.of();
+	}
 
-    private Telefone buscarPorCliente(Telefone telefone) {
-        return entityManager
-                .createQuery("select t from Telefone t where t.cliente.id = :clienteId", Telefone.class)
-                .setParameter("clienteId", telefone.getCliente().getId())
-                .getSingleResult();
-    }
+	private Telefone buscarPorCliente(Telefone telefone) {
+		return entityManager.createQuery("select t from Telefone t where t.cliente.id = :clienteId", Telefone.class)
+			.setParameter("clienteId", telefone.getCliente().getId())
+			.getSingleResult();
+	}
+
 }

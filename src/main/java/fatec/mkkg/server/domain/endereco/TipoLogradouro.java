@@ -12,12 +12,12 @@ import lombok.*;
 @AllArgsConstructor
 public class TipoLogradouro extends EntidadeDominio {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "tpl_id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "tpl_id")
+	private Integer id;
 
-    @Column(name = "tpl_tipo", nullable = false)
-    private String tipo;
+	@Column(name = "tpl_tipo", nullable = false)
+	private String tipo;
 
 }

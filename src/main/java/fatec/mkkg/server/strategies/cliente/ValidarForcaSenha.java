@@ -8,22 +8,25 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ValidarForcaSenha implements IStrategy {
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Senha senha;
 
-        if (entidade instanceof Cliente cliente) {
-            senha = cliente.getSenha();
-        } else {
-            senha = (Senha) entidade;
-        }
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Senha senha;
 
-        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*., ?]).{8,}$";
+		if (entidade instanceof Cliente cliente) {
+			senha = cliente.getSenha();
+		}
+		else {
+			senha = (Senha) entidade;
+		}
 
-        if (!senha.getSenha().matches(regex)) {
-            return "Senha fraca";
-        }
+		String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*., ?]).{8,}$";
 
-        return null;
-    }
+		if (!senha.getSenha().matches(regex)) {
+			return "Senha fraca";
+		}
+
+		return null;
+	}
+
 }

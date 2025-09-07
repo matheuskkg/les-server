@@ -12,12 +12,12 @@ import lombok.*;
 @AllArgsConstructor
 public class Bandeira extends EntidadeDominio {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ban_id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ban_id")
+	private Integer id;
 
-    @Column(name = "ban_bandeira")
-    private String bandeira;
+	@Column(name = "ban_bandeira")
+	private String bandeira;
 
 }

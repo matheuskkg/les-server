@@ -29,9 +29,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 				and (:email is null or trim(:email) = '' or lower(c.email) = lower(:email))
 			order by c.nome
 			""")
-	List<Cliente> buscarPorClienteFiltro(@Param("nome") String nome,
-	                                     @Param("email") String email,
-	                                     @Param("cpf") String cpf);
+	List<Cliente> buscarPorClienteFiltro(@Param("nome") String nome, @Param("email") String email,
+			@Param("cpf") String cpf);
 
 	@Query("""
 				select new fatec.mkkg.server.domain.cliente.Cliente(

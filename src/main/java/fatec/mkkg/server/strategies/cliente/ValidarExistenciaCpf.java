@@ -10,21 +10,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class ValidarExistenciaCpf implements IStrategy {
 
-    @Autowired
-    private ClienteDAO clienteDAO;
+	@Autowired
+	private ClienteDAO clienteDAO;
 
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Cliente cliente = (Cliente) entidade;
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Cliente cliente = (Cliente) entidade;
 
-        Cliente filtro = new Cliente();
-        filtro.setCpf(cliente.getCpf());
+		Cliente filtro = new Cliente();
+		filtro.setCpf(cliente.getCpf());
 
-        Cliente clienteCpf = clienteDAO.buscarPorCpf(filtro);
-        if (clienteCpf.getId() != null && !clienteCpf.getId().equals(cliente.getId())) {
-            return "CPF já está cadastrado";
-        }
+		Cliente clienteCpf = clienteDAO.buscarPorCpf(filtro);
+		if (clienteCpf.getId() != null && !clienteCpf.getId().equals(cliente.getId())) {
+			return "CPF já está cadastrado";
+		}
 
-        return null;
-    }
+		return null;
+	}
+
 }

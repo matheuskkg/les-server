@@ -15,21 +15,22 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Senha extends EntidadeDominio {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "sen_id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "sen_id")
+	private Integer id;
 
-    @Column(name = "sen_senha", nullable = false)
-    private String senha;
+	@Column(name = "sen_senha", nullable = false)
+	private String senha;
 
-    @Transient
-    private String senhaConfirmar;
+	@Transient
+	private String senhaConfirmar;
 
-    @Transient
-    private Cliente cliente;
+	@Transient
+	private Cliente cliente;
 
-    public Senha(String senha) {
-        this.senha = senha;
-    }
+	public Senha(String senha) {
+		this.senha = senha;
+	}
+
 }

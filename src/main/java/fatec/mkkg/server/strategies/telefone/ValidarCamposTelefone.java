@@ -12,30 +12,32 @@ import java.util.List;
 
 @Component
 public class ValidarCamposTelefone implements IStrategy {
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Telefone telefone = ((Cliente) entidade).getTelefone();
 
-        String prefixo = "Os campos ";
-        String sufixo = "não foram devidamente preenchidos";
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Telefone telefone = ((Cliente) entidade).getTelefone();
 
-        List<String> camposNaoPreenchidos = new ArrayList<>();
+		String prefixo = "Os campos ";
+		String sufixo = "não foram devidamente preenchidos";
 
-        camposNaoPreenchidos.add(Validacao.validar(telefone.getDdd(), "ddd"));
-        camposNaoPreenchidos.add(Validacao.validar(telefone.getTipoTelefone().getTipo(), "tipoTelefone"));
-        camposNaoPreenchidos.add(Validacao.validar(telefone.getNumero(), "numero"));
+		List<String> camposNaoPreenchidos = new ArrayList<>();
 
-        StringBuilder sb = new StringBuilder();
-        for (String campo : camposNaoPreenchidos) {
-            if (!campo.isEmpty()) {
-                sb.append("'").append(campo).append("' ");
-            }
-        }
+		camposNaoPreenchidos.add(Validacao.validar(telefone.getDdd(), "ddd"));
+		camposNaoPreenchidos.add(Validacao.validar(telefone.getTipoTelefone().getTipo(), "tipoTelefone"));
+		camposNaoPreenchidos.add(Validacao.validar(telefone.getNumero(), "numero"));
 
-        if (!sb.isEmpty()) {
-            return prefixo + sb.toString() + sufixo;
-        }
+		StringBuilder sb = new StringBuilder();
+		for (String campo : camposNaoPreenchidos) {
+			if (!campo.isEmpty()) {
+				sb.append("'").append(campo).append("' ");
+			}
+		}
 
-        return null;
-    }
+		if (!sb.isEmpty()) {
+			return prefixo + sb.toString() + sufixo;
+		}
+
+		return null;
+	}
+
 }

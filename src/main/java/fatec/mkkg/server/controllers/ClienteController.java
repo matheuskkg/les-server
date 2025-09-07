@@ -29,7 +29,8 @@ public class ClienteController {
 
 		FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
 
-		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
+		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.CREATED
+				: HttpStatus.BAD_REQUEST;
 
 		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
 	}
@@ -42,7 +43,8 @@ public class ClienteController {
 
 		FachadaResponseDTO fachadaResponseDTO = fachada.alterar(fachadaRequestDTO);
 
-		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK
+				: HttpStatus.BAD_REQUEST;
 
 		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
 	}
@@ -55,7 +57,8 @@ public class ClienteController {
 
 		FachadaResponseDTO fachadaResponseDTO = fachada.alterar(fachadaRequestDTO);
 
-		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK
+				: HttpStatus.BAD_REQUEST;
 
 		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
 	}
@@ -69,17 +72,16 @@ public class ClienteController {
 
 		FachadaResponseDTO fachadaResponseDTO = fachada.excluir(fachadaRequestDTO);
 
-		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK
+				: HttpStatus.BAD_REQUEST;
 
 		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
 	}
 
 	@GetMapping
-	public ResponseEntity consultar(
-			@RequestParam(name = "nome", defaultValue = "", required = false) String nome,
+	public ResponseEntity consultar(@RequestParam(name = "nome", defaultValue = "", required = false) String nome,
 			@RequestParam(name = "cpf", defaultValue = "", required = false) String cpf,
-			@RequestParam(name = "email", defaultValue = "", required = false) String email
-	) {
+			@RequestParam(name = "email", defaultValue = "", required = false) String email) {
 		Cliente cliente = new Cliente();
 		cliente.setNome(nome);
 		cliente.setCpf(cpf);
@@ -136,4 +138,5 @@ public class ClienteController {
 
 		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
 	}
+
 }

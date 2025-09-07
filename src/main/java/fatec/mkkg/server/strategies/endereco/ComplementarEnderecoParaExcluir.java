@@ -10,20 +10,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class ComplementarEnderecoParaExcluir implements IStrategy {
 
-    @Autowired
-    private EnderecoDAO enderecoDAO;
+	@Autowired
+	private EnderecoDAO enderecoDAO;
 
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Endereco endereco = (Endereco) entidade;
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Endereco endereco = (Endereco) entidade;
 
-        Endereco enderecoDados = new Endereco(endereco.getId());
-        enderecoDados = enderecoDAO.complementarParaExcluir(enderecoDados);
+		Endereco enderecoDados = new Endereco(endereco.getId());
+		enderecoDados = enderecoDAO.complementarParaExcluir(enderecoDados);
 
-        endereco.setCobranca(enderecoDados.getCobranca());
-        endereco.setEntrega(enderecoDados.getEntrega());
-        endereco.setCliente(enderecoDados.getCliente());
+		endereco.setCobranca(enderecoDados.getCobranca());
+		endereco.setEntrega(enderecoDados.getEntrega());
+		endereco.setCliente(enderecoDados.getCliente());
 
-        return null;
-    }
+		return null;
+	}
+
 }

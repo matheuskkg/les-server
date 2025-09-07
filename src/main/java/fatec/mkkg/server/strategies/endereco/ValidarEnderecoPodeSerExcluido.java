@@ -12,45 +12,46 @@ import java.util.List;
 @Component
 public class ValidarEnderecoPodeSerExcluido implements IStrategy {
 
-    @Autowired
-    private EnderecoDAO enderecoDAO;
+	@Autowired
+	private EnderecoDAO enderecoDAO;
 
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Endereco endereco = (Endereco) entidade;
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Endereco endereco = (Endereco) entidade;
 
-        if (!endereco.getCobranca() && !endereco.getEntrega()) {
-            return null;
-        }
+		if (!endereco.getCobranca() && !endereco.getEntrega()) {
+			return null;
+		}
 
-        Endereco filtroCobranca = new Endereco();
-        filtroCobranca.setId(endereco.getId());
-        filtroCobranca.setCliente(endereco.getCliente());
-        filtroCobranca.setCobranca(true);
+		Endereco filtroCobranca = new Endereco();
+		filtroCobranca.setId(endereco.getId());
+		filtroCobranca.setCliente(endereco.getCliente());
+		filtroCobranca.setCobranca(true);
 
-        Endereco filtroEntrega = new Endereco();
-        filtroEntrega.setId(endereco.getId());
-        filtroEntrega.setCliente(endereco.getCliente());
-        filtroEntrega.setEntrega(true);
+		Endereco filtroEntrega = new Endereco();
+		filtroEntrega.setId(endereco.getId());
+		filtroEntrega.setCliente(endereco.getCliente());
+		filtroEntrega.setEntrega(true);
 
-        List<Endereco> enderecosCobranca = enderecoDAO.buscarPorClienteCobrancaIdDiferente(filtroCobranca);
-        List<Endereco> enderecosEntrega = enderecoDAO.buscarPorClienteEntregaIdDiferente(filtroEntrega);
+		List<Endereco> enderecosCobranca = enderecoDAO.buscarPorClienteCobrancaIdDiferente(filtroCobranca);
+		List<Endereco> enderecosEntrega = enderecoDAO.buscarPorClienteEntregaIdDiferente(filtroEntrega);
 
 		boolean existsByCobranca = !enderecosCobranca.isEmpty();
-        boolean existsByEntrega = !enderecosEntrega.isEmpty();
+		boolean existsByEntrega = !enderecosEntrega.isEmpty();
 
-        if (!existsByCobranca && !existsByEntrega) {
-            return "Deve existir ao menos um endereço de entrega e um de cobrança";
-        }
+		if (!existsByCobranca && !existsByEntrega) {
+			return "Deve existir ao menos um endereço de entrega e um de cobrança";
+		}
 
-        if (!existsByCobranca) {
-            return "Deve existir ao menos um endereço de cobrança";
-        }
+		if (!existsByCobranca) {
+			return "Deve existir ao menos um endereço de cobrança";
+		}
 
-        if (!existsByEntrega) {
-            return "Deve existir ao menos um endereço de entrega";
-        }
+		if (!existsByEntrega) {
+			return "Deve existir ao menos um endereço de entrega";
+		}
 
-        return null;
-    }
+		return null;
+	}
+
 }

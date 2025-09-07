@@ -17,58 +17,62 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class CartaoCreditoController {
 
-    @Autowired
-    private Fachada fachada;
+	@Autowired
+	private Fachada fachada;
 
-    @PostMapping
-    public ResponseEntity salvar(@RequestBody CartaoCredito request, @AuthenticationPrincipal Jwt jwt) {
-        request.setCliente(new Cliente(Integer.valueOf(jwt.getSubject())));
+	@PostMapping
+	public ResponseEntity salvar(@RequestBody CartaoCredito request, @AuthenticationPrincipal Jwt jwt) {
+		request.setCliente(new Cliente(Integer.valueOf(jwt.getSubject())));
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
+		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
-        FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
+		FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
 
-        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
+		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.CREATED
+				: HttpStatus.BAD_REQUEST;
 
-        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
-    }
+		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+	}
 
-    @PatchMapping("/{id}")
-    public ResponseEntity alterar(@PathVariable Integer id, @RequestBody CartaoCredito request) {
-        request.setId(id);
+	@PatchMapping("/{id}")
+	public ResponseEntity alterar(@PathVariable Integer id, @RequestBody CartaoCredito request) {
+		request.setId(id);
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
+		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
-        FachadaResponseDTO fachadaResponseDTO = fachada.alterar(fachadaRequestDTO);
+		FachadaResponseDTO fachadaResponseDTO = fachada.alterar(fachadaRequestDTO);
 
-        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK
+				: HttpStatus.BAD_REQUEST;
 
-        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
-    }
+		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity excluir(@PathVariable Integer id) {
-        CartaoCredito cartaoCredito = new CartaoCredito(id);
+	@DeleteMapping("/{id}")
+	public ResponseEntity excluir(@PathVariable Integer id) {
+		CartaoCredito cartaoCredito = new CartaoCredito(id);
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cartaoCredito);
+		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cartaoCredito);
 
-        FachadaResponseDTO fachadaResponseDTO = fachada.excluir(fachadaRequestDTO);
+		FachadaResponseDTO fachadaResponseDTO = fachada.excluir(fachadaRequestDTO);
 
-        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK
+				: HttpStatus.BAD_REQUEST;
 
-        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
-    }
+		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity consultar(@PathVariable Integer id) {
-        CartaoCredito cartaoCredito = new CartaoCredito(id);
+	@GetMapping("/{id}")
+	public ResponseEntity consultar(@PathVariable Integer id) {
+		CartaoCredito cartaoCredito = new CartaoCredito(id);
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cartaoCredito);
+		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cartaoCredito);
 
-        FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
+		FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
 
-        HttpStatus responseStatus = HttpStatus.OK;
+		HttpStatus responseStatus = HttpStatus.OK;
 
-        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
-    }
+		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+	}
+
 }

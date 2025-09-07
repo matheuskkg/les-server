@@ -80,62 +80,59 @@ public class ClienteDAO implements IDAO {
 			return List.of(clienteRepository.buscarPorId(cliente.getId()));
 		}
 
-		return List.copyOf(clienteRepository.buscarPorClienteFiltro(
-				cliente.getNome(),
-				cliente.getEmail(),
-				cliente.getCpf())
-		);
+		return List
+			.copyOf(clienteRepository.buscarPorClienteFiltro(cliente.getNome(), cliente.getEmail(), cliente.getCpf()));
 	}
 
 	private void alterarCadastroCliente(Cliente cliente) {
-		entityManager
-				.createQuery("""
-						    update Cliente c set
-						        c.nome = :nome,
-						        c.dataNascimento = :dataNascimento,
-						        c.genero = :genero,
-						        c.cpf = :cpf,
-						        c.email = :email
-						    where c.id = :id
-						""")
-				.setParameter("nome", cliente.getNome())
-				.setParameter("dataNascimento", cliente.getDataNascimento())
-				.setParameter("genero", cliente.getGenero())
-				.setParameter("cpf", cliente.getCpf())
-				.setParameter("email", cliente.getEmail())
-				.setParameter("id", cliente.getId())
-				.executeUpdate();
+		entityManager.createQuery("""
+				    update Cliente c set
+				        c.nome = :nome,
+				        c.dataNascimento = :dataNascimento,
+				        c.genero = :genero,
+				        c.cpf = :cpf,
+				        c.email = :email
+				    where c.id = :id
+				""")
+			.setParameter("nome", cliente.getNome())
+			.setParameter("dataNascimento", cliente.getDataNascimento())
+			.setParameter("genero", cliente.getGenero())
+			.setParameter("cpf", cliente.getCpf())
+			.setParameter("email", cliente.getEmail())
+			.setParameter("id", cliente.getId())
+			.executeUpdate();
 	}
 
 	private void inativarCliente(Cliente cliente) {
-		entityManager
-				.createQuery("""
-						    update Cliente c set
-						        c.cadastroAtivo = false
-						    where c.id = :id
-						""")
-				.setParameter("id", cliente.getId())
-				.executeUpdate();
+		entityManager.createQuery("""
+				    update Cliente c set
+				        c.cadastroAtivo = false
+				    where c.id = :id
+				""").setParameter("id", cliente.getId()).executeUpdate();
 	}
 
 	public Cliente buscarPorCpf(Cliente cliente) {
 		try {
-			return entityManager
-					.createQuery("select new fatec.mkkg.server.domain.cliente.Cliente(c.id) from Cliente c where c.cpf = :cpfCliente", Cliente.class)
-					.setParameter("cpfCliente", cliente.getCpf())
-					.getSingleResult();
-		} catch (NoResultException e) {
+			return entityManager.createQuery(
+					"select new fatec.mkkg.server.domain.cliente.Cliente(c.id) from Cliente c where c.cpf = :cpfCliente",
+					Cliente.class)
+				.setParameter("cpfCliente", cliente.getCpf())
+				.getSingleResult();
+		}
+		catch (NoResultException e) {
 			return new Cliente();
 		}
 	}
 
 	public Cliente buscarPorEmail(Cliente cliente) {
 		try {
-			return entityManager
-					.createQuery("select new fatec.mkkg.server.domain.cliente.Cliente(c.id) from Cliente c where c.email = :emailCliente", Cliente.class)
-					.setParameter("emailCliente", cliente.getEmail())
-					.getSingleResult();
-		} catch (NoResultException e) {
+			return entityManager.createQuery(
+					"select new fatec.mkkg.server.domain.cliente.Cliente(c.id) from Cliente c where c.email = :emailCliente",
+					Cliente.class)
+				.setParameter("emailCliente", cliente.getEmail())
+				.getSingleResult();
+		}
+		catch (NoResultException e) {
 			return new Cliente();
 		}
 	}
@@ -143,11 +140,15 @@ public class ClienteDAO implements IDAO {
 	public Cliente buscarPorEmailParaLogin(String email) {
 		try {
 			return entityManager
-					.createQuery("select c from Cliente c join fetch c.senha where c.email = :email and c.cadastroAtivo = true", Cliente.class)
-					.setParameter("email", email)
-					.getSingleResult();
-		} catch (NoResultException e) {
+				.createQuery(
+						"select c from Cliente c join fetch c.senha where c.email = :email and c.cadastroAtivo = true",
+						Cliente.class)
+				.setParameter("email", email)
+				.getSingleResult();
+		}
+		catch (NoResultException e) {
 			return null;
 		}
 	}
+
 }

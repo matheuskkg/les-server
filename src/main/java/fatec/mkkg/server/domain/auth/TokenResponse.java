@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TokenResponse extends EntidadeDominio {
-    private String token;
-}
 
+	private String token;
+
+}

@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class FachadaRequestDTO {
 
-    private EntidadeDominio entidade;
+	private EntidadeDominio entidade;
 
 }

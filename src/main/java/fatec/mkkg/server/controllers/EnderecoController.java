@@ -17,59 +17,64 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class EnderecoController {
 
-    @Autowired
-    private Fachada fachada;
+	@Autowired
+	private Fachada fachada;
 
-    @PostMapping
-    public ResponseEntity salvar(@RequestBody Endereco request, @AuthenticationPrincipal Jwt jwt) {
-        request.setCliente(new Cliente(Integer.valueOf(jwt.getSubject())));
-        
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
+	@PostMapping
+	public ResponseEntity salvar(@RequestBody Endereco request, @AuthenticationPrincipal Jwt jwt) {
+		request.setCliente(new Cliente(Integer.valueOf(jwt.getSubject())));
 
-        FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
+		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
-        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
+		FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
 
-        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
-    }
+		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.CREATED
+				: HttpStatus.BAD_REQUEST;
 
-    @PatchMapping("/{id}")
-    public ResponseEntity alterar(@PathVariable Integer id, @RequestBody Endereco request, @AuthenticationPrincipal Jwt jwt) {
-        request.setId(id);
-        request.setCliente(new Cliente(Integer.valueOf(jwt.getSubject())));
+		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+	}
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
+	@PatchMapping("/{id}")
+	public ResponseEntity alterar(@PathVariable Integer id, @RequestBody Endereco request,
+			@AuthenticationPrincipal Jwt jwt) {
+		request.setId(id);
+		request.setCliente(new Cliente(Integer.valueOf(jwt.getSubject())));
 
-        FachadaResponseDTO fachadaResponseDTO = fachada.alterar(fachadaRequestDTO);
+		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
-        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+		FachadaResponseDTO fachadaResponseDTO = fachada.alterar(fachadaRequestDTO);
 
-        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
-    }
+		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK
+				: HttpStatus.BAD_REQUEST;
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity excluir(@PathVariable Integer id) {
-        Endereco endereco = new Endereco(id);
+		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+	}
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(endereco);
+	@DeleteMapping("/{id}")
+	public ResponseEntity excluir(@PathVariable Integer id) {
+		Endereco endereco = new Endereco(id);
 
-        FachadaResponseDTO fachadaResponseDTO = fachada.excluir(fachadaRequestDTO);
+		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(endereco);
 
-        HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+		FachadaResponseDTO fachadaResponseDTO = fachada.excluir(fachadaRequestDTO);
 
-        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
-    }
+		HttpStatus responseStatus = fachadaResponseDTO.getMensagens().isEmpty() ? HttpStatus.OK
+				: HttpStatus.BAD_REQUEST;
 
-    @GetMapping("/{id}")
-    public ResponseEntity consultar(@PathVariable Integer id) {
-        Endereco endereco = new Endereco(id);
+		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+	}
 
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(endereco);
+	@GetMapping("/{id}")
+	public ResponseEntity consultar(@PathVariable Integer id) {
+		Endereco endereco = new Endereco(id);
 
-        FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
+		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(endereco);
 
-        HttpStatus responseStatus = HttpStatus.OK;
+		FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
 
-        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
-    }
+		HttpStatus responseStatus = HttpStatus.OK;
+
+		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+	}
+
 }

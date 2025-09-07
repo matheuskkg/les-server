@@ -11,16 +11,14 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(InvalidCredentialsException.class)
-    public ResponseEntity handleInvalidCredentials(InvalidCredentialsException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("mensagens", List.of(ex.getMessage())));
-    }
+	@ExceptionHandler(InvalidCredentialsException.class)
+	public ResponseEntity handleInvalidCredentials(InvalidCredentialsException ex) {
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("mensagens", List.of(ex.getMessage())));
+	}
 
-    @ExceptionHandler(ErroFormatacao.class)
-    public ResponseEntity handleDateTimeParseException(ErroFormatacao ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("mensagens", List.of(ex.getMessage())));
-    }
+	@ExceptionHandler(ErroFormatacao.class)
+	public ResponseEntity handleDateTimeParseException(ErroFormatacao ex) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("mensagens", List.of(ex.getMessage())));
+	}
+
 }
-

@@ -11,35 +11,36 @@ import java.util.List;
 @Component
 public class TipoTelefoneDAO implements IDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+	@PersistenceContext
+	private EntityManager entityManager;
 
-    @Override
-    public void salvar(EntidadeDominio entidade) {
+	@Override
+	public void salvar(EntidadeDominio entidade) {
 
-    }
+	}
 
-    @Override
-    public void alterar(EntidadeDominio entidade) {
+	@Override
+	public void alterar(EntidadeDominio entidade) {
 
-    }
+	}
 
-    @Override
-    public void excluir(EntidadeDominio entidade) {
+	@Override
+	public void excluir(EntidadeDominio entidade) {
 
-    }
+	}
 
-    @Override
-    public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-        TipoTelefone tipoTelefone = (TipoTelefone) entidade;
+	@Override
+	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
+		TipoTelefone tipoTelefone = (TipoTelefone) entidade;
 
-        if (tipoTelefone.getTipo() != null) {
-            return List.of(entityManager
-                    .createQuery("select t from TipoTelefone t where t.tipo = :tipoTelefone", TipoTelefone.class)
-                    .setParameter("tipoTelefone", tipoTelefone.getTipo())
-                    .getSingleResult());
-        }
+		if (tipoTelefone.getTipo() != null) {
+			return List.of(entityManager
+				.createQuery("select t from TipoTelefone t where t.tipo = :tipoTelefone", TipoTelefone.class)
+				.setParameter("tipoTelefone", tipoTelefone.getTipo())
+				.getSingleResult());
+		}
 
-        return List.of();
-    }
+		return List.of();
+	}
+
 }

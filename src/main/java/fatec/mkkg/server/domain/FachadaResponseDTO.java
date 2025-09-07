@@ -14,8 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 public class FachadaResponseDTO {
 
-    private List<String> mensagens = new ArrayList<>();
+	private List<String> mensagens = new ArrayList<>();
 
-    private List<EntidadeDominio> entidades = new ArrayList<>();
+	private List<EntidadeDominio> entidades = new ArrayList<>();
 
 }

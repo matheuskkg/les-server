@@ -14,42 +14,47 @@ import java.util.List;
 @Component
 public class ValidarMinimoEnderecoEntrega implements IStrategy {
 
-    @Autowired
-    private EnderecoDAO enderecoDAO;
+	@Autowired
+	private EnderecoDAO enderecoDAO;
 
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        List<Endereco> enderecos = new ArrayList<>();
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		List<Endereco> enderecos = new ArrayList<>();
 
-        //Cadastro de novo cliente
-        //Não possui endereços salvos no banco
-        if (entidade instanceof Cliente cliente) {
-            enderecos.add(cliente.getEndereco());
-        } else {
-            Endereco endereco = (Endereco) entidade;
-            enderecos.add(endereco);
+		// Cadastro de novo cliente
+		// Não possui endereços salvos no banco
+		if (entidade instanceof Cliente cliente) {
+			enderecos.add(cliente.getEndereco());
+		}
+		else {
+			Endereco endereco = (Endereco) entidade;
+			enderecos.add(endereco);
 
-            Endereco filtro = new Endereco();
-            filtro.setCliente(endereco.getCliente());
-            filtro.setEntrega(true);
+			Endereco filtro = new Endereco();
+			filtro.setCliente(endereco.getCliente());
+			filtro.setEntrega(true);
 
-            List<Endereco> enderecosExistentes = enderecoDAO.buscarPorClienteEntrega(filtro).stream().map(Endereco::new).toList();
+			List<Endereco> enderecosExistentes = enderecoDAO.buscarPorClienteEntrega(filtro)
+				.stream()
+				.map(Endereco::new)
+				.toList();
 
-            if (enderecosExistentes.size() > 1) {
-                return null;
-            }
+			if (enderecosExistentes.size() > 1) {
+				return null;
+			}
 
-            if (enderecosExistentes.size() == 1 && !enderecosExistentes.getFirst().getId().equals(endereco.getId())) {
-                return null;
-            }
-        }
+			if (enderecosExistentes.size() == 1 && !enderecosExistentes.getFirst().getId().equals(endereco.getId())) {
+				return null;
+			}
+		}
 
-        for (Endereco e : enderecos) {
-            if (e.getEntrega()) {
-                return null;
-            }
-        }
+		for (Endereco e : enderecos) {
+			if (e.getEntrega()) {
+				return null;
+			}
+		}
 
-        return "Ao menos um endereço deve ser de entrega";
-    }
+		return "Ao menos um endereço deve ser de entrega";
+	}
+
 }

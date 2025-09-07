@@ -9,8 +9,7 @@ import fatec.mkkg.server.exceptions.ErroFormatacao;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public record ClienteCadastrarRequest(
-		String nome,
+public record ClienteCadastrarRequest(String nome,
 
 		String dataNascimento,
 
@@ -24,8 +23,7 @@ public record ClienteCadastrarRequest(
 
 		Telefone telefone,
 
-		Endereco endereco
-) {
+		Endereco endereco) {
 	public Cliente toEntity() {
 		try {
 			Cliente cliente = new Cliente();
@@ -38,7 +36,8 @@ public record ClienteCadastrarRequest(
 			cliente.setTelefone(this.telefone);
 			cliente.setEndereco(this.endereco);
 			return cliente;
-		} catch (DateTimeParseException e) {
+		}
+		catch (DateTimeParseException e) {
 			throw new ErroFormatacao("Data de nascimento em formato inválido. Use o formato YYYY-MM-DD.");
 		}
 	}

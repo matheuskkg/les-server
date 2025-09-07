@@ -11,32 +11,34 @@ import java.util.List;
 
 @Component
 public class ValidarCamposCliente implements IStrategy {
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Cliente cliente = (Cliente) entidade;
 
-        String prefixo = "Os campos ";
-        String sufixo = "não foram devidamente preenchidos";
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Cliente cliente = (Cliente) entidade;
 
-        List<String> camposNaoPreenchidos = new ArrayList<>();
+		String prefixo = "Os campos ";
+		String sufixo = "não foram devidamente preenchidos";
 
-        camposNaoPreenchidos.add(Validacao.validar(cliente.getNome(), "nome"));
-        camposNaoPreenchidos.add(Validacao.validar(cliente.getDataNascimento(), "data de nascimento"));
-        camposNaoPreenchidos.add(Validacao.validar(cliente.getGenero(), "gênero"));
-        camposNaoPreenchidos.add(Validacao.validar(cliente.getCpf(), "cpf"));
-        camposNaoPreenchidos.add(Validacao.validar(cliente.getEmail(), "email"));
+		List<String> camposNaoPreenchidos = new ArrayList<>();
 
-        StringBuilder sb = new StringBuilder();
-        for (String campo : camposNaoPreenchidos) {
-            if (!campo.isEmpty()) {
-                sb.append("'").append(campo).append("' ");
-            }
-        }
+		camposNaoPreenchidos.add(Validacao.validar(cliente.getNome(), "nome"));
+		camposNaoPreenchidos.add(Validacao.validar(cliente.getDataNascimento(), "data de nascimento"));
+		camposNaoPreenchidos.add(Validacao.validar(cliente.getGenero(), "gênero"));
+		camposNaoPreenchidos.add(Validacao.validar(cliente.getCpf(), "cpf"));
+		camposNaoPreenchidos.add(Validacao.validar(cliente.getEmail(), "email"));
 
-        if (!sb.isEmpty()) {
-            return prefixo + sb.toString() + sufixo;
-        }
+		StringBuilder sb = new StringBuilder();
+		for (String campo : camposNaoPreenchidos) {
+			if (!campo.isEmpty()) {
+				sb.append("'").append(campo).append("' ");
+			}
+		}
 
-        return null;
-    }
+		if (!sb.isEmpty()) {
+			return prefixo + sb.toString() + sufixo;
+		}
+
+		return null;
+	}
+
 }

@@ -11,37 +11,40 @@ import java.util.List;
 
 @Component
 public class ValidarCamposCartaoCredito implements IStrategy {
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        CartaoCredito cartaoCredito = (CartaoCredito) entidade;
 
-        String prefixo = "Os campos ";
-        String sufixo = "não foram devidamente preenchidos";
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		CartaoCredito cartaoCredito = (CartaoCredito) entidade;
 
-        List<String> camposNaoPreenchidos = new ArrayList<>();
+		String prefixo = "Os campos ";
+		String sufixo = "não foram devidamente preenchidos";
 
-        camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getBandeira().getId(), "bandeira.id"));
-        camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getNomeTitular(), "nomeTitular"));
-        camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getNumero(), "numero"));
-        camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getCodigoSeguranca(), "codigoSeguranca"));
-        camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getPreferencial(), "preferencial"));
-        if (cartaoCredito.getCliente() != null) {
-            camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getCliente().getId(), "cliente.id"));
-        } else {
-            camposNaoPreenchidos.add("cliente.id");
-        }
+		List<String> camposNaoPreenchidos = new ArrayList<>();
 
-        StringBuilder sb = new StringBuilder();
-        for (String campo : camposNaoPreenchidos) {
-            if (!campo.isEmpty()) {
-                sb.append("'").append(campo).append("' ");
-            }
-        }
+		camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getBandeira().getId(), "bandeira.id"));
+		camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getNomeTitular(), "nomeTitular"));
+		camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getNumero(), "numero"));
+		camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getCodigoSeguranca(), "codigoSeguranca"));
+		camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getPreferencial(), "preferencial"));
+		if (cartaoCredito.getCliente() != null) {
+			camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getCliente().getId(), "cliente.id"));
+		}
+		else {
+			camposNaoPreenchidos.add("cliente.id");
+		}
 
-        if (!sb.isEmpty()) {
-            return prefixo + sb.toString() + sufixo;
-        }
+		StringBuilder sb = new StringBuilder();
+		for (String campo : camposNaoPreenchidos) {
+			if (!campo.isEmpty()) {
+				sb.append("'").append(campo).append("' ");
+			}
+		}
 
-        return null;
-    }
+		if (!sb.isEmpty()) {
+			return prefixo + sb.toString() + sufixo;
+		}
+
+		return null;
+	}
+
 }

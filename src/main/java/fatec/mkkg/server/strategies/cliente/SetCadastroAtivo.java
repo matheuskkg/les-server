@@ -7,12 +7,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SetCadastroAtivo implements IStrategy {
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Cliente cliente = (Cliente) entidade;
 
-        cliente.setCadastroAtivo(true);
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Cliente cliente = (Cliente) entidade;
 
-        return null;
-    }
+		cliente.setCadastroAtivo(true);
+
+		return null;
+	}
+
 }

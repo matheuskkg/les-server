@@ -10,21 +10,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class ValidarExistenciaEmail implements IStrategy {
 
-    @Autowired
-    private ClienteDAO clienteDAO;
+	@Autowired
+	private ClienteDAO clienteDAO;
 
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Cliente cliente = (Cliente) entidade;
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Cliente cliente = (Cliente) entidade;
 
-        Cliente filtro = new Cliente();
-        filtro.setEmail(cliente.getEmail());
+		Cliente filtro = new Cliente();
+		filtro.setEmail(cliente.getEmail());
 
-        Cliente clienteEmail = clienteDAO.buscarPorEmail(filtro);
-        if (clienteEmail.getId() != null && !clienteEmail.getId().equals(cliente.getId())) {
-            return "E-mail já está cadastrado";
-        }
+		Cliente clienteEmail = clienteDAO.buscarPorEmail(filtro);
+		if (clienteEmail.getId() != null && !clienteEmail.getId().equals(cliente.getId())) {
+			return "E-mail já está cadastrado";
+		}
 
-        return null;
-    }
+		return null;
+	}
+
 }

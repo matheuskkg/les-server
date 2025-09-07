@@ -12,54 +12,58 @@ import java.util.List;
 
 @Component
 public class ValidarCamposEndereco implements IStrategy {
-    @Override
-    public String processar(EntidadeDominio entidade) {
-        Endereco endereco;
-        boolean validandoEndereco = false;
 
-        if (entidade instanceof Cliente) {
-            endereco = ((Cliente) entidade).getEndereco();
-        } else {
-            endereco = (Endereco) entidade;
-            validandoEndereco = true;
-        }
+	@Override
+	public String processar(EntidadeDominio entidade) {
+		Endereco endereco;
+		boolean validandoEndereco = false;
 
-        String prefixo = "Os campos ";
-        String sufixo = "não foram devidamente preenchidos";
+		if (entidade instanceof Cliente) {
+			endereco = ((Cliente) entidade).getEndereco();
+		}
+		else {
+			endereco = (Endereco) entidade;
+			validandoEndereco = true;
+		}
 
-        List<String> camposNaoPreenchidos = new ArrayList<>();
+		String prefixo = "Os campos ";
+		String sufixo = "não foram devidamente preenchidos";
 
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getNomeIdentificador(), "nomeIdentificador"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getPais(), "pais"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getEstado(), "estado"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getCidade(), "cidade"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getTipoLogradouro().getTipo(), "tipoLogradouro.tipo"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getLogradouro(), "logradouro"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getTipoResidencia().getTipo(), "tipoResidencia.tipo"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getNumero(), "numero"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getBairro(), "bairro"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getCep(), "cep"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getCobranca(), "cobranca"));
-        camposNaoPreenchidos.add(Validacao.validar(endereco.getEntrega(), "entrega"));
-        if (validandoEndereco) {
-            if (endereco.getCliente() != null) {
-                camposNaoPreenchidos.add(Validacao.validar(endereco.getCliente().getId(), "cliente.id"));
-            } else {
-                camposNaoPreenchidos.add("cliente.id");
-            }
-        }
+		List<String> camposNaoPreenchidos = new ArrayList<>();
 
-        StringBuilder sb = new StringBuilder();
-        for (String campo : camposNaoPreenchidos) {
-            if (!campo.isEmpty()) {
-                sb.append("'").append(campo).append("' ");
-            }
-        }
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getNomeIdentificador(), "nomeIdentificador"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getPais(), "pais"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getEstado(), "estado"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getCidade(), "cidade"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getTipoLogradouro().getTipo(), "tipoLogradouro.tipo"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getLogradouro(), "logradouro"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getTipoResidencia().getTipo(), "tipoResidencia.tipo"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getNumero(), "numero"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getBairro(), "bairro"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getCep(), "cep"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getCobranca(), "cobranca"));
+		camposNaoPreenchidos.add(Validacao.validar(endereco.getEntrega(), "entrega"));
+		if (validandoEndereco) {
+			if (endereco.getCliente() != null) {
+				camposNaoPreenchidos.add(Validacao.validar(endereco.getCliente().getId(), "cliente.id"));
+			}
+			else {
+				camposNaoPreenchidos.add("cliente.id");
+			}
+		}
 
-        if (!sb.isEmpty()) {
-            return prefixo + sb.toString() + "do endereco '" + endereco.getNomeIdentificador() + "' " + sufixo;
-        }
+		StringBuilder sb = new StringBuilder();
+		for (String campo : camposNaoPreenchidos) {
+			if (!campo.isEmpty()) {
+				sb.append("'").append(campo).append("' ");
+			}
+		}
 
-        return null;
-    }
+		if (!sb.isEmpty()) {
+			return prefixo + sb.toString() + "do endereco '" + endereco.getNomeIdentificador() + "' " + sufixo;
+		}
+
+		return null;
+	}
+
 }

@@ -83,12 +83,10 @@ public class CartaoCreditoDAO implements IDAO {
 	}
 
 	private void setPreferencialFalsePorCliente(CartaoCredito cartaoCredito) {
-		entityManager
-				.createQuery("""
-						    update CartaoCredito c
-						    set c.preferencial = false where c.cliente.id = :clienteId
-						""")
-				.setParameter("clienteId", cartaoCredito.getCliente().getId())
-				.executeUpdate();
+		entityManager.createQuery("""
+				    update CartaoCredito c
+				    set c.preferencial = false where c.cliente.id = :clienteId
+				""").setParameter("clienteId", cartaoCredito.getCliente().getId()).executeUpdate();
 	}
+
 }

@@ -17,17 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class BandeiraController {
 
-    @Autowired
-    private Fachada fachada;
+	@Autowired
+	private Fachada fachada;
 
-    @GetMapping
-    public ResponseEntity consultar() {
-        FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(new Bandeira());
+	@GetMapping
+	public ResponseEntity consultar() {
+		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(new Bandeira());
 
-        FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
+		FachadaResponseDTO fachadaResponseDTO = fachada.consultar(fachadaRequestDTO);
 
-        HttpStatus responseStatus = HttpStatus.OK;
+		HttpStatus responseStatus = HttpStatus.OK;
 
-        return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
-    }
+		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
+	}
+
 }

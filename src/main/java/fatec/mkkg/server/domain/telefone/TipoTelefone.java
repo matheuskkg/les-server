@@ -15,12 +15,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TipoTelefone extends EntidadeDominio {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "tpt_id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "tpt_id")
+	private Integer id;
 
-    @Column(name = "tpt_tipo", nullable = false)
-    private String tipo;
+	@Column(name = "tpt_tipo", nullable = false)
+	private String tipo;
 
 }
