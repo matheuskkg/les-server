@@ -141,8 +141,8 @@ public class AbstractFachada {
 		List<IStrategy> rnsConsultarBandeira = List.of();
 		rns.put(Bandeira.class.getName(), rnsConsultarBandeira);
 
-		List<IStrategy> rnsConsularLogin = List.of();
-		rns.put(Login.class.getName(), rnsConsularLogin);
+		List<IStrategy> rnsConsultarLogin = List.of();
+		rns.put(Login.class.getName(), rnsConsultarLogin);
 	}
 
 }
