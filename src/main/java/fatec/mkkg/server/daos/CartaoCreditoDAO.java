@@ -24,18 +24,10 @@ public class CartaoCreditoDAO implements IDAO {
 	@Autowired
 	private CartaoCreditoRepository cartaoCreditoRepository;
 
-	private void complementar(CartaoCredito cartaoCredito) {
-		if (cartaoCredito.getBandeira().getId() == null) {
-			cartaoCredito.setBandeira((Bandeira) bandeiraDAO.consultar(cartaoCredito.getBandeira()).getFirst());
-		}
-	}
-
 	@Transactional
 	@Override
 	public void salvar(EntidadeDominio entidade) {
 		CartaoCredito cartaoCredito = (CartaoCredito) entidade;
-
-		complementar(cartaoCredito);
 
 		if (cartaoCredito.getPreferencial()) {
 			setPreferencialFalsePorCliente(cartaoCredito);
@@ -48,8 +40,6 @@ public class CartaoCreditoDAO implements IDAO {
 	@Override
 	public void alterar(EntidadeDominio entidade) {
 		CartaoCredito cartaoCredito = (CartaoCredito) entidade;
-
-		complementar(cartaoCredito);
 
 		if (cartaoCredito.getPreferencial()) {
 			setPreferencialFalsePorCliente(cartaoCredito);
