@@ -9,9 +9,12 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class ValidarCamposCliente implements IStrategy {
+
+	private final Set<String> GENEROS = Set.of("MASCULINO", "FEMININO", "OUTRO");
 
 	private String validarNome(String nome) {
 		if (nome == null || nome.isBlank())
@@ -37,9 +40,9 @@ public class ValidarCamposCliente implements IStrategy {
 		if (genero == null || genero.isBlank())
 			return "O gênero é obrigatório.";
 
-		if (!genero.equalsIgnoreCase("Masculino") && !genero.equalsIgnoreCase("Feminino")
-				&& !genero.equalsIgnoreCase("Outro"))
+		if (!GENEROS.contains(genero.toUpperCase())) {
 			return "O gênero deve ser 'Masculino', 'Feminino' ou 'Outro'.";
+		}
 
 		return "";
 	}

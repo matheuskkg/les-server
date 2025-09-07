@@ -1,6 +1,7 @@
 package fatec.mkkg.server.strategies.cliente;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
+import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.util.Sanitizacao;
@@ -18,7 +19,14 @@ public class SanitizarCamposClienteSenha implements IStrategy {
 
 	@Override
 	public List<String> processar(EntidadeDominio entidade) {
-		Senha senha = (Senha) entidade;
+		Senha senha;
+
+		if (entidade instanceof Cliente cliente) {
+			senha = cliente.getSenha();
+		}
+		else {
+			senha = (Senha) entidade;
+		}
 
 		aplicarTrim(senha);
 
