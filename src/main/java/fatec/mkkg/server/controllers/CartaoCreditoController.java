@@ -35,8 +35,10 @@ public class CartaoCreditoController {
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity alterar(@PathVariable Integer id, @RequestBody CartaoCredito request) {
+	public ResponseEntity alterar(@PathVariable Integer id, @RequestBody CartaoCredito request,
+			@AuthenticationPrincipal Jwt jwt) {
 		request.setId(id);
+		request.setCliente(new Cliente(Integer.valueOf(jwt.getSubject())));
 
 		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
