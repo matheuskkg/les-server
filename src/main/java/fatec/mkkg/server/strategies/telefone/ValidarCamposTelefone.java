@@ -13,31 +13,36 @@ import java.util.List;
 @Component
 public class ValidarCamposTelefone implements IStrategy {
 
+	private String validarDdd(String ddd) {
+		if (ddd == null || ddd.isBlank())
+			return "O DDD é obrigatório.";
+
+		if (!ddd.matches("\\d{2}"))
+			return "O DDD deve conter exatamente 2 dígitos numéricos.";
+
+		return "";
+	}
+
+	private String validarNumero(String numero) {
+		if (numero == null || numero.isBlank())
+			return "O número de telefone é obrigatório.";
+
+		if (!numero.matches("\\d{8,9}"))
+			return "O número de telefone deve conter 8 ou 9 dígitos numéricos.";
+
+		return "";
+	}
+
 	@Override
 	public List<String> processar(EntidadeDominio entidade) {
 		Telefone telefone = ((Cliente) entidade).getTelefone();
 
-		String prefixo = "Os campos ";
-		String sufixo = "não foram devidamente preenchidos";
+		List<String> res = new ArrayList<>();
 
-		List<String> camposNaoPreenchidos = new ArrayList<>();
+		Validacao.adicionarErro(res, validarDdd(telefone.getDdd()));
+		Validacao.adicionarErro(res, validarNumero(telefone.getNumero()));
 
-		camposNaoPreenchidos.add(Validacao.validar(telefone.getDdd(), "ddd"));
-		camposNaoPreenchidos.add(Validacao.validar(telefone.getTipoTelefone().getTipo(), "tipoTelefone"));
-		camposNaoPreenchidos.add(Validacao.validar(telefone.getNumero(), "numero"));
-
-		StringBuilder sb = new StringBuilder();
-		for (String campo : camposNaoPreenchidos) {
-			if (!campo.isEmpty()) {
-				sb.append("'").append(campo).append("' ");
-			}
-		}
-
-		if (!sb.isEmpty()) {
-			return List.of(prefixo + sb.toString() + sufixo);
-		}
-
-		return null;
+		return res;
 	}
 
 }
