@@ -70,6 +70,9 @@ public class AbstractFachada {
 	@Autowired
 	private SanitizarCamposCliente sanitizarCamposCliente;
 
+	@Autowired
+	private SanitizarCamposClienteSenha sanitizarCamposClienteSenha;
+
 	protected Map<String, List<IStrategy>> rns = new HashMap<>();
 
 	protected Map<String, IDAO> daos = new HashMap<>();
@@ -87,9 +90,9 @@ public class AbstractFachada {
 
 	protected void inicializarSalvar() {
 		List<IStrategy> rnsSalvarCliente = List.of(setCadastroAtivo, sanitizarCamposCliente, validarCamposCliente,
-				validarCamposClienteSenha, validarForcaSenha, validarConfirmarSenha, criptografarSenha,
-				validarExistenciaCpf, validarExistenciaEmail, validarCamposEndereco, validarMinimoEnderecoCobranca,
-				validarMinimoEnderecoEntrega, validarCamposTelefone);
+				sanitizarCamposClienteSenha, validarCamposClienteSenha, validarForcaSenha, validarConfirmarSenha,
+				criptografarSenha, validarExistenciaCpf, validarExistenciaEmail, validarCamposEndereco,
+				validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega, validarCamposTelefone);
 		rns.put(Cliente.class.getName(), rnsSalvarCliente);
 
 		List<IStrategy> rnsSalvarEndereco = List.of(validarCamposEndereco, validarMinimoEnderecoCobranca,
@@ -112,8 +115,8 @@ public class AbstractFachada {
 		List<IStrategy> rnsAlterarCartaoCredito = List.of(validarCamposCartaoCredito);
 		rns.put(CartaoCredito.class.getName(), rnsAlterarCartaoCredito);
 
-		List<IStrategy> rnsAlterarSenha = List.of(validarCamposClienteSenha, validarForcaSenha, validarConfirmarSenha,
-				criptografarSenha);
+		List<IStrategy> rnsAlterarSenha = List.of(sanitizarCamposClienteSenha, validarCamposClienteSenha,
+				validarForcaSenha, validarConfirmarSenha, criptografarSenha);
 		rns.put(Senha.class.getName(), rnsAlterarSenha);
 	}
 

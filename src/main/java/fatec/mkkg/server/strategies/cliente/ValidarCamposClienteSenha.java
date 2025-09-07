@@ -13,6 +13,20 @@ import java.util.List;
 @Component
 public class ValidarCamposClienteSenha implements IStrategy {
 
+	private String validarSenha(String senha) {
+		if (senha == null || senha.isBlank())
+			return "A senha é obrigatória.";
+
+		return "";
+	}
+
+	private String validarSenhaConfirmar(String senhaConfirmar) {
+		if (senhaConfirmar == null || senhaConfirmar.isBlank())
+			return "A confirmação de senha é obrigatória.";
+
+		return "";
+	}
+
 	@Override
 	public List<String> processar(EntidadeDominio entidade) {
 		Senha senha;
@@ -24,27 +38,12 @@ public class ValidarCamposClienteSenha implements IStrategy {
 			senha = (Senha) entidade;
 		}
 
-		String prefixo = "Os campos ";
-		String sufixo = "não foram devidamente preenchidos";
+		List<String> res = new ArrayList<>();
 
-		List<String> camposNaoPreenchidos = new ArrayList<>();
+		Validacao.adicionarErro(res, validarSenha(senha.getSenha()));
+		Validacao.adicionarErro(res, validarSenhaConfirmar(senha.getSenhaConfirmar()));
 
-		// TODO
-		camposNaoPreenchidos.add(Validacao.validar(senha.getSenha(), "senha"));
-		camposNaoPreenchidos.add(Validacao.validar(senha.getSenhaConfirmar(), "senhaConfirmar"));
-
-		StringBuilder sb = new StringBuilder();
-		for (String campo : camposNaoPreenchidos) {
-			if (!campo.isEmpty()) {
-				sb.append("'").append(campo).append("' ");
-			}
-		}
-
-		if (!sb.isEmpty()) {
-			return List.of(prefixo + sb.toString() + sufixo);
-		}
-
-		return null;
+		return res;
 	}
 
 }
