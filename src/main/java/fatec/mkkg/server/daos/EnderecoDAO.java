@@ -27,15 +27,11 @@ public class EnderecoDAO implements IDAO {
 	private EnderecoRepository enderecoRepository;
 
 	private void complementar(Endereco endereco) {
-		if (endereco.getTipoLogradouro().getId() == null) {
-			endereco.setTipoLogradouro(
-					(TipoLogradouro) tipoLogradouroDAO.consultar(endereco.getTipoLogradouro()).getFirst());
-		}
+		endereco
+			.setTipoLogradouro((TipoLogradouro) tipoLogradouroDAO.consultar(endereco.getTipoLogradouro()).getFirst());
 
-		if (endereco.getTipoResidencia().getId() == null) {
-			endereco.setTipoResidencia(
-					(TipoResidencia) tipoResidenciaDAO.consultar(endereco.getTipoResidencia()).getFirst());
-		}
+		endereco
+			.setTipoResidencia((TipoResidencia) tipoResidenciaDAO.consultar(endereco.getTipoResidencia()).getFirst());
 	}
 
 	@Transactional
