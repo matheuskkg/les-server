@@ -1,7 +1,6 @@
 package fatec.mkkg.server.daos;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
-import fatec.mkkg.server.domain.cartao.Bandeira;
 import fatec.mkkg.server.domain.cartao.CartaoCredito;
 import fatec.mkkg.server.repositories.CartaoCreditoRepository;
 import jakarta.persistence.EntityManager;
@@ -17,9 +16,6 @@ public class CartaoCreditoDAO implements IDAO {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-
-	@Autowired
-	private BandeiraDAO bandeiraDAO;
 
 	@Autowired
 	private CartaoCreditoRepository cartaoCreditoRepository;
