@@ -41,9 +41,6 @@ public class AbstractFachada {
 	private ValidarConfirmarSenha validarConfirmarSenha;
 
 	@Autowired
-	private ValidarDataNascimento validarDataNascimento;
-
-	@Autowired
 	private ValidarExistenciaCpf validarExistenciaCpf;
 
 	@Autowired
@@ -70,6 +67,9 @@ public class AbstractFachada {
 	@Autowired
 	private ValidarCamposTelefone validarCamposTelefone;
 
+	@Autowired
+	private SanitizarCamposCliente sanitizarCamposCliente;
+
 	protected Map<String, List<IStrategy>> rns = new HashMap<>();
 
 	protected Map<String, IDAO> daos = new HashMap<>();
@@ -86,8 +86,8 @@ public class AbstractFachada {
 	}
 
 	protected void inicializarSalvar() {
-		List<IStrategy> rnsSalvarCliente = List.of(setCadastroAtivo, validarCamposCliente, validarCamposClienteSenha,
-				validarForcaSenha, validarConfirmarSenha, criptografarSenha, validarDataNascimento,
+		List<IStrategy> rnsSalvarCliente = List.of(setCadastroAtivo, sanitizarCamposCliente, validarCamposCliente,
+				validarCamposClienteSenha, validarForcaSenha, validarConfirmarSenha, criptografarSenha,
 				validarExistenciaCpf, validarExistenciaEmail, validarCamposEndereco, validarMinimoEnderecoCobranca,
 				validarMinimoEnderecoEntrega, validarCamposTelefone);
 		rns.put(Cliente.class.getName(), rnsSalvarCliente);
@@ -101,7 +101,7 @@ public class AbstractFachada {
 	}
 
 	protected void inicializarAlterar() {
-		List<IStrategy> rnsAlterarCliente = List.of(validarCamposCliente, validarDataNascimento, validarExistenciaCpf,
+		List<IStrategy> rnsAlterarCliente = List.of(sanitizarCamposCliente, validarCamposCliente, validarExistenciaCpf,
 				validarExistenciaEmail, validarCamposTelefone);
 		rns.put(Cliente.class.getName(), rnsAlterarCliente);
 
