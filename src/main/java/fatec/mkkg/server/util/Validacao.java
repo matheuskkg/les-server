@@ -1,5 +1,7 @@
 package fatec.mkkg.server.util;
 
+import java.util.List;
+
 public class Validacao {
 
 	public static String validar(Object input, String nomeCampo) {
@@ -8,6 +10,12 @@ public class Validacao {
 		}
 
 		return "";
+	}
+
+	public static void adicionarErro(List<String> erros, String erro) {
+		if (erro != null && !erro.isBlank()) {
+			erros.add(erro);
+		}
 	}
 
 }
