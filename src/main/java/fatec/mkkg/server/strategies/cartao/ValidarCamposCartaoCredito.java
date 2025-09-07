@@ -20,7 +20,7 @@ public class ValidarCamposCartaoCredito implements IStrategy {
 
         List<String> camposNaoPreenchidos = new ArrayList<>();
 
-        camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getBandeira().getBandeira(), "bandeira.bandeira"));
+        camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getBandeira().getId(), "bandeira.id"));
         camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getNomeTitular(), "nomeTitular"));
         camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getNumero(), "numero"));
         camposNaoPreenchidos.add(Validacao.validar(cartaoCredito.getCodigoSeguranca(), "codigoSeguranca"));

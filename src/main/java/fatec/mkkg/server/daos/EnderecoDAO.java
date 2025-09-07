@@ -2,6 +2,7 @@ package fatec.mkkg.server.daos;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.endereco.*;
+import fatec.mkkg.server.repositories.EnderecoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -21,6 +22,9 @@ public class EnderecoDAO implements IDAO {
 
     @Autowired
     private TipoResidenciaDAO tipoResidenciaDAO;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     private void complementar(Endereco endereco) {
         if (endereco.getTipoLogradouro().getId() == null) {
@@ -66,7 +70,7 @@ public class EnderecoDAO implements IDAO {
         Endereco endereco = (Endereco) entidade;
 
         if (endereco.getCliente() != null && endereco.getCliente().getId() != null) {
-            return List.copyOf(buscarPorCliente(endereco));
+            return List.copyOf(enderecoRepository.buscarPorClienteId(endereco.getCliente().getId()));
         }
 
         if (endereco.getId() != null) {
@@ -74,32 +78,6 @@ public class EnderecoDAO implements IDAO {
         }
 
         return List.of();
-    }
-
-    private List<Endereco> buscarPorCliente(Endereco endereco) {
-        return entityManager
-                .createQuery("""
-                    select new fatec.mkkg.server.domain.endereco.Endereco(
-                        e.id,
-                        e.nomeIdentificador,
-                        e.pais,
-                        e.estado,
-                        e.cidade,
-                        e.tipoLogradouro,
-                        e.logradouro,
-                        e.tipoResidencia,
-                        e.numero,
-                        e.bairro,
-                        e.cep,
-                        e.observacao,
-                        e.cobranca,
-                        e.entrega
-                    )
-                    from Endereco e
-                    where e.cliente.id = :clienteId
-                """, Endereco.class)
-                .setParameter("clienteId", endereco.getCliente().getId())
-                .getResultList();
     }
 
     private Endereco buscarPorId(Endereco endereco) {

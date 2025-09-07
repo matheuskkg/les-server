@@ -13,15 +13,11 @@ import java.util.List;
 @Component
 public class Fachada extends AbstractFachada implements IFachada {
 
-    private List<String> mensagens;
-
-    private FachadaResponseDTO response;
-
     public Fachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO, EnderecoDAO enderecoDAO, SenhaDAO senhaDAO, LoginDAO loginDAO) {
         super(bandeiraDAO, cartaoCreditoDAO, clienteDAO, enderecoDAO, senhaDAO, loginDAO);
     }
 
-    private void processarRegras(EntidadeDominio entidade, List<IStrategy> regrasEntidade) {
+    private void processarRegras(EntidadeDominio entidade, List<IStrategy> regrasEntidade, List<String> mensagens) {
         for (IStrategy rn : regrasEntidade) {
             String res = rn.processar(entidade);
 
@@ -37,14 +33,14 @@ public class Fachada extends AbstractFachada implements IFachada {
 
         EntidadeDominio entidade = request.getEntidade();
 
-        mensagens = new ArrayList<>();
-        response = new FachadaResponseDTO();
+        List<String> mensagens = new ArrayList<>();
+        FachadaResponseDTO response = new FachadaResponseDTO();
 
         String nomeEntidade = entidade.getClass().getName();
         List<IStrategy> regrasEntidade = rns.get(nomeEntidade);
         IDAO dao = daos.get(nomeEntidade);
 
-        processarRegras(entidade, regrasEntidade);
+        processarRegras(entidade, regrasEntidade, mensagens);
 
         if (mensagens.isEmpty()) {
             dao.salvar(entidade);
@@ -61,14 +57,14 @@ public class Fachada extends AbstractFachada implements IFachada {
 
         EntidadeDominio entidade = request.getEntidade();
 
-        mensagens = new ArrayList<>();
-        response = new FachadaResponseDTO();
+        List<String> mensagens = new ArrayList<>();
+        FachadaResponseDTO response = new FachadaResponseDTO();
 
         String nomeEntidade = entidade.getClass().getName();
         List<IStrategy> regrasEntidade = rns.get(nomeEntidade);
         IDAO dao = daos.get(nomeEntidade);
 
-        processarRegras(entidade, regrasEntidade);
+        processarRegras(entidade, regrasEntidade, mensagens);
 
         if (mensagens.isEmpty()) {
             dao.alterar(entidade);
@@ -85,14 +81,14 @@ public class Fachada extends AbstractFachada implements IFachada {
 
         EntidadeDominio entidade = request.getEntidade();
 
-        mensagens = new ArrayList<>();
-        response = new FachadaResponseDTO();
+        List<String> mensagens = new ArrayList<>();
+        FachadaResponseDTO response = new FachadaResponseDTO();
 
         String nomeEntidade = entidade.getClass().getName();
         List<IStrategy> regrasEntidade = rns.get(nomeEntidade);
         IDAO dao = daos.get(nomeEntidade);
 
-        processarRegras(entidade, regrasEntidade);
+        processarRegras(entidade, regrasEntidade, mensagens);
 
         if (mensagens.isEmpty()) {
             dao.excluir(entidade);
@@ -109,14 +105,14 @@ public class Fachada extends AbstractFachada implements IFachada {
 
         EntidadeDominio entidade = request.getEntidade();
 
-        mensagens = new ArrayList<>();
-        response = new FachadaResponseDTO();
+        List<String> mensagens = new ArrayList<>();
+        FachadaResponseDTO response = new FachadaResponseDTO();
 
         String nomeEntidade = entidade.getClass().getName();
         List<IStrategy> regrasEntidade = rns.get(nomeEntidade);
         IDAO dao = daos.get(nomeEntidade);
 
-        processarRegras(entidade, regrasEntidade);
+        processarRegras(entidade, regrasEntidade, mensagens);
 
         response.setEntidades(dao.consultar(entidade));
         response.setMensagens(mensagens);

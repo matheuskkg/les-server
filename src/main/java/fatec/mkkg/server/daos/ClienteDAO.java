@@ -76,6 +76,10 @@ public class ClienteDAO implements IDAO {
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		Cliente cliente = (Cliente) entidade;
 
+		if (cliente.getId() != null) {
+			return List.of(clienteRepository.buscarPorId(cliente.getId()));
+		}
+
 		return List.copyOf(clienteRepository.buscarPorClienteFiltro(
 				cliente.getNome(),
 				cliente.getEmail(),

@@ -8,6 +8,8 @@ import fatec.mkkg.server.facade.Fachada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +21,9 @@ public class EnderecoController {
     private Fachada fachada;
 
     @PostMapping
-    public ResponseEntity salvar(@RequestBody Endereco request) {
+    public ResponseEntity salvar(@RequestBody Endereco request, @AuthenticationPrincipal Jwt jwt) {
+        request.setCliente(new Cliente(Integer.valueOf(jwt.getSubject())));
+        
         FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
@@ -30,8 +34,9 @@ public class EnderecoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity alterar(@PathVariable Integer id, @RequestBody Endereco request) {
+    public ResponseEntity alterar(@PathVariable Integer id, @RequestBody Endereco request, @AuthenticationPrincipal Jwt jwt) {
         request.setId(id);
+        request.setCliente(new Cliente(Integer.valueOf(jwt.getSubject())));
 
         FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
@@ -57,9 +62,7 @@ public class EnderecoController {
 
     @GetMapping("/{id}")
     public ResponseEntity consultar(@PathVariable Integer id) {
-        Cliente cliente = new Cliente(id);
-        Endereco endereco = new Endereco();
-        endereco.setCliente(cliente);
+        Endereco endereco = new Endereco(id);
 
         FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(endereco);
 

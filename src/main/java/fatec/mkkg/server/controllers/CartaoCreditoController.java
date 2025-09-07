@@ -8,6 +8,8 @@ import fatec.mkkg.server.facade.Fachada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +21,9 @@ public class CartaoCreditoController {
     private Fachada fachada;
 
     @PostMapping
-    public ResponseEntity salvar(@RequestBody CartaoCredito request) {
+    public ResponseEntity salvar(@RequestBody CartaoCredito request, @AuthenticationPrincipal Jwt jwt) {
+        request.setCliente(new Cliente(Integer.valueOf(jwt.getSubject())));
+
         FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
         FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
@@ -57,9 +61,7 @@ public class CartaoCreditoController {
 
     @GetMapping("/{id}")
     public ResponseEntity consultar(@PathVariable Integer id) {
-        Cliente cliente = new Cliente(id);
-        CartaoCredito cartaoCredito = new CartaoCredito();
-        cartaoCredito.setCliente(cliente);
+        CartaoCredito cartaoCredito = new CartaoCredito(id);
 
         FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cartaoCredito);
 
