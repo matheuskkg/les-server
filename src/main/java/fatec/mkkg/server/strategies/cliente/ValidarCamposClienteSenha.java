@@ -14,7 +14,7 @@ import java.util.List;
 public class ValidarCamposClienteSenha implements IStrategy {
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		Senha senha;
 
 		if (entidade instanceof Cliente cliente) {
@@ -41,7 +41,7 @@ public class ValidarCamposClienteSenha implements IStrategy {
 		}
 
 		if (!sb.isEmpty()) {
-			return prefixo + sb.toString() + sufixo;
+			return List.of(prefixo + sb.toString() + sufixo);
 		}
 
 		return null;

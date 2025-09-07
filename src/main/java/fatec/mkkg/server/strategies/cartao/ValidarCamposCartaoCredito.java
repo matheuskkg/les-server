@@ -13,7 +13,7 @@ import java.util.List;
 public class ValidarCamposCartaoCredito implements IStrategy {
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		CartaoCredito cartaoCredito = (CartaoCredito) entidade;
 
 		String prefixo = "Os campos ";
@@ -41,7 +41,7 @@ public class ValidarCamposCartaoCredito implements IStrategy {
 		}
 
 		if (!sb.isEmpty()) {
-			return prefixo + sb.toString() + sufixo;
+			return List.of(prefixo + sb.toString() + sufixo);
 		}
 
 		return null;

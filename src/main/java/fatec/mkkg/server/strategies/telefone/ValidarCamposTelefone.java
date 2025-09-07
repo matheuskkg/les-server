@@ -14,7 +14,7 @@ import java.util.List;
 public class ValidarCamposTelefone implements IStrategy {
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		Telefone telefone = ((Cliente) entidade).getTelefone();
 
 		String prefixo = "Os campos ";
@@ -34,7 +34,7 @@ public class ValidarCamposTelefone implements IStrategy {
 		}
 
 		if (!sb.isEmpty()) {
-			return prefixo + sb.toString() + sufixo;
+			return List.of(prefixo + sb.toString() + sufixo);
 		}
 
 		return null;

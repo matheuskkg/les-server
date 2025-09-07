@@ -14,7 +14,7 @@ import java.util.List;
 public class ValidarCamposEndereco implements IStrategy {
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		Endereco endereco;
 		boolean validandoEndereco = false;
 
@@ -60,7 +60,7 @@ public class ValidarCamposEndereco implements IStrategy {
 		}
 
 		if (!sb.isEmpty()) {
-			return prefixo + sb.toString() + "do endereco '" + endereco.getNomeIdentificador() + "' " + sufixo;
+			return List.of(prefixo + sb.toString() + "do endereco '" + endereco.getNomeIdentificador() + "' " + sufixo);
 		}
 
 		return null;

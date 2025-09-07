@@ -18,7 +18,7 @@ public class ValidarMinimoEnderecoEntrega implements IStrategy {
 	private EnderecoDAO enderecoDAO;
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		List<Endereco> enderecos = new ArrayList<>();
 
 		// Cadastro de novo cliente
@@ -54,7 +54,7 @@ public class ValidarMinimoEnderecoEntrega implements IStrategy {
 			}
 		}
 
-		return "Ao menos um endereço deve ser de entrega";
+		return List.of("Ao menos um endereço deve ser de entrega");
 	}
 
 }
