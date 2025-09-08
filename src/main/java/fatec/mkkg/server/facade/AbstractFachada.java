@@ -8,10 +8,12 @@ import fatec.mkkg.server.domain.cliente.Login;
 import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.domain.endereco.Endereco;
 import fatec.mkkg.server.strategies.IStrategy;
+import fatec.mkkg.server.strategies.cartao.ComplementarCartaoCreditoParaSalvar;
 import fatec.mkkg.server.strategies.cartao.SanitizarCamposCartaoCredito;
 import fatec.mkkg.server.strategies.cartao.ValidarCamposCartaoCredito;
 import fatec.mkkg.server.strategies.cliente.*;
 import fatec.mkkg.server.strategies.endereco.*;
+import fatec.mkkg.server.strategies.telefone.ComplementarTelefoneParaSalvar;
 import fatec.mkkg.server.strategies.telefone.SanitizarCamposTelefone;
 import fatec.mkkg.server.strategies.telefone.ValidarCamposTelefone;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +83,18 @@ public class AbstractFachada {
 	@Autowired
 	private SanitizarCamposCartaoCredito sanitizarCamposCartaoCredito;
 
+	@Autowired
+	private SanitizarCamposEndereco sanitizarCamposEndereco;
+
+	@Autowired
+	private ComplementarTelefoneParaSalvar complementarTelefoneParaSalvar;
+
+	@Autowired
+	private ComplementarEnderecoParaSalvar complementarEnderecoParaSalvar;
+
+	@Autowired
+	private ComplementarCartaoCreditoParaSalvar complementarCartaoCreditoParaSalvar;
+
 	protected Map<String, List<IStrategy>> rns = new HashMap<>();
 
 	protected Map<String, IDAO> daos = new HashMap<>();
@@ -99,28 +113,32 @@ public class AbstractFachada {
 	protected void inicializarSalvar() {
 		List<IStrategy> rnsSalvarCliente = List.of(setCadastroAtivo, sanitizarCamposCliente, validarCamposCliente,
 				sanitizarCamposClienteSenha, validarCamposClienteSenha, validarForcaSenha, validarConfirmarSenha,
-				criptografarSenha, validarExistenciaCpf, validarExistenciaEmail, validarCamposEndereco,
-				validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega, sanitizarCamposTelefone, validarCamposTelefone);
+				criptografarSenha, validarExistenciaCpf, validarExistenciaEmail, sanitizarCamposEndereco,
+				complementarEnderecoParaSalvar, validarCamposEndereco, validarMinimoEnderecoCobranca,
+				validarMinimoEnderecoEntrega, sanitizarCamposTelefone, complementarTelefoneParaSalvar,
+				validarCamposTelefone);
 		rns.put(Cliente.class.getName(), rnsSalvarCliente);
 
-		List<IStrategy> rnsSalvarEndereco = List.of(validarCamposEndereco, validarMinimoEnderecoCobranca,
-				validarMinimoEnderecoEntrega);
+		List<IStrategy> rnsSalvarEndereco = List.of(sanitizarCamposEndereco, complementarEnderecoParaSalvar,
+				validarCamposEndereco, validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega);
 		rns.put(Endereco.class.getName(), rnsSalvarEndereco);
 
-		List<IStrategy> rnsSalvarCartaoCredito = List.of(sanitizarCamposCartaoCredito, validarCamposCartaoCredito);
+		List<IStrategy> rnsSalvarCartaoCredito = List.of(sanitizarCamposCartaoCredito,
+				complementarCartaoCreditoParaSalvar, validarCamposCartaoCredito);
 		rns.put(CartaoCredito.class.getName(), rnsSalvarCartaoCredito);
 	}
 
 	protected void inicializarAlterar() {
 		List<IStrategy> rnsAlterarCliente = List.of(sanitizarCamposCliente, validarCamposCliente, validarExistenciaCpf,
-				validarExistenciaEmail, sanitizarCamposTelefone, validarCamposTelefone);
+				validarExistenciaEmail, sanitizarCamposTelefone, complementarTelefoneParaSalvar, validarCamposTelefone);
 		rns.put(Cliente.class.getName(), rnsAlterarCliente);
 
-		List<IStrategy> rnsAlterarEndereco = List.of(validarCamposEndereco, validarMinimoEnderecoCobranca,
-				validarMinimoEnderecoEntrega);
+		List<IStrategy> rnsAlterarEndereco = List.of(sanitizarCamposEndereco, complementarEnderecoParaSalvar,
+				validarCamposEndereco, validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega);
 		rns.put(Endereco.class.getName(), rnsAlterarEndereco);
 
-		List<IStrategy> rnsAlterarCartaoCredito = List.of(sanitizarCamposCartaoCredito, validarCamposCartaoCredito);
+		List<IStrategy> rnsAlterarCartaoCredito = List.of(sanitizarCamposCartaoCredito,
+				complementarCartaoCreditoParaSalvar, validarCamposCartaoCredito);
 		rns.put(CartaoCredito.class.getName(), rnsAlterarCartaoCredito);
 
 		List<IStrategy> rnsAlterarSenha = List.of(sanitizarCamposClienteSenha, validarCamposClienteSenha,
