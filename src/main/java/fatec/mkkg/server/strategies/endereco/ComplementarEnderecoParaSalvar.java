@@ -45,7 +45,8 @@ public class ComplementarEnderecoParaSalvar implements IStrategy {
 				tipoLogradouro = tipoLogradouroRepository.findByTipoIgnoreCase(tipoLogradouro.getTipo()).orElseThrow();
 				endereco.setTipoLogradouro(tipoLogradouro);
 			}
-		} catch (NoSuchElementException e) {
+		}
+		catch (NoSuchElementException e) {
 			res.add("Tipo de logradouro inválido.");
 		}
 
@@ -54,10 +55,12 @@ public class ComplementarEnderecoParaSalvar implements IStrategy {
 				tipoResidencia = tipoResidenciaRepository.findByTipoIgnoreCase(tipoResidencia.getTipo()).orElseThrow();
 				endereco.setTipoResidencia(tipoResidencia);
 			}
-		} catch (NoSuchElementException e) {
+		}
+		catch (NoSuchElementException e) {
 			res.add("Tipo de residência inválido.");
 		}
 
 		return res;
 	}
+
 }

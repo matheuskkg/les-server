@@ -29,4 +29,5 @@ public class SanitizarCamposTelefone implements IStrategy {
 
 		return List.of();
 	}
+
 }

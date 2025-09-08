@@ -30,8 +30,10 @@ public class ComplementarTelefoneParaSalvar implements IStrategy {
 			}
 
 			return List.of();
-		} catch (NoSuchElementException e) {
+		}
+		catch (NoSuchElementException e) {
 			return List.of("Tipo de telefone inválido.");
 		}
 	}
+
 }
