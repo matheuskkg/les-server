@@ -149,7 +149,7 @@ public class ValidarCamposEndereco implements IStrategy {
 		Validacao.adicionarErro(res, validarCobranca(endereco.getCobranca()));
 		Validacao.adicionarErro(res, validarEntrega(endereco.getEntrega()));
 
-		return null;
+		return res;
 	}
 
 }

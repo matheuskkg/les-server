@@ -15,6 +15,10 @@ public class SanitizarCamposTelefone implements IStrategy {
 	private void aplicarTrim(Telefone telefone) {
 		telefone.setDdd(Sanitizacao.trim(telefone.getDdd()));
 		telefone.setNumero(Sanitizacao.trim(telefone.getNumero()));
+
+		if (telefone.getTipoTelefone() != null) {
+			telefone.getTipoTelefone().setTipo(Sanitizacao.trim(telefone.getTipoTelefone().getTipo()));
+		}
 	}
 
 	@Override
