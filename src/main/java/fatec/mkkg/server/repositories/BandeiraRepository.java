@@ -9,6 +9,4 @@ import java.util.Optional;
 @Repository
 public interface BandeiraRepository extends JpaRepository<Bandeira, Integer> {
 
-	Optional<Bandeira> findByBandeiraIgnoreCase(String bandeira);
-
 }
