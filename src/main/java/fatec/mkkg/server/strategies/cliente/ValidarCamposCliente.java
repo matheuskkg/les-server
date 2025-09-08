@@ -20,8 +20,8 @@ public class ValidarCamposCliente implements IStrategy {
 		if (nome == null || nome.isBlank())
 			return "O nome é obrigatório.";
 
-		if (nome.length() > 255)
-			return "O nome não pode exceder 255 caracteres.";
+		if (nome.length() > 100)
+			return "O nome não pode exceder 100 caracteres.";
 
 		return "";
 	}
@@ -52,7 +52,7 @@ public class ValidarCamposCliente implements IStrategy {
 			return "O CPF é obrigatório.";
 
 		if (!cpf.matches("\\d{11}"))
-			return "O CPF deve conter exatamente 11 dígitos numéricos.";
+			return "O CPF deve conter exatamente 11 dígitos.";
 
 		return "";
 	}

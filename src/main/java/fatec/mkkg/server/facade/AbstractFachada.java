@@ -8,6 +8,7 @@ import fatec.mkkg.server.domain.cliente.Login;
 import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.domain.endereco.Endereco;
 import fatec.mkkg.server.strategies.IStrategy;
+import fatec.mkkg.server.strategies.cartao.SanitizarCamposCartaoCredito;
 import fatec.mkkg.server.strategies.cartao.ValidarCamposCartaoCredito;
 import fatec.mkkg.server.strategies.cliente.*;
 import fatec.mkkg.server.strategies.endereco.*;
@@ -77,6 +78,9 @@ public class AbstractFachada {
 	@Autowired
 	private SanitizarCamposTelefone sanitizarCamposTelefone;
 
+	@Autowired
+	private SanitizarCamposCartaoCredito sanitizarCamposCartaoCredito;
+
 	protected Map<String, List<IStrategy>> rns = new HashMap<>();
 
 	protected Map<String, IDAO> daos = new HashMap<>();
@@ -103,7 +107,7 @@ public class AbstractFachada {
 				validarMinimoEnderecoEntrega);
 		rns.put(Endereco.class.getName(), rnsSalvarEndereco);
 
-		List<IStrategy> rnsSalvarCartaoCredito = List.of(validarCamposCartaoCredito);
+		List<IStrategy> rnsSalvarCartaoCredito = List.of(sanitizarCamposCartaoCredito, validarCamposCartaoCredito);
 		rns.put(CartaoCredito.class.getName(), rnsSalvarCartaoCredito);
 	}
 
@@ -116,7 +120,7 @@ public class AbstractFachada {
 				validarMinimoEnderecoEntrega);
 		rns.put(Endereco.class.getName(), rnsAlterarEndereco);
 
-		List<IStrategy> rnsAlterarCartaoCredito = List.of(validarCamposCartaoCredito);
+		List<IStrategy> rnsAlterarCartaoCredito = List.of(sanitizarCamposCartaoCredito, validarCamposCartaoCredito);
 		rns.put(CartaoCredito.class.getName(), rnsAlterarCartaoCredito);
 
 		List<IStrategy> rnsAlterarSenha = List.of(sanitizarCamposClienteSenha, validarCamposClienteSenha,

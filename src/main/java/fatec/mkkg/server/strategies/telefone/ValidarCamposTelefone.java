@@ -18,7 +18,7 @@ public class ValidarCamposTelefone implements IStrategy {
 			return "O DDD é obrigatório.";
 
 		if (!ddd.matches("\\d{2}"))
-			return "O DDD deve conter exatamente 2 dígitos numéricos.";
+			return "O DDD deve conter exatamente 2 dígitos.";
 
 		return "";
 	}
@@ -28,7 +28,7 @@ public class ValidarCamposTelefone implements IStrategy {
 			return "O número de telefone é obrigatório.";
 
 		if (!numero.matches("\\d{8,9}"))
-			return "O número de telefone deve conter 8 ou 9 dígitos numéricos.";
+			return "O número de telefone deve conter 8 ou 9 dígitos.";
 
 		return "";
 	}
