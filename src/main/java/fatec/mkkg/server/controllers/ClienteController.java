@@ -63,10 +63,9 @@ public class ClienteController {
 		return ResponseEntity.status(responseStatus).body(fachadaResponseDTO);
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity inativar(@PathVariable Integer id) {
-		Cliente cliente = new Cliente();
-		cliente.setId(id);
+	@DeleteMapping
+	public ResponseEntity inativar(@AuthenticationPrincipal Jwt jwt) {
+		Cliente cliente = new Cliente(Integer.valueOf(jwt.getSubject()));
 
 		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(cliente);
 
