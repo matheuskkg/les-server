@@ -1,6 +1,7 @@
 package fatec.mkkg.server.strategies.cartao;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
+import fatec.mkkg.server.domain.cartao.Bandeira;
 import fatec.mkkg.server.domain.cartao.CartaoCredito;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.util.Validacao;
@@ -11,6 +12,13 @@ import java.util.List;
 
 @Component
 public class ValidarCamposCartaoCredito implements IStrategy {
+
+	private String validarBandeira(Bandeira bandeira) {
+		if (bandeira == null || bandeira.getId() == null)
+			return "A bandeira do cartão é obrigatória.";
+
+		return "";
+	}
 
 	private String validarNomeTitular(String nomeTitular) {
 		if (nomeTitular == null || nomeTitular.isBlank())
@@ -48,6 +56,7 @@ public class ValidarCamposCartaoCredito implements IStrategy {
 
 		List<String> res = new ArrayList<>();
 
+		Validacao.adicionarErro(res, validarBandeira(cartaoCredito.getBandeira()));
 		Validacao.adicionarErro(res, validarNomeTitular(cartaoCredito.getNomeTitular()));
 		Validacao.adicionarErro(res, validarNumero(cartaoCredito.getNumero()));
 		Validacao.adicionarErro(res, validarCodigoSeguranca(cartaoCredito.getCodigoSeguranca()));
