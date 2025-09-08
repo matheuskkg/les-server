@@ -23,8 +23,8 @@ public class ComplementarCartaoCreditoParaSalvar implements IStrategy {
 		Bandeira bandeira = cartaoCredito.getBandeira();
 
 		try {
-			if (bandeira != null && bandeira.getBandeira() != null && !bandeira.getBandeira().isBlank()) {
-				bandeira = bandeiraRepository.findByBandeiraIgnoreCase(bandeira.getBandeira()).orElseThrow();
+			if (bandeira != null && bandeira.getId() != null) {
+				bandeira = bandeiraRepository.findById(bandeira.getId()).orElseThrow();
 				cartaoCredito.setBandeira(bandeira);
 			}
 
