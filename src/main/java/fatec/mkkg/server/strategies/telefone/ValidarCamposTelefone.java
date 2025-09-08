@@ -3,6 +3,7 @@ package fatec.mkkg.server.strategies.telefone;
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.domain.telefone.Telefone;
+import fatec.mkkg.server.domain.telefone.TipoTelefone;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.util.Validacao;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,13 @@ public class ValidarCamposTelefone implements IStrategy {
 
 		if (!ddd.matches("\\d{2}"))
 			return "O DDD deve conter exatamente 2 dígitos.";
+
+		return "";
+	}
+
+	private String validarTipoTelefone(TipoTelefone tipoTelefone) {
+		if (tipoTelefone == null || tipoTelefone.getTipo() == null || tipoTelefone.getTipo().isBlank())
+			return "O tipo de telefone é obrigatório.";
 
 		return "";
 	}
@@ -40,6 +48,7 @@ public class ValidarCamposTelefone implements IStrategy {
 		List<String> res = new ArrayList<>();
 
 		Validacao.adicionarErro(res, validarDdd(telefone.getDdd()));
+		Validacao.adicionarErro(res, validarTipoTelefone(telefone.getTipoTelefone()));
 		Validacao.adicionarErro(res, validarNumero(telefone.getNumero()));
 
 		return res;
