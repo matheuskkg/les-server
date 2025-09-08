@@ -83,7 +83,13 @@ public class AbstractFachada {
 	private SanitizarCamposCartaoCredito sanitizarCamposCartaoCredito;
 
 	@Autowired
+	private SanitizarCamposEndereco sanitizarCamposEndereco;
+
+	@Autowired
 	private ComplementarTelefoneParaSalvar complementarTelefoneParaSalvar;
+
+	@Autowired
+	private ComplementarEnderecoParaSalvar complementarEnderecoParaSalvar;
 
 	protected Map<String, List<IStrategy>> rns = new HashMap<>();
 
@@ -103,11 +109,11 @@ public class AbstractFachada {
 	protected void inicializarSalvar() {
 		List<IStrategy> rnsSalvarCliente = List.of(setCadastroAtivo, sanitizarCamposCliente, validarCamposCliente,
 				sanitizarCamposClienteSenha, validarCamposClienteSenha, validarForcaSenha, validarConfirmarSenha,
-				criptografarSenha, validarExistenciaCpf, validarExistenciaEmail, validarCamposEndereco,
-				validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega, complementarTelefoneParaSalvar, sanitizarCamposTelefone, validarCamposTelefone);
+				criptografarSenha, validarExistenciaCpf, validarExistenciaEmail, sanitizarCamposEndereco, complementarEnderecoParaSalvar, validarCamposEndereco,
+				validarMinimoEnderecoCobranca, validarMinimoEnderecoEntrega, sanitizarCamposTelefone, complementarTelefoneParaSalvar, validarCamposTelefone);
 		rns.put(Cliente.class.getName(), rnsSalvarCliente);
 
-		List<IStrategy> rnsSalvarEndereco = List.of(validarCamposEndereco, validarMinimoEnderecoCobranca,
+		List<IStrategy> rnsSalvarEndereco = List.of(sanitizarCamposEndereco, complementarEnderecoParaSalvar, validarCamposEndereco, validarMinimoEnderecoCobranca,
 				validarMinimoEnderecoEntrega);
 		rns.put(Endereco.class.getName(), rnsSalvarEndereco);
 
@@ -117,10 +123,10 @@ public class AbstractFachada {
 
 	protected void inicializarAlterar() {
 		List<IStrategy> rnsAlterarCliente = List.of(sanitizarCamposCliente, validarCamposCliente, validarExistenciaCpf,
-				validarExistenciaEmail, complementarTelefoneParaSalvar, sanitizarCamposTelefone, validarCamposTelefone);
+				validarExistenciaEmail, sanitizarCamposTelefone, complementarTelefoneParaSalvar, validarCamposTelefone);
 		rns.put(Cliente.class.getName(), rnsAlterarCliente);
 
-		List<IStrategy> rnsAlterarEndereco = List.of(validarCamposEndereco, validarMinimoEnderecoCobranca,
+		List<IStrategy> rnsAlterarEndereco = List.of(sanitizarCamposEndereco, complementarEnderecoParaSalvar, validarCamposEndereco, validarMinimoEnderecoCobranca,
 				validarMinimoEnderecoEntrega);
 		rns.put(Endereco.class.getName(), rnsAlterarEndereco);
 

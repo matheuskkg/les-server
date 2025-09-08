@@ -18,28 +18,12 @@ public class EnderecoDAO implements IDAO {
 	private EntityManager entityManager;
 
 	@Autowired
-	private TipoLogradouroDAO tipoLogradouroDAO;
-
-	@Autowired
-	private TipoResidenciaDAO tipoResidenciaDAO;
-
-	@Autowired
 	private EnderecoRepository enderecoRepository;
-
-	private void complementar(Endereco endereco) {
-		endereco
-			.setTipoLogradouro((TipoLogradouro) tipoLogradouroDAO.consultar(endereco.getTipoLogradouro()).getFirst());
-
-		endereco
-			.setTipoResidencia((TipoResidencia) tipoResidenciaDAO.consultar(endereco.getTipoResidencia()).getFirst());
-	}
 
 	@Transactional
 	@Override
 	public void salvar(EntidadeDominio entidade) {
 		Endereco endereco = (Endereco) entidade;
-
-		complementar(endereco);
 
 		entityManager.persist(endereco);
 	}
@@ -48,8 +32,6 @@ public class EnderecoDAO implements IDAO {
 	@Override
 	public void alterar(EntidadeDominio entidade) {
 		Endereco endereco = (Endereco) entidade;
-
-		complementar(endereco);
 
 		entityManager.merge(endereco);
 	}
