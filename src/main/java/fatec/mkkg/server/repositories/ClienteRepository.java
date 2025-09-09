@@ -24,7 +24,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 			from Cliente c
 			join Telefone t on t.cliente.id = c.id
 			where c.cadastroAtivo = true
-				and (:nome is null or trim(:nome) = '' or lower(c.nome) like lower(concat('%', :nome, '%')))
+				and (:nome is null or trim(:nome) = '' or cast(unaccent(lower(c.nome)) as string) like cast(unaccent(lower(concat('%', :nome, '%'))) as string))
 				and (:cpf is null or trim(:cpf) = '' or c.cpf = :cpf)
 				and (:email is null or trim(:email) = '' or lower(c.email) = lower(:email))
 			order by c.nome
