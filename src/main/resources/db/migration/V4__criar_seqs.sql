@@ -1,12 +1,3 @@
---create sequence senhas_seq;
---create sequence clientes__seq;
---create sequence bandeiras_seq;
---create sequence cartoes_credito_seq;
---create sequence tipos_logradouro_seq;
---create sequence tipos_residencia_seq;
---create sequence enderecos_seq;
---create sequence tipos_telefone_seq;
---create sequence telefones_seq;
 CREATE SEQUENCE IF NOT EXISTS public.bandeiras_seq
     INCREMENT 50
     START 1
