@@ -17,8 +17,7 @@ public class Senha extends EntidadeDominio {
 
 	@Id
 	@SequenceGenerator(
-			name = "senhas_seq_gen",
-			allocationSize = 1
+			name = "senhas_seq_gen"
 	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "sen_id")

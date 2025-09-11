@@ -18,8 +18,7 @@ public class Cliente extends EntidadeDominio {
 
 	@Id
 	@SequenceGenerator(
-			name = "clientes_seq_gen",
-			allocationSize = 1
+			name = "clientes_seq_gen"
 	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "cli_id")

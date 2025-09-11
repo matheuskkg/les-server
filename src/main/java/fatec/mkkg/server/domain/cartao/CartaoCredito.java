@@ -15,8 +15,7 @@ public class CartaoCredito extends EntidadeDominio {
 
 	@Id
 	@SequenceGenerator(
-			name = "cartoes_credito_seq_gen",
-			allocationSize = 1
+			name = "cartoes_credito_seq_gen"
 	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ctc_id")

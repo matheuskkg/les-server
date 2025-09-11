@@ -17,8 +17,7 @@ public class TipoTelefone extends EntidadeDominio {
 
 	@Id
 	@SequenceGenerator(
-			name = "tipos_telefone_seq_gen",
-			allocationSize = 1
+			name = "tipos_telefone_seq_gen"
 	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "tpt_id")

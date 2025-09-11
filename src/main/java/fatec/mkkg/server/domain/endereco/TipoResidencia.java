@@ -17,8 +17,7 @@ public class TipoResidencia extends EntidadeDominio {
 
 	@Id
 	@SequenceGenerator(
-			name = "tipos_residencia_seq_gen",
-			allocationSize = 1
+			name = "tipos_residencia_seq_gen"
 	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "tpr_id")
