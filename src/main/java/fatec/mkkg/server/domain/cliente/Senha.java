@@ -16,6 +16,10 @@ import lombok.Setter;
 public class Senha extends EntidadeDominio {
 
 	@Id
+	@SequenceGenerator(
+			name = "senhas_seq_gen",
+			allocationSize = 1
+	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "sen_id")
 	private Integer id;

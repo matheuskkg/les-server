@@ -14,6 +14,10 @@ import lombok.*;
 public class CartaoCredito extends EntidadeDominio {
 
 	@Id
+	@SequenceGenerator(
+			name = "cartoes_credito_seq_gen",
+			allocationSize = 1
+	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ctc_id")
 	private Integer id;

@@ -13,6 +13,10 @@ import lombok.*;
 public class Bandeira extends EntidadeDominio {
 
 	@Id
+	@SequenceGenerator(
+			name = "bandeiras_seq_gen",
+			allocationSize = 1
+	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ban_id")
 	private Integer id;
