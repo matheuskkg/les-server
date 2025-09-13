@@ -14,6 +14,9 @@ import lombok.*;
 public class Endereco extends EntidadeDominio {
 
 	@Id
+	@SequenceGenerator(
+			name = "enderecos_seq_gen"
+	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "end_id")
 	private Integer id;

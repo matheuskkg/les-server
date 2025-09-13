@@ -13,6 +13,9 @@ import lombok.*;
 public class TipoLogradouro extends EntidadeDominio {
 
 	@Id
+	@SequenceGenerator(
+			name = "tipos_logradouro_seq_gen"
+	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "tpl_id")
 	private Integer id;
