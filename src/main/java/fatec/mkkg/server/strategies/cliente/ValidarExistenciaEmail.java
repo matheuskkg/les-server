@@ -7,6 +7,8 @@ import fatec.mkkg.server.strategies.IStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ValidarExistenciaEmail implements IStrategy {
 
@@ -14,7 +16,7 @@ public class ValidarExistenciaEmail implements IStrategy {
 	private ClienteDAO clienteDAO;
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		Cliente cliente = (Cliente) entidade;
 
 		Cliente filtro = new Cliente();
@@ -22,7 +24,7 @@ public class ValidarExistenciaEmail implements IStrategy {
 
 		Cliente clienteEmail = clienteDAO.buscarPorEmail(filtro);
 		if (clienteEmail.getId() != null && !clienteEmail.getId().equals(cliente.getId())) {
-			return "E-mail já está cadastrado";
+			return List.of("E-mail já está cadastrado");
 		}
 
 		return null;

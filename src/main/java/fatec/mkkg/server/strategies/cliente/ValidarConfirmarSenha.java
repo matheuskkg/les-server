@@ -6,11 +6,13 @@ import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.strategies.IStrategy;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ValidarConfirmarSenha implements IStrategy {
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		Senha senha;
 
 		if (entidade instanceof Cliente cliente) {
@@ -21,7 +23,7 @@ public class ValidarConfirmarSenha implements IStrategy {
 		}
 
 		if (!senha.getSenha().equals(senha.getSenhaConfirmar())) {
-			return "Senhas não coincidem";
+			return List.of("Senhas não coincidem");
 		}
 
 		return null;

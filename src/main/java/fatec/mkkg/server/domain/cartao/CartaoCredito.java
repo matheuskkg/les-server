@@ -14,28 +14,31 @@ import lombok.*;
 public class CartaoCredito extends EntidadeDominio {
 
 	@Id
+	@SequenceGenerator(
+			name = "cartoes_credito_seq_gen"
+	)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ctc_id")
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "ctc_ban_id", referencedColumnName = "ban_id", nullable = false)
+	@JoinColumn(name = "ctc_ban_id", referencedColumnName = "ban_id")
 	private Bandeira bandeira;
 
-	@Column(name = "ctc_nome_titutar", nullable = false)
+	@Column(name = "ctc_nome_titular")
 	private String nomeTitular;
 
-	@Column(name = "ctc_numero", nullable = false)
+	@Column(name = "ctc_numero")
 	private String numero;
 
-	@Column(name = "ctc_codigo_seguranca", nullable = false)
+	@Column(name = "ctc_codigo_seguranca")
 	private String codigoSeguranca;
 
-	@Column(name = "ctc_preferencial", nullable = false)
+	@Column(name = "ctc_preferencial")
 	private Boolean preferencial;
 
 	@ManyToOne
-	@JoinColumn(name = "ctc_cli_id", referencedColumnName = "cli_id", nullable = false)
+	@JoinColumn(name = "ctc_cli_id", referencedColumnName = "cli_id")
 	private Cliente cliente;
 
 	public CartaoCredito(Integer id) {

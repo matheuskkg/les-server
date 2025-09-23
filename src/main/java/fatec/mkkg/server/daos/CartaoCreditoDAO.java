@@ -1,7 +1,6 @@
 package fatec.mkkg.server.daos;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
-import fatec.mkkg.server.domain.cartao.Bandeira;
 import fatec.mkkg.server.domain.cartao.CartaoCredito;
 import fatec.mkkg.server.repositories.CartaoCreditoRepository;
 import jakarta.persistence.EntityManager;
@@ -19,23 +18,12 @@ public class CartaoCreditoDAO implements IDAO {
 	private EntityManager entityManager;
 
 	@Autowired
-	private BandeiraDAO bandeiraDAO;
-
-	@Autowired
 	private CartaoCreditoRepository cartaoCreditoRepository;
-
-	private void complementar(CartaoCredito cartaoCredito) {
-		if (cartaoCredito.getBandeira().getId() == null) {
-			cartaoCredito.setBandeira((Bandeira) bandeiraDAO.consultar(cartaoCredito.getBandeira()).getFirst());
-		}
-	}
 
 	@Transactional
 	@Override
 	public void salvar(EntidadeDominio entidade) {
 		CartaoCredito cartaoCredito = (CartaoCredito) entidade;
-
-		complementar(cartaoCredito);
 
 		if (cartaoCredito.getPreferencial()) {
 			setPreferencialFalsePorCliente(cartaoCredito);
@@ -48,8 +36,6 @@ public class CartaoCreditoDAO implements IDAO {
 	@Override
 	public void alterar(EntidadeDominio entidade) {
 		CartaoCredito cartaoCredito = (CartaoCredito) entidade;
-
-		complementar(cartaoCredito);
 
 		if (cartaoCredito.getPreferencial()) {
 			setPreferencialFalsePorCliente(cartaoCredito);

@@ -6,11 +6,13 @@ import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.strategies.IStrategy;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ValidarForcaSenha implements IStrategy {
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		Senha senha;
 
 		if (entidade instanceof Cliente cliente) {
@@ -23,7 +25,7 @@ public class ValidarForcaSenha implements IStrategy {
 		String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*., ?]).{8,}$";
 
 		if (!senha.getSenha().matches(regex)) {
-			return "Senha fraca";
+			return List.of("Senha fraca");
 		}
 
 		return null;

@@ -7,6 +7,8 @@ import fatec.mkkg.server.strategies.IStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ComplementarEnderecoParaExcluir implements IStrategy {
 
@@ -14,7 +16,7 @@ public class ComplementarEnderecoParaExcluir implements IStrategy {
 	private EnderecoDAO enderecoDAO;
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		Endereco endereco = (Endereco) entidade;
 
 		Endereco enderecoDados = new Endereco(endereco.getId());

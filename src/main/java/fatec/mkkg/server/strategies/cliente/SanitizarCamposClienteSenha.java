@@ -4,13 +4,18 @@ import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.strategies.IStrategy;
-import fatec.mkkg.server.util.Criptografia;
+import fatec.mkkg.server.util.Sanitizacao;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class CriptografarSenha implements IStrategy {
+public class SanitizarCamposClienteSenha implements IStrategy {
+
+	private void aplicarTrim(Senha senha) {
+		senha.setSenha(Sanitizacao.trim(senha.getSenha()));
+		senha.setSenhaConfirmar(Sanitizacao.trim(senha.getSenhaConfirmar()));
+	}
 
 	@Override
 	public List<String> processar(EntidadeDominio entidade) {
@@ -23,11 +28,9 @@ public class CriptografarSenha implements IStrategy {
 			senha = (Senha) entidade;
 		}
 
-		String senhaCriptografada = Criptografia.criptografar(senha.getSenha());
+		aplicarTrim(senha);
 
-		senha.setSenha(senhaCriptografada);
-
-		return null;
+		return List.of();
 	}
 
 }

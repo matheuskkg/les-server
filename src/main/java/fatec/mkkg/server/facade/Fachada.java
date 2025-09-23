@@ -20,10 +20,10 @@ public class Fachada extends AbstractFachada implements IFachada {
 
 	private void processarRegras(EntidadeDominio entidade, List<IStrategy> regrasEntidade, List<String> mensagens) {
 		for (IStrategy rn : regrasEntidade) {
-			String res = rn.processar(entidade);
+			List<String> res = rn.processar(entidade);
 
 			if (res != null) {
-				mensagens.add(res);
+				mensagens.addAll(res);
 			}
 		}
 	}

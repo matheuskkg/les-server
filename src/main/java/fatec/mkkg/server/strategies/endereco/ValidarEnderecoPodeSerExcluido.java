@@ -16,7 +16,7 @@ public class ValidarEnderecoPodeSerExcluido implements IStrategy {
 	private EnderecoDAO enderecoDAO;
 
 	@Override
-	public String processar(EntidadeDominio entidade) {
+	public List<String> processar(EntidadeDominio entidade) {
 		Endereco endereco = (Endereco) entidade;
 
 		if (!endereco.getCobranca() && !endereco.getEntrega()) {
@@ -40,15 +40,15 @@ public class ValidarEnderecoPodeSerExcluido implements IStrategy {
 		boolean existsByEntrega = !enderecosEntrega.isEmpty();
 
 		if (!existsByCobranca && !existsByEntrega) {
-			return "Deve existir ao menos um endereço de entrega e um de cobrança";
+			return List.of("Deve existir ao menos um endereço de entrega e um de cobrança");
 		}
 
 		if (!existsByCobranca) {
-			return "Deve existir ao menos um endereço de cobrança";
+			return List.of("Deve existir ao menos um endereço de cobrança");
 		}
 
 		if (!existsByEntrega) {
-			return "Deve existir ao menos um endereço de entrega";
+			return List.of("Deve existir ao menos um endereço de entrega");
 		}
 
 		return null;
