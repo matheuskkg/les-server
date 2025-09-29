@@ -6,7 +6,6 @@ import fatec.mkkg.server.domain.cartao.CartaoCredito;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.domain.endereco.Endereco;
-import fatec.mkkg.server.dtos.requests.ClienteCadastrarRequest;
 import fatec.mkkg.server.facade.Fachada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +23,8 @@ public class ClienteController {
 	private Fachada fachada;
 
 	@PostMapping
-	public ResponseEntity salvar(@RequestBody ClienteCadastrarRequest request) {
-		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request.toEntity());
+	public ResponseEntity salvar(@RequestBody Cliente request) {
+		FachadaRequestDTO fachadaRequestDTO = new FachadaRequestDTO(request);
 
 		FachadaResponseDTO fachadaResponseDTO = fachada.salvar(fachadaRequestDTO);
 

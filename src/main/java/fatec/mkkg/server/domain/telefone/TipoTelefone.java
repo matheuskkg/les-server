@@ -16,9 +16,7 @@ import lombok.Setter;
 public class TipoTelefone extends EntidadeDominio {
 
 	@Id
-	@SequenceGenerator(
-			name = "tipos_telefone_seq_gen"
-	)
+	@SequenceGenerator(name = "tipos_telefone_seq_gen")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "tpt_id")
 	private Integer id;
