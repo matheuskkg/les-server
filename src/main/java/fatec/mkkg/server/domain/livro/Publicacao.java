@@ -25,7 +25,7 @@ public class Publicacao {
 	private String codigoBarras;
 
 	@Column(name = "pub_numero_paginas")
-	private String numeroPaginas;
+	private Integer numeroPaginas;
 
 	@Embedded
 	@AttributeOverrides({ @AttributeOverride(name = "altura", column = @Column(name = "pub_altura")),

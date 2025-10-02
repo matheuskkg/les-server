@@ -27,15 +27,14 @@ public class LivroBase {
 	private Year ano;
 
 	@ManyToMany
-	@JoinTable(name = "autores_livros",
-			joinColumns = @JoinColumn(name = "aub_livro_id", referencedColumnName = "lvb_id"),
-			inverseJoinColumns = @JoinColumn(name = "aub_autor_id", referencedColumnName = "aut_id"))
+	@JoinTable(name = "autores_livros", joinColumns = @JoinColumn(name = "aul_lvb_id", referencedColumnName = "lvb_id"),
+			inverseJoinColumns = @JoinColumn(name = "aul_aut_id", referencedColumnName = "aut_id"))
 	private List<Autor> autores;
 
 	@ManyToMany
-	@JoinTable(name = "categorias_livro",
-			joinColumns = @JoinColumn(name = "ctb_livro_id", referencedColumnName = "lvb_id"),
-			inverseJoinColumns = @JoinColumn(name = "ctb_categoria_id", referencedColumnName = "ctl_id"))
+	@JoinTable(name = "categorias_livros_base",
+			joinColumns = @JoinColumn(name = "ctb_lvb_id", referencedColumnName = "lvb_id"),
+			inverseJoinColumns = @JoinColumn(name = "ctb_ctl_id", referencedColumnName = "ctl_id"))
 	private List<CategoriaLivro> categorias;
 
 }
