@@ -62,10 +62,17 @@ CREATE TABLE cupons
 
 CREATE TABLE pagamentos
 (
-    pag_id          SERIAL PRIMARY KEY,
-    pag_fpg_id      INT,
-    pag_porcentagem DOUBLE PRECISION,
-    FOREIGN KEY (pag_fpg_id) REFERENCES formas_pagamento (fpg_id)
+    pag_id SERIAL PRIMARY KEY
+);
+
+CREATE TABLE divisoes_formas_pagamento
+(
+    dfp_pag_id      INT,
+    dfp_fpg_id      INT,
+    dfp_porcentagem DOUBLE PRECISION,
+    PRIMARY KEY (dfp_pag_id, dfp_fpg_id),
+    FOREIGN KEY (dfp_pag_id) REFERENCES pagamentos (pag_id) ON DELETE CASCADE,
+    FOREIGN KEY (dfp_fpg_id) REFERENCES formas_pagamento (fpg_id) ON DELETE CASCADE
 );
 
 CREATE TABLE tipos_logradouro
