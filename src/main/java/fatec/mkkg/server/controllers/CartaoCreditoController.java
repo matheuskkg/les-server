@@ -2,7 +2,7 @@ package fatec.mkkg.server.controllers;
 
 import fatec.mkkg.server.domain.FachadaRequestDTO;
 import fatec.mkkg.server.domain.FachadaResponseDTO;
-import fatec.mkkg.server.domain.cartao.CartaoCredito;
+import fatec.mkkg.server.domain.pagamento.cartao.CartaoCredito;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.facade.Fachada;
 import org.springframework.beans.factory.annotation.Autowired;

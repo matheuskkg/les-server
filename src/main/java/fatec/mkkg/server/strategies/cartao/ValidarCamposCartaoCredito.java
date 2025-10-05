@@ -1,8 +1,8 @@
 package fatec.mkkg.server.strategies.cartao;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
-import fatec.mkkg.server.domain.cartao.Bandeira;
-import fatec.mkkg.server.domain.cartao.CartaoCredito;
+import fatec.mkkg.server.domain.pagamento.cartao.Bandeira;
+import fatec.mkkg.server.domain.pagamento.cartao.CartaoCredito;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.util.Validacao;
 import org.springframework.stereotype.Component;

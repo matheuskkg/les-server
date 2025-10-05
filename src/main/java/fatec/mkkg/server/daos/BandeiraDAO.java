@@ -1,7 +1,7 @@
 package fatec.mkkg.server.daos;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
-import fatec.mkkg.server.domain.cartao.Bandeira;
+import fatec.mkkg.server.domain.pagamento.cartao.Bandeira;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;

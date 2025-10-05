@@ -1,4 +1,4 @@
-package fatec.mkkg.server.domain.cartao;
+package fatec.mkkg.server.domain.pagamento.cartao;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
 import jakarta.persistence.*;
