@@ -11,13 +11,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@PrimaryKeyJoinColumn(name = "ctc_id", referencedColumnName = "fpg_id")
 public class CartaoCredito extends FormaPagamento {
-
-	@Id
-	@SequenceGenerator(name = "cartoes_credito_seq_gen")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ctc_id")
-	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "ctc_ban_id", referencedColumnName = "ban_id")
