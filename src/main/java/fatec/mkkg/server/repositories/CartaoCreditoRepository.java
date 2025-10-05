@@ -1,6 +1,6 @@
 package fatec.mkkg.server.repositories;
 
-import fatec.mkkg.server.domain.pagamento.cartao.CartaoCredito;
+import fatec.mkkg.server.domain.pagamento.formas.cartao.CartaoCredito;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface CartaoCreditoRepository extends JpaRepository<CartaoCredito, Integer> {
 
 	@Query("""
-				select new fatec.mkkg.server.domain.pagamento.cartao.CartaoCredito(
+				select new fatec.mkkg.server.domain.pagamento.formas.cartao.CartaoCredito(
 					cc.id,
 					cc.bandeira,
 					cc.nomeTitular,
@@ -26,7 +26,7 @@ public interface CartaoCreditoRepository extends JpaRepository<CartaoCredito, In
 	List<CartaoCredito> buscarPorClienteId(@Param("clienteId") Integer clienteId);
 
 	@Query("""
-				select new fatec.mkkg.server.domain.pagamento.cartao.CartaoCredito(
+				select new fatec.mkkg.server.domain.pagamento.formas.cartao.CartaoCredito(
 					cc.id,
 					cc.bandeira,
 					cc.nomeTitular,

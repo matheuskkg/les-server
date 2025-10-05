@@ -2,7 +2,7 @@ package fatec.mkkg.server.controllers;
 
 import fatec.mkkg.server.domain.FachadaRequestDTO;
 import fatec.mkkg.server.domain.FachadaResponseDTO;
-import fatec.mkkg.server.domain.pagamento.cartao.Bandeira;
+import fatec.mkkg.server.domain.pagamento.formas.cartao.Bandeira;
 import fatec.mkkg.server.facade.Fachada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package fatec.mkkg.server.domain.pagamento.cupom;
+package fatec.mkkg.server.domain.pagamento.formas.cupom;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
 import jakarta.persistence.*;

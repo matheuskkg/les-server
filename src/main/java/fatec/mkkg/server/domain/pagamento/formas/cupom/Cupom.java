@@ -1,7 +1,7 @@
-package fatec.mkkg.server.domain.pagamento.cupom;
+package fatec.mkkg.server.domain.pagamento.formas.cupom;
 
 import fatec.mkkg.server.domain.cliente.Cliente;
-import fatec.mkkg.server.domain.pagamento.FormaPagamento;
+import fatec.mkkg.server.domain.pagamento.formas.FormaPagamento;
 import jakarta.persistence.*;
 import lombok.Data;
 

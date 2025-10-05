@@ -1,4 +1,4 @@
-package fatec.mkkg.server.domain.pagamento;
+package fatec.mkkg.server.domain.pagamento.formas;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
 

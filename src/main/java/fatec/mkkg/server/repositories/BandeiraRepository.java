@@ -1,6 +1,6 @@
 package fatec.mkkg.server.repositories;
 
-import fatec.mkkg.server.domain.pagamento.cartao.Bandeira;
+import fatec.mkkg.server.domain.pagamento.formas.cartao.Bandeira;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
