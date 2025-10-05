@@ -1,7 +1,7 @@
 package fatec.mkkg.server.domain.pagamento.cartao;
 
-import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.cliente.Cliente;
+import fatec.mkkg.server.domain.pagamento.FormaPagamento;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +11,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartaoCredito extends EntidadeDominio {
+public class CartaoCredito extends FormaPagamento {
 
 	@Id
 	@SequenceGenerator(name = "cartoes_credito_seq_gen")
