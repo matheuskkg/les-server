@@ -1,3 +1,4 @@
+# Diagrama de Classes
 ![img.png](images/diagrama-de-classes.png)
 
 - Um mesmo livro pode ser publicado diversas vezes;
@@ -11,7 +12,4 @@
 ### TODO:
 - Alterar relação de `Publicacao` e `Produto`;
   - `Publicacao` deve herdar de `Produto`;
-- Criar entidade `PedidoTroca`;
-  - Deve ser criado um novo pedido para cada item a ser trocado;
-- Criar entidades de `Status` para `PedidoCompra` e `PedidoTroca`;
 - Alterar nome da tabela da entidade `ItemCarrinho` para `itens_carrinho`;
