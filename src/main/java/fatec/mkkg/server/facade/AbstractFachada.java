@@ -1,8 +1,8 @@
 package fatec.mkkg.server.facade;
 
 import fatec.mkkg.server.daos.*;
-import fatec.mkkg.server.domain.cartao.Bandeira;
-import fatec.mkkg.server.domain.cartao.CartaoCredito;
+import fatec.mkkg.server.domain.pagamento.formas.cartao.Bandeira;
+import fatec.mkkg.server.domain.pagamento.formas.cartao.CartaoCredito;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.domain.cliente.Login;
 import fatec.mkkg.server.domain.cliente.Senha;

@@ -1,7 +1,7 @@
 package fatec.mkkg.server.daos;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
-import fatec.mkkg.server.domain.cartao.CartaoCredito;
+import fatec.mkkg.server.domain.pagamento.formas.cartao.CartaoCredito;
 import fatec.mkkg.server.repositories.CartaoCreditoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

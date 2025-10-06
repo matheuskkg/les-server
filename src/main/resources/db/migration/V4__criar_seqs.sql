@@ -6,14 +6,6 @@ CREATE SEQUENCE IF NOT EXISTS public.bandeiras_seq
     CACHE 1
     OWNED BY bandeiras.ban_id;
 
-CREATE SEQUENCE IF NOT EXISTS public.cartoes_credito_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1
-    OWNED BY cartoes_credito.ctc_id;
-
 CREATE SEQUENCE IF NOT EXISTS public.clientes_seq
     INCREMENT 50
     START 1
@@ -69,3 +61,139 @@ CREATE SEQUENCE IF NOT EXISTS public.tipos_telefone_seq
     MAXVALUE 2147483647
     CACHE 1
     OWNED BY tipos_telefone.tpt_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.formas_pagamento_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY formas_pagamento.fpg_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.autores_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY autores.aut_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.categorias_livros_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY categorias_livros.ctl_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.editoras_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY editoras.edi_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.livros_base_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY livros_base.lvb_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.publicacoes_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY publicacoes.pub_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.produtos_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY produtos.prd_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.pagamentos_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY pagamentos.pag_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.estoque_publicacoes_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY estoque_publicacoes.esp_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.itens_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY itens.its_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.carrinhos_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY carrinhos.car_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.tipos_cupom_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY tipos_cupom.tpc_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.pedidos_compras_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY pedidos_compras.pdc_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.itens_pedido_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY itens_pedido.itp_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.pedidos_trocas_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY pedidos_trocas.pdt_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.status_pedidos_compras_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY status_pedidos_compras.spc_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.status_pedidos_trocas_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY status_pedidos_trocas.spt_id;

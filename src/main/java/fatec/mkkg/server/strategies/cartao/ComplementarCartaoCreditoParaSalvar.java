@@ -1,8 +1,8 @@
 package fatec.mkkg.server.strategies.cartao;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
-import fatec.mkkg.server.domain.cartao.Bandeira;
-import fatec.mkkg.server.domain.cartao.CartaoCredito;
+import fatec.mkkg.server.domain.pagamento.formas.cartao.Bandeira;
+import fatec.mkkg.server.domain.pagamento.formas.cartao.CartaoCredito;
 import fatec.mkkg.server.repositories.BandeiraRepository;
 import fatec.mkkg.server.strategies.IStrategy;
 import org.springframework.beans.factory.annotation.Autowired;

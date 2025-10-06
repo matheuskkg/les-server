@@ -17,9 +17,7 @@ import java.time.LocalDate;
 public class Cliente extends EntidadeDominio {
 
 	@Id
-	@SequenceGenerator(
-			name = "clientes_seq_gen"
-	)
+	@SequenceGenerator(name = "clientes_seq_gen")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "cli_id")
 	private Integer id;

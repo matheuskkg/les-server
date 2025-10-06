@@ -1,7 +1,7 @@
-package fatec.mkkg.server.domain.cartao;
+package fatec.mkkg.server.domain.pagamento.formas.cartao;
 
-import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.cliente.Cliente;
+import fatec.mkkg.server.domain.pagamento.formas.FormaPagamento;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,15 +11,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartaoCredito extends EntidadeDominio {
-
-	@Id
-	@SequenceGenerator(
-			name = "cartoes_credito_seq_gen"
-	)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ctc_id")
-	private Integer id;
+@PrimaryKeyJoinColumn(name = "ctc_id", referencedColumnName = "fpg_id")
+public class CartaoCredito extends FormaPagamento {
 
 	@ManyToOne
 	@JoinColumn(name = "ctc_ban_id", referencedColumnName = "ban_id")
