@@ -14,3 +14,4 @@
 - Criar entidade `PedidoTroca`;
   - Deve ser criado um novo pedido para cada item a ser trocado;
 - Criar entidades de `Status` para `PedidoCompra` e `PedidoTroca`;
+- Alterar nome da tabela da entidade `ItemCarrinho` para `itens_carrinho`;

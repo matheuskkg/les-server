@@ -219,3 +219,21 @@ CREATE TABLE itens
     FOREIGN KEY (its_prd_id) REFERENCES produtos (prd_id),
     FOREIGN KEY (its_car_id) REFERENCES carrinhos (car_id)
 );
+
+CREATE TABLE pedidos_compras
+(
+    pdc_id     SERIAL PRIMARY KEY,
+    pdc_car_id INT,
+    FOREIGN KEY (pdc_car_id) REFERENCES carrinhos (car_id)
+);
+
+CREATE TABLE itens_pedido
+(
+    itp_id                     SERIAL PRIMARY KEY,
+    itp_prd_id                 INT,
+    itp_quantidade             INT,
+    itp_valor_unitario_produto INT,
+    itp_pdc_id                 INT,
+    FOREIGN KEY (itp_prd_id) REFERENCES produtos (prd_id),
+    FOREIGN KEY (itp_pdc_id) REFERENCES pedidos_compras (pdc_id)
+);

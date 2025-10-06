@@ -157,3 +157,19 @@ CREATE SEQUENCE IF NOT EXISTS public.tipos_cupom_seq
     MAXVALUE 2147483647
     CACHE 1
     OWNED BY tipos_cupom.tpc_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.pedidos_compras_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY pedidos_compras.pdc_id;
+
+CREATE SEQUENCE IF NOT EXISTS public.itens_pedido_seq
+    INCREMENT 50
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1
+    OWNED BY itens_pedido.itp_id;
