@@ -26,4 +26,8 @@ public class PedidoCompra extends EntidadeDominio {
 	@OneToMany(mappedBy = "pedidoCompra")
 	private List<ItemPedido> itens;
 
+	@ManyToOne
+	@JoinColumn(name = "pdc_spc_id", referencedColumnName = "spc_id")
+	private StatusPedidoCompra status;
+
 }
