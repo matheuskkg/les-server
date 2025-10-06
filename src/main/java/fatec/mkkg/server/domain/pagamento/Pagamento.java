@@ -1,5 +1,6 @@
 package fatec.mkkg.server.domain.pagamento;
 
+import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.pagamento.formas.FormaPagamento;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,7 +10,7 @@ import java.util.Map;
 @Entity
 @Table(name = "pagamentos")
 @Data
-public class Pagamento {
+public class Pagamento extends EntidadeDominio {
 
 	@Id
 	@SequenceGenerator(name = "pagamentos_seq_gen")

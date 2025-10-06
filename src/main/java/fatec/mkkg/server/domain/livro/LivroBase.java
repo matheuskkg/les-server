@@ -1,5 +1,6 @@
 package fatec.mkkg.server.domain.livro;
 
+import fatec.mkkg.server.domain.EntidadeDominio;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "livros_base")
 @Data
-public class LivroBase {
+public class LivroBase extends EntidadeDominio {
 
 	@Id
 	@SequenceGenerator(name = "livros_base_seq_gen")

@@ -1,12 +1,13 @@
 package fatec.mkkg.server.domain.livro;
 
+import fatec.mkkg.server.domain.EntidadeDominio;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Table(name = "publicacoes")
 @Data
-public class Publicacao {
+public class Publicacao extends EntidadeDominio {
 
 	@Id
 	@SequenceGenerator(name = "publicacoes_seq_gen")
