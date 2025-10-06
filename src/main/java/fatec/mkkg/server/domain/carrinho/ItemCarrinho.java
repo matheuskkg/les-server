@@ -27,6 +27,6 @@ public class ItemCarrinho extends EntidadeDominio {
 	@JoinColumn(name = "its_car_id", referencedColumnName = "car_id")
 	private Carrinho carrinho;
 
-	//TODO: adicionar expiracao do item no carrinho e bloquear no estoque
+	// TODO: adicionar expiracao do item no carrinho e bloquear no estoque
 
 }

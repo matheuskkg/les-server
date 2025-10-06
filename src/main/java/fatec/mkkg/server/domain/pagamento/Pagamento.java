@@ -19,7 +19,8 @@ public class Pagamento extends EntidadeDominio {
 	private Integer id;
 
 	@ElementCollection
-	@CollectionTable(name = "divisoes_formas_pagamento", joinColumns = @JoinColumn(name = "dfp_pag_id", referencedColumnName = "pag_id"))
+	@CollectionTable(name = "divisoes_formas_pagamento",
+			joinColumns = @JoinColumn(name = "dfp_pag_id", referencedColumnName = "pag_id"))
 	@MapKeyJoinColumn(name = "dfp_fpg_id", referencedColumnName = "fpg_id")
 	@Column(name = "dfp_porcentagem")
 	private Map<FormaPagamento, Double> divisaoFormasPagamento;
