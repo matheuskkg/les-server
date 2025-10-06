@@ -220,11 +220,19 @@ CREATE TABLE itens
     FOREIGN KEY (its_car_id) REFERENCES carrinhos (car_id)
 );
 
+CREATE TABLE status_pedidos_compras
+(
+    spc_id     SERIAL PRIMARY KEY,
+    spc_status VARCHAR(255)
+);
+
 CREATE TABLE pedidos_compras
 (
     pdc_id     SERIAL PRIMARY KEY,
     pdc_car_id INT,
-    FOREIGN KEY (pdc_car_id) REFERENCES carrinhos (car_id)
+    pdc_spc_id INT,
+    FOREIGN KEY (pdc_car_id) REFERENCES carrinhos (car_id),
+    FOREIGN KEY (pdc_spc_id) REFERENCES status_pedidos_compras (spc_id)
 );
 
 CREATE TABLE itens_pedido
@@ -236,4 +244,20 @@ CREATE TABLE itens_pedido
     itp_pdc_id                 INT,
     FOREIGN KEY (itp_prd_id) REFERENCES produtos (prd_id),
     FOREIGN KEY (itp_pdc_id) REFERENCES pedidos_compras (pdc_id)
+);
+
+CREATE TABLE status_pedidos_trocas
+(
+    spt_id     SERIAL PRIMARY KEY,
+    spt_status VARCHAR(255)
+);
+
+CREATE TABLE pedidos_trocas
+(
+    pdt_id               SERIAL PRIMARY KEY,
+    pdt_spt_id           INT,
+    pdt_itp_id           INT,
+    pdt_quantidade_troca INT,
+    FOREIGN KEY (pdt_spt_id) REFERENCES status_pedidos_trocas (spt_id),
+    FOREIGN KEY (pdt_itp_id) REFERENCES itens_pedido (itp_id)
 );
