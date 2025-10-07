@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,7 @@ public class Carrinho extends EntidadeDominio {
 	private Cliente cliente;
 
 	@OneToMany(mappedBy = "carrinho")
-	private List<ItemCarrinho> itens;
+	@Builder.Default
+	private List<ItemCarrinho> itens = new ArrayList<>();
 
 }

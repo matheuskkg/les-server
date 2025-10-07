@@ -27,7 +27,8 @@ public class ItemCarrinho extends EntidadeDominio {
 	private Produto produto;
 
 	@Column(name = "its_quantidade")
-	private Integer quantidade;
+	@Builder.Default
+	private Integer quantidade = 0;
 
 	@ManyToOne
 	@JoinColumn(name = "its_car_id", referencedColumnName = "car_id")

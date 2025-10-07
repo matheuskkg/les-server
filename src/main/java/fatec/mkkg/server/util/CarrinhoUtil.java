@@ -9,9 +9,7 @@ import java.util.List;
 public class CarrinhoUtil {
 
 	public static List<Produto> obterProdutosNoCarrinho(Carrinho carrinho) {
-		return carrinho.getItens().stream()
-				.map(ItemCarrinho::getProduto)
-				.toList();
+		return carrinho.getItens().stream().map(ItemCarrinho::getProduto).toList();
 	}
 
 }
