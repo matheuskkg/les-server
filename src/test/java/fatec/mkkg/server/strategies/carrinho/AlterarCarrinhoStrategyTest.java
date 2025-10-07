@@ -6,6 +6,7 @@ import fatec.mkkg.server.domain.carrinho.ItemCarrinho;
 import fatec.mkkg.server.domain.venda.Produto;
 import fatec.mkkg.server.repositories.CarrinhoRepository;
 import fatec.mkkg.server.util.CarrinhoUtil;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,107 @@ class AlterarCarrinhoStrategyTest {
 	CarrinhoRepository carrinhoRepository;
 
 	@Test
-	void test_deveRemoverItemDoCarrinho_quandoProdutoEstiverNoCarrinho() {
+	@DisplayName("Deve adicionar item no carrinho")
+	void test_deveAdicionarItemNoCarrinho_quandoProdutoNaoEstiverNoCarrinho() {
 		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder()
-				.removes(List.of(1))
-				.build();
+			.edits(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(2).build()))
+			.build();
 
 		Carrinho carrinho = Carrinho.builder()
-				.itens(List.of(
-						ItemCarrinho.builder().produto(Produto.builder().id(1).build()).build(),
-						ItemCarrinho.builder().produto(Produto.builder().id(2).build()).build()
-				))
-				.build();
+			.itens(List.of(ItemCarrinho.builder().produto(Produto.builder().id(2).build()).build()))
+			.build();
+
+		Mockito.when(carrinhoRepository.findByCliente(Mockito.any())).thenReturn(Optional.ofNullable(carrinho));
+
+		strategy.processar(request);
+
+		List<Produto> produtos = CarrinhoUtil.obterProdutosNoCarrinho(carrinho);
+		assertEquals(2, produtos.size());
+		assertTrue(produtos.stream().anyMatch(p -> p.getId() == 1));
+		assertTrue(produtos.stream().anyMatch(p -> p.getId() == 2));
+	}
+
+	@Test
+	@DisplayName("Deve somar quantidade de item quando produto já estiver no carrinho")
+	void test_deveSomarQuantidadeDoItemNoCarrinho_quandoProdutoJaEstiverNoCarrinho() {
+		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder()
+			.edits(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(3).build()))
+			.build();
+
+		Carrinho carrinho = Carrinho.builder()
+			.itens(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(2).build()))
+			.build();
+
+		Mockito.when(carrinhoRepository.findByCliente(Mockito.any())).thenReturn(Optional.ofNullable(carrinho));
+
+		strategy.processar(request);
+
+		assertEquals(5, carrinho.getItens().getFirst().getQuantidade());
+	}
+
+	@Test
+	@DisplayName("Deve subtrair quantidade de item quando produto já estiver no carrinho")
+	void test_deveSubtrairQuantidadeDoItemNoCarrinho_quandoProdutoJaEstiverNoCarrinho() {
+		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder()
+			.edits(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(-1).build()))
+			.build();
+
+		Carrinho carrinho = Carrinho.builder()
+			.itens(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(3).build()))
+			.build();
+
+		Mockito.when(carrinhoRepository.findByCliente(Mockito.any())).thenReturn(Optional.ofNullable(carrinho));
+
+		strategy.processar(request);
+
+		assertEquals(2, carrinho.getItens().getFirst().getQuantidade());
+	}
+
+	@Test
+	@DisplayName("Deve remover item do carrinho quando nova quantidade for zero")
+	void test_deveRemoverItemDoCarrinho_quandoNovaQuantidadeForZero() {
+		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder()
+			.edits(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(-1).build()))
+			.build();
+
+		Carrinho carrinho = Carrinho.builder()
+			.itens(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(1).build()))
+			.build();
+
+		Mockito.when(carrinhoRepository.findByCliente(Mockito.any())).thenReturn(Optional.ofNullable(carrinho));
+
+		strategy.processar(request);
+
+		assertTrue(carrinho.getItens().isEmpty());
+	}
+
+	@Test
+	@DisplayName("Deve remover item do carrinho quando nova quantidade for negativa")
+	void test_deveRemoverItemDoCarrinho_quandoNovaQuantidadeForNegativa() {
+		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder()
+			.edits(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(-4).build()))
+			.build();
+
+		Carrinho carrinho = Carrinho.builder()
+			.itens(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(1).build()))
+			.build();
+
+		Mockito.when(carrinhoRepository.findByCliente(Mockito.any())).thenReturn(Optional.ofNullable(carrinho));
+
+		strategy.processar(request);
+
+		assertTrue(carrinho.getItens().isEmpty());
+	}
+
+	@Test
+	@DisplayName("Deve remover item do carrinho quando produto estiver no carrinho")
+	void test_deveRemoverItemDoCarrinho_quandoProdutoEstiverNoCarrinho() {
+		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder().removes(List.of(1)).build();
+
+		Carrinho carrinho = Carrinho.builder()
+			.itens(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).build(),
+					ItemCarrinho.builder().produto(Produto.builder().id(2).build()).build()))
+			.build();
 
 		Mockito.when(carrinhoRepository.findByCliente(Mockito.any())).thenReturn(Optional.ofNullable(carrinho));
 
@@ -50,17 +141,46 @@ class AlterarCarrinhoStrategyTest {
 	}
 
 	@Test
+	@DisplayName("Não deve remover nenhum item do carrinho quando produto não estiver no carrinho")
 	void test_naoDeveRemoverItensDoCarrinho_quandoProdutoNaoEstiverNoCarrinho() {
-		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder()
-				.removes(List.of(3))
-				.build();
+		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder().removes(List.of(3)).build();
 
 		Carrinho carrinho = Carrinho.builder()
-				.itens(List.of(
-						ItemCarrinho.builder().produto(Produto.builder().id(1).build()).build(),
-						ItemCarrinho.builder().produto(Produto.builder().id(2).build()).build()
-				))
-				.build();
+			.itens(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).build(),
+					ItemCarrinho.builder().produto(Produto.builder().id(2).build()).build()))
+			.build();
+
+		Mockito.when(carrinhoRepository.findByCliente(Mockito.any())).thenReturn(Optional.ofNullable(carrinho));
+
+		strategy.processar(request);
+
+		List<Produto> produtos = CarrinhoUtil.obterProdutosNoCarrinho(carrinho);
+		assertEquals(2, produtos.size());
+		assertTrue(produtos.stream().anyMatch(p -> p.getId() == 1));
+		assertTrue(produtos.stream().anyMatch(p -> p.getId() == 2));
+	}
+
+	@Test
+	@DisplayName("Deve criar novo carrinho quando carrinho do cliente não existir")
+	void test_deveCriarNovoCarrinho_quandoCarrinhoDoClienteNaoExistir() {
+		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder()
+			.edits(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(2).build()))
+			.build();
+
+		Mockito.when(carrinhoRepository.findByCliente(Mockito.any())).thenReturn(Optional.empty());
+		strategy.processar(request);
+		Mockito.verify(carrinhoRepository, Mockito.times(1)).save(Mockito.any(Carrinho.class));
+	}
+
+	@Test
+	@DisplayName("Deve processar request vazio sem alterar o carrinho")
+	void test_deveProcessarRequestVazio_semAlterarCarrinho() {
+		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder().build();
+
+		Carrinho carrinho = Carrinho.builder()
+			.itens(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).build(),
+					ItemCarrinho.builder().produto(Produto.builder().id(2).build()).build()))
+			.build();
 
 		Mockito.when(carrinhoRepository.findByCliente(Mockito.any())).thenReturn(Optional.ofNullable(carrinho));
 
