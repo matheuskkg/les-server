@@ -3,6 +3,7 @@ package fatec.mkkg.server.domain.pedido.compra;
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.carrinho.Carrinho;
 import fatec.mkkg.server.domain.pedido.ItemPedido;
+import fatec.mkkg.server.domain.pedido.StatusPedido;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,7 +28,7 @@ public class PedidoCompra extends EntidadeDominio {
 	private List<ItemPedido> itens;
 
 	@ManyToOne
-	@JoinColumn(name = "pdc_spc_id", referencedColumnName = "spc_id")
-	private StatusPedidoCompra status;
+	@JoinColumn(name = "pdc_stp_id", referencedColumnName = "stp_id")
+	private StatusPedido status;
 
 }

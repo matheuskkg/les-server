@@ -182,18 +182,10 @@ CREATE SEQUENCE IF NOT EXISTS public.pedidos_trocas_seq
     CACHE 1
     OWNED BY pedidos_trocas.pdt_id;
 
-CREATE SEQUENCE IF NOT EXISTS public.status_pedidos_compras_seq
+CREATE SEQUENCE IF NOT EXISTS public.status_pedidos_seq
     INCREMENT 50
     START 1
     MINVALUE 1
     MAXVALUE 2147483647
     CACHE 1
-    OWNED BY status_pedidos_compras.spc_id;
-
-CREATE SEQUENCE IF NOT EXISTS public.status_pedidos_trocas_seq
-    INCREMENT 50
-    START 1
-    MINVALUE 1
-    MAXVALUE 2147483647
-    CACHE 1
-    OWNED BY status_pedidos_trocas.spt_id;
+    OWNED BY status_pedidos.stp_id;
