@@ -1,12 +1,12 @@
 CREATE TABLE senhas
 (
-    sen_id    SERIAL PRIMARY KEY,
+    sen_id    INT PRIMARY KEY,
     sen_senha VARCHAR(255)
 );
 
 CREATE TABLE clientes
 (
-    cli_id              SERIAL PRIMARY KEY,
+    cli_id              INT PRIMARY KEY,
     cli_nome            VARCHAR(255),
     cli_data_nascimento DATE,
     cli_genero          VARCHAR(255),
@@ -19,19 +19,19 @@ CREATE TABLE clientes
 
 CREATE TABLE bandeiras
 (
-    ban_id       SERIAL PRIMARY KEY,
+    ban_id       INT PRIMARY KEY,
     ban_bandeira VARCHAR(255)
 );
 
 CREATE TABLE tipos_cupom
 (
-    tpc_id   SERIAL PRIMARY KEY,
+    tpc_id   INT PRIMARY KEY,
     tpc_tipo VARCHAR(255)
 );
 
 CREATE TABLE formas_pagamento
 (
-    fpg_id SERIAL PRIMARY KEY
+    fpg_id INT PRIMARY KEY
 );
 
 CREATE TABLE cartoes_credito
@@ -62,7 +62,7 @@ CREATE TABLE cupons
 
 CREATE TABLE pagamentos
 (
-    pag_id SERIAL PRIMARY KEY
+    pag_id INT PRIMARY KEY
 );
 
 CREATE TABLE divisoes_formas_pagamento
@@ -77,19 +77,19 @@ CREATE TABLE divisoes_formas_pagamento
 
 CREATE TABLE tipos_logradouro
 (
-    tpl_id   SERIAL PRIMARY KEY,
+    tpl_id   INT PRIMARY KEY,
     tpl_tipo VARCHAR(255)
 );
 
 CREATE TABLE tipos_residencia
 (
-    tpr_id   SERIAL PRIMARY KEY,
+    tpr_id   INT PRIMARY KEY,
     tpr_tipo VARCHAR(255)
 );
 
 CREATE TABLE enderecos
 (
-    end_id                 SERIAL PRIMARY KEY,
+    end_id                 INT PRIMARY KEY,
     end_nome_identificador VARCHAR(255),
     end_pais               VARCHAR(255),
     end_estado             VARCHAR(255),
@@ -111,13 +111,13 @@ CREATE TABLE enderecos
 
 CREATE TABLE tipos_telefone
 (
-    tpt_id   SERIAL PRIMARY KEY,
+    tpt_id   INT PRIMARY KEY,
     tpt_tipo VARCHAR(255)
 );
 
 CREATE TABLE telefones
 (
-    tel_id     SERIAL PRIMARY KEY,
+    tel_id     INT PRIMARY KEY,
     tel_ddd    VARCHAR(255),
     tel_tpt_id INT,
     tel_numero VARCHAR(255),
@@ -128,27 +128,27 @@ CREATE TABLE telefones
 
 CREATE TABLE autores
 (
-    aut_id   SERIAL PRIMARY KEY,
+    aut_id   INT PRIMARY KEY,
     aut_nome VARCHAR(255)
 );
 
 CREATE TABLE categorias_livros
 (
-    ctl_id   SERIAL PRIMARY KEY,
+    ctl_id   INT PRIMARY KEY,
     ctl_nome VARCHAR(255)
 );
 
 CREATE TABLE editoras
 (
-    edi_id   SERIAL PRIMARY KEY,
+    edi_id   INT PRIMARY KEY,
     edi_nome VARCHAR(255)
 );
 
 CREATE TABLE livros_base
 (
-    lvb_id      SERIAL PRIMARY KEY,
+    lvb_id      INT PRIMARY KEY,
     lvb_titulo  VARCHAR(255),
-    lvb_sinopse VARCHAR(1000),
+    lvb_sinopse VARCHAR(2000),
     lvb_ano     INT
 );
 
@@ -172,7 +172,7 @@ CREATE TABLE categorias_livros_base
 
 CREATE TABLE publicacoes
 (
-    pub_id             SERIAL PRIMARY KEY,
+    pub_id             INT PRIMARY KEY,
     pub_lvb_id         INT,
     pub_isbn           VARCHAR(255),
     pub_codigo_barras  VARCHAR(255),
@@ -189,7 +189,7 @@ CREATE TABLE publicacoes
 
 CREATE TABLE estoque_publicacoes
 (
-    esp_id         SERIAL PRIMARY KEY,
+    esp_id         INT PRIMARY KEY,
     esp_pub_id     INT,
     esp_quantidade INT,
     FOREIGN KEY (esp_pub_id) REFERENCES publicacoes (pub_id)
@@ -197,14 +197,14 @@ CREATE TABLE estoque_publicacoes
 
 CREATE TABLE carrinhos
 (
-    car_id     SERIAL PRIMARY KEY,
+    car_id     INT PRIMARY KEY,
     car_cli_id INT,
     FOREIGN KEY (car_cli_id) REFERENCES clientes (cli_id)
 );
 
 CREATE TABLE produtos
 (
-    prd_id     SERIAL PRIMARY KEY,
+    prd_id     INT PRIMARY KEY,
     prd_pub_id INT,
     prd_preco  INT,
     FOREIGN KEY (prd_pub_id) REFERENCES publicacoes (pub_id)
@@ -212,7 +212,7 @@ CREATE TABLE produtos
 
 CREATE TABLE itens
 (
-    its_id         SERIAL PRIMARY KEY,
+    its_id         INT PRIMARY KEY,
     its_prd_id     INT,
     its_car_id     INT,
     its_quantidade INT,
@@ -220,24 +220,24 @@ CREATE TABLE itens
     FOREIGN KEY (its_car_id) REFERENCES carrinhos (car_id)
 );
 
-CREATE TABLE status_pedidos_compras
+CREATE TABLE status_pedidos
 (
-    spc_id     SERIAL PRIMARY KEY,
-    spc_status VARCHAR(255)
+    stp_id     INT PRIMARY KEY,
+    stp_status VARCHAR(255)
 );
 
 CREATE TABLE pedidos_compras
 (
-    pdc_id     SERIAL PRIMARY KEY,
+    pdc_id     INT PRIMARY KEY,
     pdc_car_id INT,
-    pdc_spc_id INT,
+    pdc_stp_id INT,
     FOREIGN KEY (pdc_car_id) REFERENCES carrinhos (car_id),
-    FOREIGN KEY (pdc_spc_id) REFERENCES status_pedidos_compras (spc_id)
+    FOREIGN KEY (pdc_stp_id) REFERENCES status_pedidos (stp_id)
 );
 
 CREATE TABLE itens_pedido
 (
-    itp_id                     SERIAL PRIMARY KEY,
+    itp_id                     INT PRIMARY KEY,
     itp_prd_id                 INT,
     itp_quantidade             INT,
     itp_valor_unitario_produto INT,
@@ -246,18 +246,12 @@ CREATE TABLE itens_pedido
     FOREIGN KEY (itp_pdc_id) REFERENCES pedidos_compras (pdc_id)
 );
 
-CREATE TABLE status_pedidos_trocas
-(
-    spt_id     SERIAL PRIMARY KEY,
-    spt_status VARCHAR(255)
-);
-
 CREATE TABLE pedidos_trocas
 (
-    pdt_id               SERIAL PRIMARY KEY,
-    pdt_spt_id           INT,
+    pdt_id               INT PRIMARY KEY,
+    pdt_stp_id           INT,
     pdt_itp_id           INT,
     pdt_quantidade_troca INT,
-    FOREIGN KEY (pdt_spt_id) REFERENCES status_pedidos_trocas (spt_id),
+    FOREIGN KEY (pdt_stp_id) REFERENCES status_pedidos (stp_id),
     FOREIGN KEY (pdt_itp_id) REFERENCES itens_pedido (itp_id)
 );
