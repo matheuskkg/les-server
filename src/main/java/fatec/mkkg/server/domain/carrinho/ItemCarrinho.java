@@ -3,11 +3,17 @@ package fatec.mkkg.server.domain.carrinho;
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.venda.Produto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "itens")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ItemCarrinho extends EntidadeDominio {
 
 	@Id
@@ -21,7 +27,8 @@ public class ItemCarrinho extends EntidadeDominio {
 	private Produto produto;
 
 	@Column(name = "its_quantidade")
-	private Integer quantidade;
+	@Builder.Default
+	private Integer quantidade = 0;
 
 	@ManyToOne
 	@JoinColumn(name = "its_car_id", referencedColumnName = "car_id")
