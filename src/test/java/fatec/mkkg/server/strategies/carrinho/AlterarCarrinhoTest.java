@@ -19,10 +19,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class AlterarCarrinhoStrategyTest {
+class AlterarCarrinhoTest {
 
 	@Autowired
-	AlterarCarrinhoStrategy strategy;
+	AlterarCarrinho strategy;
 
 	@MockitoBean
 	CarrinhoRepository carrinhoRepository;

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class AlterarCarrinhoStrategy implements IStrategy {
+public class AlterarCarrinho implements IStrategy {
 
 	@Autowired
 	private CarrinhoRepository carrinhoRepository;
