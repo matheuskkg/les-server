@@ -1,7 +1,7 @@
 package fatec.mkkg.server.repositories;
 
-import fatec.mkkg.server.domain.livro.ControleEstoqueProduto;
-import fatec.mkkg.server.domain.venda.Produto;
+import fatec.mkkg.server.domain.produto.ControleEstoqueProduto;
+import fatec.mkkg.server.domain.produto.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

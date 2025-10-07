@@ -7,7 +7,7 @@ import fatec.mkkg.server.domain.carrinho.ItemCarrinho;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.repositories.CarrinhoRepository;
 import fatec.mkkg.server.strategies.IStrategy;
-import fatec.mkkg.server.strategies.livro.ValidarQuantidadeProdutoDisponivelEmEstoque;
+import fatec.mkkg.server.strategies.estoque.ValidarQuantidadeProdutoDisponivelEmEstoque;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

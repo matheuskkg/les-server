@@ -2,7 +2,7 @@ package fatec.mkkg.server.domain.pedido;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.pedido.compra.PedidoCompra;
-import fatec.mkkg.server.domain.venda.Produto;
+import fatec.mkkg.server.domain.produto.Produto;
 import jakarta.persistence.*;
 import lombok.Data;
 

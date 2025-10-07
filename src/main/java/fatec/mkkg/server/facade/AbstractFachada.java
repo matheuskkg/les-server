@@ -7,7 +7,7 @@ import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.domain.endereco.Endereco;
 import fatec.mkkg.server.domain.pagamento.formas.cartao.Bandeira;
 import fatec.mkkg.server.domain.pagamento.formas.cartao.CartaoCredito;
-import fatec.mkkg.server.domain.venda.Produto;
+import fatec.mkkg.server.domain.produto.Produto;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.strategies.cartao.ComplementarCartaoCreditoParaSalvar;
 import fatec.mkkg.server.strategies.cartao.SanitizarCamposCartaoCredito;

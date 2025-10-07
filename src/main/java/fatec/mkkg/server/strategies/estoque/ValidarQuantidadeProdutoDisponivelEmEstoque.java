@@ -1,4 +1,4 @@
-package fatec.mkkg.server.strategies.livro;
+package fatec.mkkg.server.strategies.estoque;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.carrinho.ItemCarrinho;

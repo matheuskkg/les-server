@@ -1,8 +1,9 @@
 package fatec.mkkg.server.strategies.livro;
 
 import fatec.mkkg.server.domain.carrinho.ItemCarrinho;
-import fatec.mkkg.server.domain.venda.Produto;
+import fatec.mkkg.server.domain.produto.Produto;
 import fatec.mkkg.server.repositories.ControleEstoqueProdutoRepository;
+import fatec.mkkg.server.strategies.estoque.ValidarQuantidadeProdutoDisponivelEmEstoque;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

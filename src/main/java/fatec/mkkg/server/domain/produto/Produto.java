@@ -1,4 +1,4 @@
-package fatec.mkkg.server.domain.venda;
+package fatec.mkkg.server.domain.produto;
 
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.livro.Publicacao;

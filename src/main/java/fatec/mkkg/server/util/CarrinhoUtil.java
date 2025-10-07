@@ -2,7 +2,7 @@ package fatec.mkkg.server.util;
 
 import fatec.mkkg.server.domain.carrinho.Carrinho;
 import fatec.mkkg.server.domain.carrinho.ItemCarrinho;
-import fatec.mkkg.server.domain.venda.Produto;
+import fatec.mkkg.server.domain.produto.Produto;
 
 import java.util.List;
 
