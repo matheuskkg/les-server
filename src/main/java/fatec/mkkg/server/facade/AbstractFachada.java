@@ -1,12 +1,13 @@
 package fatec.mkkg.server.facade;
 
 import fatec.mkkg.server.daos.*;
-import fatec.mkkg.server.domain.pagamento.formas.cartao.Bandeira;
-import fatec.mkkg.server.domain.pagamento.formas.cartao.CartaoCredito;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.domain.cliente.Login;
 import fatec.mkkg.server.domain.cliente.Senha;
 import fatec.mkkg.server.domain.endereco.Endereco;
+import fatec.mkkg.server.domain.pagamento.formas.cartao.Bandeira;
+import fatec.mkkg.server.domain.pagamento.formas.cartao.CartaoCredito;
+import fatec.mkkg.server.domain.venda.Produto;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.strategies.cartao.ComplementarCartaoCreditoParaSalvar;
 import fatec.mkkg.server.strategies.cartao.SanitizarCamposCartaoCredito;
@@ -101,13 +102,14 @@ public class AbstractFachada {
 
 	@Autowired
 	public AbstractFachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO,
-			EnderecoDAO enderecoDAO, SenhaDAO senhaDAO, LoginDAO loginDAO) {
+			EnderecoDAO enderecoDAO, SenhaDAO senhaDAO, LoginDAO loginDAO, ProdutoDAO produtoDAO) {
 		daos.put(Bandeira.class.getName(), bandeiraDAO);
 		daos.put(CartaoCredito.class.getName(), cartaoCreditoDAO);
 		daos.put(Cliente.class.getName(), clienteDAO);
 		daos.put(Endereco.class.getName(), enderecoDAO);
 		daos.put(Senha.class.getName(), senhaDAO);
 		daos.put(Login.class.getName(), loginDAO);
+		daos.put(Produto.class.getName(), produtoDAO);
 	}
 
 	protected void inicializarSalvar() {
@@ -172,6 +174,9 @@ public class AbstractFachada {
 
 		List<IStrategy> rnsConsultarLogin = List.of();
 		rns.put(Login.class.getName(), rnsConsultarLogin);
+
+		List<IStrategy> rnsConsultarProduto = List.of();
+		rns.put(Produto.class.getName(), rnsConsultarProduto);
 	}
 
 }

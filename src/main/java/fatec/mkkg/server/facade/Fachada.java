@@ -14,8 +14,8 @@ import java.util.List;
 public class Fachada extends AbstractFachada implements IFachada {
 
 	public Fachada(BandeiraDAO bandeiraDAO, CartaoCreditoDAO cartaoCreditoDAO, ClienteDAO clienteDAO,
-			EnderecoDAO enderecoDAO, SenhaDAO senhaDAO, LoginDAO loginDAO) {
-		super(bandeiraDAO, cartaoCreditoDAO, clienteDAO, enderecoDAO, senhaDAO, loginDAO);
+			EnderecoDAO enderecoDAO, SenhaDAO senhaDAO, LoginDAO loginDAO, ProdutoDAO produtoDAO) {
+		super(bandeiraDAO, cartaoCreditoDAO, clienteDAO, enderecoDAO, senhaDAO, loginDAO, produtoDAO);
 	}
 
 	private void processarRegras(EntidadeDominio entidade, List<IStrategy> regrasEntidade, List<String> mensagens) {
