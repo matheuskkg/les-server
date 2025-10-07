@@ -187,14 +187,6 @@ CREATE TABLE publicacoes
     FOREIGN KEY (pub_edi_id) REFERENCES editoras (edi_id)
 );
 
-CREATE TABLE estoque_publicacoes
-(
-    esp_id         INT PRIMARY KEY,
-    esp_pub_id     INT,
-    esp_quantidade INT,
-    FOREIGN KEY (esp_pub_id) REFERENCES publicacoes (pub_id)
-);
-
 CREATE TABLE carrinhos
 (
     car_id     INT PRIMARY KEY,
@@ -208,6 +200,14 @@ CREATE TABLE produtos
     prd_pub_id INT,
     prd_preco  INT,
     FOREIGN KEY (prd_pub_id) REFERENCES publicacoes (pub_id)
+);
+
+CREATE TABLE controle_estoque_produtos
+(
+    esp_id         INT PRIMARY KEY,
+    esp_prd_id     INT,
+    esp_quantidade INT,
+    FOREIGN KEY (esp_prd_id) REFERENCES produtos (prd_id)
 );
 
 CREATE TABLE itens

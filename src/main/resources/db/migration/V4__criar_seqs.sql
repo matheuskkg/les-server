@@ -126,13 +126,13 @@ CREATE SEQUENCE IF NOT EXISTS public.pagamentos_seq
     CACHE 1
     OWNED BY pagamentos.pag_id;
 
-CREATE SEQUENCE IF NOT EXISTS public.estoque_publicacoes_seq
+CREATE SEQUENCE IF NOT EXISTS public.controle_estoque_produtos_seq
     INCREMENT 50
     START 1
     MINVALUE 1
     MAXVALUE 2147483647
     CACHE 1
-    OWNED BY estoque_publicacoes.esp_id;
+    OWNED BY controle_estoque_produtos.esp_id;
 
 CREATE SEQUENCE IF NOT EXISTS public.itens_seq
     INCREMENT 50
