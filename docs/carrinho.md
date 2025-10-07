@@ -1,6 +1,8 @@
 ### Request:
 
-**removes** -> Lista de inteiros, onde cada inteiro representa o ID do produto a ser removido do carrinho
+**edits** ⇾ Lista de `ItemCarrinho`, onde cada item representa um produto e a quantidade a ser alterada (caso o item não exista no carrinho, ele será adicionado)
+
+**removes** ⇾ Lista de inteiros, onde cada inteiro representa o ID do produto a ser removido do carrinho
 ```json
 {
   "edits": [
