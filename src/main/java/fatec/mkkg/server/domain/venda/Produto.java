@@ -3,11 +3,17 @@ package fatec.mkkg.server.domain.venda;
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.livro.Publicacao;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "produtos")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Produto extends EntidadeDominio {
 
 	@Id

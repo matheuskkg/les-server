@@ -3,11 +3,17 @@ package fatec.mkkg.server.domain.carrinho;
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.venda.Produto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "itens")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ItemCarrinho extends EntidadeDominio {
 
 	@Id

@@ -3,13 +3,19 @@ package fatec.mkkg.server.domain.carrinho;
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "carrinhos")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Carrinho extends EntidadeDominio {
 
 	@Id
@@ -18,7 +24,7 @@ public class Carrinho extends EntidadeDominio {
 	@Column(name = "car_id")
 	private Integer id;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "car_cli_id", referencedColumnName = "cli_id")
 	private Cliente cliente;
 
