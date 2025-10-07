@@ -5,6 +5,7 @@ import fatec.mkkg.server.domain.carrinho.Carrinho;
 import fatec.mkkg.server.domain.carrinho.ItemCarrinho;
 import fatec.mkkg.server.domain.venda.Produto;
 import fatec.mkkg.server.repositories.CarrinhoRepository;
+import fatec.mkkg.server.strategies.livro.ValidarQuantidadeProdutoDisponivelEmEstoque;
 import fatec.mkkg.server.util.CarrinhoUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,13 +20,16 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class AlterarCarrinhoStrategyTest {
+class AlterarCarrinhoTest {
 
 	@Autowired
-	AlterarCarrinhoStrategy strategy;
+	AlterarCarrinho strategy;
 
 	@MockitoBean
 	CarrinhoRepository carrinhoRepository;
+
+	@MockitoBean
+	ValidarQuantidadeProdutoDisponivelEmEstoque validarQuantidadeProdutoDisponivelEmEstoque;
 
 	@Test
 	@DisplayName("Deve adicionar item no carrinho")
