@@ -192,4 +192,32 @@ class AlterarCarrinhoStrategyTest {
 		assertTrue(produtos.stream().anyMatch(p -> p.getId() == 2));
 	}
 
+	@Test
+	@DisplayName("Deve processar request com edits e removes ao mesmo tempo")
+	void test_deveProcessarRequestComEditsERemovesAoMesmoTempo() {
+		AlteracaoCarrinhoRequest request = AlteracaoCarrinhoRequest.builder()
+			.edits(List.of(ItemCarrinho.builder().produto(Produto.builder().id(1).build()).quantidade(2).build(),
+					ItemCarrinho.builder().produto(Produto.builder().id(2).build()).quantidade(3).build()))
+			.removes(List.of(3))
+			.build();
+
+		Carrinho carrinho = Carrinho.builder()
+			.itens(List.of(ItemCarrinho.builder().produto(Produto.builder().id(2).build()).quantidade(1).build(),
+					ItemCarrinho.builder().produto(Produto.builder().id(3).build()).quantidade(5).build()))
+			.build();
+
+		Mockito.when(carrinhoRepository.findByCliente(Mockito.any())).thenReturn(Optional.ofNullable(carrinho));
+
+		strategy.processar(request);
+
+		List<ItemCarrinho> itens = carrinho.getItens();
+		assertEquals(2, obterItemCarrinhoPeloProdutoId(itens, 1).getQuantidade());
+		assertEquals(4, obterItemCarrinhoPeloProdutoId(itens, 2).getQuantidade());
+		assertNull(obterItemCarrinhoPeloProdutoId(itens, 3));
+	}
+
+	ItemCarrinho obterItemCarrinhoPeloProdutoId(List<ItemCarrinho> itens, int produtoId) {
+		return itens.stream().filter(i -> i.getProduto().getId() == produtoId).findFirst().orElse(null);
+	}
+
 }
