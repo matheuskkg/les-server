@@ -55,8 +55,8 @@ public class ValidarPagamento implements IStrategy {
 			somaPorcentagem += porcentagem;
 		}
 
-		if (somaPorcentagem != 100.0) {
-			res.add("A soma das porcentagens deve ser igual a 100%");
+		if (somaPorcentagem < 100.0) {
+			res.add("Pagamento insuficiente");
 		}
 
 		res.addAll(ValidarMaximoCupomPromocional.processar(cupons));

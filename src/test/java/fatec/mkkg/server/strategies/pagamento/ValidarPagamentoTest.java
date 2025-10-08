@@ -62,4 +62,23 @@ class ValidarPagamentoTest {
 		assertEquals(Set.of("Apenas um cupom promocional pode ser utilizado por compra"), Set.copyOf(actual));
 	}
 
+	@Test
+	@DisplayName("Deve ser possível utilizar apenas cupons de troca")
+	void test_deveSerPossivelUtilizarApenasCuponsDeTroca() {
+		Pagamento pagamento = Pagamento.builder()
+				.valorTotal(14098)
+				.divisaoFormasPagamento(
+						Map.of(
+								Cupom.builder().cliente(new Cliente()).codigo("1T").tipo(TipoCupom.TROCA).build(), 0.0,
+								Cupom.builder().cliente(new Cliente()).codigo("2T").tipo(TipoCupom.TROCA).build(), 0.0))
+				.build();
+
+		Mockito.when(cupomRepository.obterValorDoCupom(Mockito.any(), Mockito.any()))
+				.thenReturn(Optional.of(6000))
+				.thenReturn(Optional.of(8500));
+
+		List<String> actual = strategy.processar(pagamento);
+		assertTrue(actual.isEmpty());
+	}
+
 }
