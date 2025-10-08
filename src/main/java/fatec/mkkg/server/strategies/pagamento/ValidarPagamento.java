@@ -8,6 +8,7 @@ import fatec.mkkg.server.domain.pagamento.formas.cupom.Cupom;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.strategies.pagamento.helpers.ValidarMaximoCupomPromocional;
 import fatec.mkkg.server.strategies.pagamento.helpers.ValidarPagamentoHelper;
+import fatec.mkkg.server.strategies.pagamento.helpers.ValidarPorcentagemSuficiente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -55,11 +56,8 @@ public class ValidarPagamento implements IStrategy {
 			somaPorcentagem += porcentagem;
 		}
 
-		if (somaPorcentagem < 100.0) {
-			res.add("Pagamento insuficiente");
-		}
-
 		res.addAll(ValidarMaximoCupomPromocional.processar(cupons));
+		res.addAll(ValidarPorcentagemSuficiente.processar(somaPorcentagem));
 
 		return res;
 	}
