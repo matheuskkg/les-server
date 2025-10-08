@@ -1,21 +1,15 @@
 package fatec.mkkg.server.domain.pagamento.formas.cupom;
 
-import fatec.mkkg.server.domain.EntidadeDominio;
-import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Entity
-@Table(name = "tipos_cupom")
-@Data
-public class TipoCupom extends EntidadeDominio {
+@Getter
+@AllArgsConstructor
+public enum TipoCupom {
 
-	@Id
-	@SequenceGenerator(name = "tipos_cupom_seq_gen")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "tpc_id")
-	private Integer id;
+	TROCA("Troca"),
+	PROMOCIONAL("Promocional");
 
-	@Column(name = "tpc_tipo")
-	private String tipo;
+	private final String tipo;
 
 }

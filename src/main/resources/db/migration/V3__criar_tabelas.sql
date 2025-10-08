@@ -23,12 +23,6 @@ CREATE TABLE bandeiras
     ban_bandeira VARCHAR(255)
 );
 
-CREATE TABLE tipos_cupom
-(
-    tpc_id   INT PRIMARY KEY,
-    tpc_tipo VARCHAR(255)
-);
-
 CREATE TABLE formas_pagamento
 (
     fpg_id INT PRIMARY KEY
@@ -54,10 +48,9 @@ CREATE TABLE cupons
     cps_codigo VARCHAR(255),
     cps_valor  INT,
     cps_cli_id INT,
-    cps_tpc_id INT,
+    cps_tipo   VARCHAR(255),
     FOREIGN KEY (cps_id) REFERENCES formas_pagamento (fpg_id) ON DELETE CASCADE,
-    FOREIGN KEY (cps_cli_id) REFERENCES clientes (cli_id),
-    FOREIGN KEY (cps_tpc_id) REFERENCES tipos_cupom (tpc_id)
+    FOREIGN KEY (cps_cli_id) REFERENCES clientes (cli_id)
 );
 
 CREATE TABLE pagamentos

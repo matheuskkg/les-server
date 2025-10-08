@@ -21,8 +21,8 @@ public class Cupom extends FormaPagamento {
 	@JoinColumn(name = "cps_cli_id", referencedColumnName = "cli_id")
 	private Cliente cliente;
 
-	@ManyToOne
-	@JoinColumn(name = "cps_tpc_id", referencedColumnName = "tpc_id")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "cps_tipo")
 	private TipoCupom tipo;
 
 }
