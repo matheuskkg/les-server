@@ -3,11 +3,14 @@ package fatec.mkkg.server.domain.pagamento.formas.cupom;
 import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.domain.pagamento.formas.FormaPagamento;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "cupons")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @PrimaryKeyJoinColumn(name = "cps_id", referencedColumnName = "fpg_id")
 public class Cupom extends FormaPagamento {
 

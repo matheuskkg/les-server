@@ -55,7 +55,8 @@ CREATE TABLE cupons
 
 CREATE TABLE pagamentos
 (
-    pag_id INT PRIMARY KEY
+    pag_id INT PRIMARY KEY,
+    pag_valor_total INT
 );
 
 CREATE TABLE divisoes_formas_pagamento

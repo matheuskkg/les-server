@@ -3,13 +3,16 @@ package fatec.mkkg.server.domain.pagamento;
 import fatec.mkkg.server.domain.EntidadeDominio;
 import fatec.mkkg.server.domain.pagamento.formas.FormaPagamento;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Map;
 
 @Entity
 @Table(name = "pagamentos")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Pagamento extends EntidadeDominio {
 
 	@Id
@@ -17,6 +20,9 @@ public class Pagamento extends EntidadeDominio {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "pag_id")
 	private Integer id;
+
+	@Column(name = "pag_valor_total")
+	private Integer valorTotal;
 
 	@ElementCollection
 	@CollectionTable(name = "divisoes_formas_pagamento",
