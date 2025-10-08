@@ -8,6 +8,7 @@ import fatec.mkkg.server.domain.cliente.Cliente;
 import fatec.mkkg.server.repositories.CarrinhoRepository;
 import fatec.mkkg.server.strategies.IStrategy;
 import fatec.mkkg.server.strategies.estoque.ValidarQuantidadeProdutoDisponivelEmEstoque;
+import fatec.mkkg.server.util.CarrinhoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,38 +47,31 @@ public class AlterarCarrinho implements IStrategy {
 
 		List<ItemCarrinho> edits = request.getEdits();
 		edits.forEach(itemAlteracao -> {
-			Optional<ItemCarrinho> optionalItemNoCarrinho = itensNoCarrinho.stream()
-				.filter(i -> i.getProduto().getId().equals(itemAlteracao.getProduto().getId()))
-				.findFirst();
+			ItemCarrinho itemNoCarrinho = CarrinhoUtil
+				.obterItemCarrinhoPeloProdutoEAdicionarSeNaoExistir(itensNoCarrinho, itemAlteracao.getProduto());
 
-			if (optionalItemNoCarrinho.isEmpty()) {
-				ItemCarrinho novoItem = ItemCarrinho.builder().produto(itemAlteracao.getProduto()).build();
-				itensNoCarrinho.add(novoItem);
-				optionalItemNoCarrinho = Optional.of(novoItem);
-			}
-
-			ItemCarrinho itemNoCarrinho = optionalItemNoCarrinho.get();
 			int quantidadeNoCarrinho = itemNoCarrinho.getQuantidade();
 			int quantidadeAdicional = itemAlteracao.getQuantidade();
+			int novaQuantidadeTotal = quantidadeNoCarrinho + quantidadeAdicional;
 
-			if (quantidadeAdicional > 0) {
-				if (!validarEstoque.processar(itemAlteracao).isEmpty()) {
-					res.add("Estoque insuficiente para o produto " + itemAlteracao.getProduto().getId());
-					return;
-				}
+			if (quantidadeAdicional == 0) {
+				return;
 			}
 
-			int novaQuantidade = quantidadeNoCarrinho + quantidadeAdicional;
-			if (novaQuantidade <= 0) {
+			if (novaQuantidadeTotal <= 0) {
 				removerItensPeloProdutoId(itensNoCarrinho, List.of(itemNoCarrinho.getProduto().getId()));
 				return;
 			}
 
-			itemNoCarrinho.setQuantidade(novaQuantidade);
+			if (quantidadeAdicional > 0 && !validarEstoque.processar(itemAlteracao).isEmpty()) {
+				res.add("Estoque insuficiente para o produto " + itemAlteracao.getProduto().getId());
+				return;
+			}
+
+			itemNoCarrinho.setQuantidade(novaQuantidadeTotal);
 		});
 
-		List<Integer> removes = request.getRemoves();
-		removerItensPeloProdutoId(itensNoCarrinho, removes);
+		removerItensPeloProdutoId(itensNoCarrinho, request.getRemoves());
 
 		carrinho.setItens(itensNoCarrinho);
 		carrinhoRepository.save(carrinho);
@@ -85,8 +79,8 @@ public class AlterarCarrinho implements IStrategy {
 		return res;
 	}
 
-	private void removerItensPeloProdutoId(List<ItemCarrinho> itensNoCarrinho, List<Integer> idsParaRemover) {
-		itensNoCarrinho.removeIf(itemNoCarrinho -> idsParaRemover.contains(itemNoCarrinho.getProduto().getId()));
+	private void removerItensPeloProdutoId(List<ItemCarrinho> itensNoCarrinho, List<Integer> produtoIdsParaRemover) {
+		itensNoCarrinho.removeIf(itemNoCarrinho -> produtoIdsParaRemover.contains(itemNoCarrinho.getProduto().getId()));
 	}
 
 }
