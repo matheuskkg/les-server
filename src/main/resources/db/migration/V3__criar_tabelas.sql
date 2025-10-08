@@ -224,8 +224,10 @@ CREATE TABLE pedidos_compras
     pdc_id     INT PRIMARY KEY,
     pdc_car_id INT,
     pdc_stp_id INT,
+    pdc_pag_id INT,
     FOREIGN KEY (pdc_car_id) REFERENCES carrinhos (car_id),
-    FOREIGN KEY (pdc_stp_id) REFERENCES status_pedidos (stp_id)
+    FOREIGN KEY (pdc_stp_id) REFERENCES status_pedidos (stp_id),
+    FOREIGN KEY (pdc_pag_id) REFERENCES pagamentos (pag_id)
 );
 
 CREATE TABLE itens_pedido
